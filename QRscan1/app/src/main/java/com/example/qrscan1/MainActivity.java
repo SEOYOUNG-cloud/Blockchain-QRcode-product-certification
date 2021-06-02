@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity { // arraylist에 데이터 
         //mListViewList = (ListView) findViewById(R.id.listView_main_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mEditTextSearchKeyword1 = (EditText) findViewById(R.id.editText_main_searchKeyword1);
+       // mEditTextSearchKeyword1 = (EditText) findViewById(R.id.editText_main_searchKeyword1);
 
         mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
 
@@ -99,37 +99,37 @@ public class MainActivity extends AppCompatActivity { // arraylist에 데이터 
         mRecyclerView.setAdapter(mAdapter);
 
 
-        Button button_search = (Button) findViewById(R.id.button_main_search);
-
-        button_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mArrayList.clear();
-                mAdapter.notifyDataSetChanged();
-
-                String Keyword = mEditTextSearchKeyword1.getText().toString();
-                mEditTextSearchKeyword1.setText("");
-
-                GetData task = new GetData();
-
-                task.execute("http://" + IP_ADDRESS + "/query.php", Keyword);
-            }
-        });
+//        Button button_search = (Button) findViewById(R.id.button_main_search);
+//
+//        button_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mArrayList.clear();
+//                mAdapter.notifyDataSetChanged();
+//
+//                String Keyword = mEditTextSearchKeyword1.getText().toString();
+//                mEditTextSearchKeyword1.setText("");
+//
+//                GetData task = new GetData();
+//
+//                task.execute("http://" + IP_ADDRESS + "/query.php", Keyword);
+//            }
+//        });
 
         //mArrayList = new ArrayList<>();
 
 
-        Button button_all = (Button) findViewById(R.id.button_main_all);
-        button_all.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-
-                mArrayList.clear();
-                mAdapter.notifyDataSetChanged();
-
-                GetData task = new GetData();
-                task.execute("http://" + IP_ADDRESS + "/getjson.php", "");
-            }
-        });
+//        Button button_all = (Button) findViewById(R.id.button_main_all);
+//        button_all.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v){
+//
+//                mArrayList.clear();
+//                mAdapter.notifyDataSetChanged();
+//
+//                GetData task = new GetData();
+//                task.execute("http://" + IP_ADDRESS + "/getjson.php", "");
+//            }
+//        });
 
     }
 
