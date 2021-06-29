@@ -24,10 +24,10 @@ async function main() {
 
         const network = await gateway.getNetwork('channelsales1');
 
-        const contract = network.getContract('music-cc');
+        const contract = network.getContract('product-cc');
 
         var serialnum = process.argv[2];
-        const result = await contract.evaluateTransaction('getAllMusic', serialnum);
+        const result = await contract.evaluateTransaction('getAllProduct', serialnum);
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
     } catch (error) {
