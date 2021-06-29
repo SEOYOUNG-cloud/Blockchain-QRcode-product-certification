@@ -11,23 +11,33 @@ import (
 
 type SmartContract struct {}
 
-type Wallet struct {
-	Name string `json:"name"`
-	ID   string `json:"id"`
-	Token string `json:"token"`
-}
+// type Wallet struct {
+// 	Name string `json:"name"`
+// 	ID   string `json:"id"`
+// 	Token string `json:"token"`
+// }
 
-type Music struct {
+type Product struct {
 	SerialNum    string `json:"serialnum"`
+	Name string `json:"name"`
+	Brand string `json:"brand"`
 	//Title    string `json:"title"`
 	//Singer   string `json:"singer"`
 	//Price    string `json:"price"`
 	//WalletID    string `json:"walletid"`
 }
 
-type MusicKey struct {
+type ProductKey struct {
 	Key string
 	Idx int
+}
+
+type Distribution struct {
+	Factory string `json:"factory"`
+	Delivery string `json:"delivery"`
+	Store string `json:"store"`
+	Status string `json:"status"`
+	ProductID   string `json:"productid"`
 }
 
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) pb.Response {
@@ -37,14 +47,15 @@ func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) pb.Response {
 func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response {
 	function, args := APIstub.GetFunctionAndParameters()
 	
-	if function == "initWallet" {
-		return s.initWallet(APIstub)
-	} else if function == "getWallet" {
-		return s.getWallet(APIstub, args)
-	} else if function == "setMusic" {
-		return s.setMusic(APIstub, args)
-	} else if function == "getAllMusic" {
-		return s.getAllMusic(APIstub, args)
+	// if function == "initWallet" {
+	// 	return s.initWallet(APIstub)
+	// } else if function == "getWallet" {
+	// 	return s.getWallet(APIstub, args)
+	// } 
+	if function == "setProduct" {
+		return s.setProduct(APIstub, args)
+	} else if function == "getAllProduct" {
+		return s.getAllProduct(APIstub, args)
 	} 
 	//else if function == "purchaseMusic" {
 	//	return s.purchaseMusic(APIstub, args)
@@ -53,67 +64,67 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 	return shim.Error("Unknown function")
 }
 
-func (s *SmartContract) initWallet(APIstub shim.ChaincodeStubInterface) pb.Response {
+// func (s *SmartContract) initWallet(APIstub shim.ChaincodeStubInterface) pb.Response {
 
-	//Declare wallets
-	seller := Wallet{Name: "Hyper", ID: "1Q2W3E4R", Token: "100"}
-	customer := Wallet{Name: "Ledger", ID: "5T6Y7U8I", Token: "200"}
+// 	//Declare wallets
+// 	seller := Wallet{Name: "Hyper", ID: "1Q2W3E4R", Token: "100"}
+// 	customer := Wallet{Name: "Ledger", ID: "5T6Y7U8I", Token: "200"}
 
-	// Convert seller to []byte
-	SellerasJSONBytes, _ := json.Marshal(seller)
-	err := APIstub.PutState(seller.ID, SellerasJSONBytes)
-	if err != nil {
-		return shim.Error("Failed to create asset " + seller.Name)
-	}
-	// Convert customer to []byte
-	CustomerasJSONBytes, _ := json.Marshal(customer)
-	err = APIstub.PutState(customer.ID, CustomerasJSONBytes)
-	if err != nil {
-		return shim.Error("Failed to create asset " + customer.Name)
-	}
+// 	// Convert seller to []byte
+// 	SellerasJSONBytes, _ := json.Marshal(seller)
+// 	err := APIstub.PutState(seller.ID, SellerasJSONBytes)
+// 	if err != nil {
+// 		return shim.Error("Failed to create asset " + seller.Name)
+// 	}
+// 	// Convert customer to []byte
+// 	CustomerasJSONBytes, _ := json.Marshal(customer)
+// 	err = APIstub.PutState(customer.ID, CustomerasJSONBytes)
+// 	if err != nil {
+// 		return shim.Error("Failed to create asset " + customer.Name)
+// 	}
 
-	return shim.Success(nil)
-}
+// 	return shim.Success(nil)
+// }
 
-func (s *SmartContract) getWallet(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+// func (s *SmartContract) getWallet(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	walletAsBytes, err := APIstub.GetState(args[0])
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+// 	walletAsBytes, err := APIstub.GetState(args[0])
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 	}
 
-	wallet := Wallet{}
-	json.Unmarshal(walletAsBytes, &wallet)
+// 	wallet := Wallet{}
+// 	json.Unmarshal(walletAsBytes, &wallet)
 
-	var buffer bytes.Buffer
-	buffer.WriteString("[")
-	bArrayMemberAlreadyWritten := false
+// 	var buffer bytes.Buffer
+// 	buffer.WriteString("[")
+// 	bArrayMemberAlreadyWritten := false
 
-	if bArrayMemberAlreadyWritten == true {
-		buffer.WriteString(",")
-	}
-	buffer.WriteString("{\"Name\":")
-	buffer.WriteString("\"")
-	buffer.WriteString(wallet.Name)
-	buffer.WriteString("\"")
+// 	if bArrayMemberAlreadyWritten == true {
+// 		buffer.WriteString(",")
+// 	}
+// 	buffer.WriteString("{\"Name\":")
+// 	buffer.WriteString("\"")
+// 	buffer.WriteString(wallet.Name)
+// 	buffer.WriteString("\"")
 
-	buffer.WriteString(", \"ID\":")
-	buffer.WriteString("\"")
-	buffer.WriteString(wallet.ID)
-	buffer.WriteString("\"")
+// 	buffer.WriteString(", \"ID\":")
+// 	buffer.WriteString("\"")
+// 	buffer.WriteString(wallet.ID)
+// 	buffer.WriteString("\"")
 
-	buffer.WriteString(", \"Token\":")
-	buffer.WriteString("\"")
-	buffer.WriteString(wallet.Token)
-	buffer.WriteString("\"")
+// 	buffer.WriteString(", \"Token\":")
+// 	buffer.WriteString("\"")
+// 	buffer.WriteString(wallet.Token)
+// 	buffer.WriteString("\"")
 
-	buffer.WriteString("}")
-	bArrayMemberAlreadyWritten = true
-	buffer.WriteString("]\n")
+// 	buffer.WriteString("}")
+// 	bArrayMemberAlreadyWritten = true
+// 	buffer.WriteString("]\n")
 
-	return shim.Success(buffer.Bytes())
+// 	return shim.Success(buffer.Bytes())
 
-}
+// }
 
 func generateKey(APIstub shim.ChaincodeStubInterface, key string) []byte {
 
@@ -124,67 +135,67 @@ func generateKey(APIstub shim.ChaincodeStubInterface, key string) []byte {
 		fmt.Println(err.Error())
 	}
 
-	musickey := MusicKey{}
-	json.Unmarshal(musickeyAsBytes, &musickey)
-	var tempIdx string
-	tempIdx = strconv.Itoa(musickey.Idx)
-	fmt.Println(musickey)
-	fmt.Println("Key is " + strconv.Itoa(len(musickey.Key)))
-	if len(musickey.Key) == 0 || musickey.Key == "" {
+	productkey := ProductKey{}
+	json.Unmarshal(musickeyAsBytes, &productkey)
+	// var tempIdx string
+	// tempIdx = strconv.Itoa(musickey.Idx)
+	// fmt.Println(musickey)
+	// fmt.Println("Key is " + strconv.Itoa(len(musickey.Key)))
+	if len(productkey.Key) == 0 || productkey.Key == "" {
 		isFirst = true
-		musickey.Key = "MS"
+		productkey.Key = "MS"
 	}
 	if !isFirst {
-		musickey.Idx = musickey.Idx + 1
+		productkey.Idx = productkey.Idx + 1
 	}
 
-	fmt.Println("Last MusicKey is " + musickey.Key + " : " + tempIdx)
+	// fmt.Println("Last MusicKey is " + musickey.Key + " : " + tempIdx)
 
-	returnValueBytes, _ := json.Marshal(musickey)
+	returnValueBytes, _ := json.Marshal(productkey)
 
 	return returnValueBytes
 }
 
-func (s *SmartContract) setMusic(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+func (s *SmartContract) setProduct(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	if len(args) != 3 {
+		return shim.Error("Incorrect number of arguments. Expecting 3")
 	}
 	
-	var musickey = MusicKey{}
-	json.Unmarshal(generateKey(APIstub, "latestKey"), &musickey)
-	keyidx := strconv.Itoa(musickey.Idx)
-	fmt.Println("Key : " + musickey.Key + ", Idx : " + keyidx)
+	var productkey = ProductKey{}
+	json.Unmarshal(generateKey(APIstub, "latestKey"), &productkey)
+	keyidx := strconv.Itoa(productkey.Idx)
+	// fmt.Println("Key : " + musickey.Key + ", Idx : " + keyidx)
 
-	var music = Music{SerialNum: args[0]}
+	var product = Product{SerialNum: args[0], Name: args[1], Brand: args[2]}
 	//var music = Music{Title: args[0], Singer: args[1], Price: args[2], WalletID: args[3]}
-	musicAsJSONBytes, _ := json.Marshal(music)
+	productAsJSONBytes, _ := json.Marshal(product)
 
-	var keyString = musickey.Key + keyidx
-	fmt.Println("musickey is " + keyString)
+	var keyString = productkey.Key + keyidx
+	// fmt.Println("musickey is " + keyString)
 
-	err := APIstub.PutState(keyString, musicAsJSONBytes)
+	err := APIstub.PutState(keyString, productAsJSONBytes)
 	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to record music catch: %s", musickey))
+		return shim.Error(fmt.Sprintf("Failed to record product catch: %s", productkey))
 	}
 
-	musickeyAsBytes, _ := json.Marshal(musickey)
-	APIstub.PutState("latestKey", musickeyAsBytes)
+	productkeyAsBytes, _ := json.Marshal(productkey)
+	APIstub.PutState("latestKey", productkeyAsBytes)
 
 	return shim.Success(nil)
 }
 
-func (s *SmartContract) getAllMusic(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (s *SmartContract) getAllProduct(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 	
 	// Find latestKey
-	musickeyAsBytes, _ := APIstub.GetState("latestKey")
-	musickey := MusicKey{}
-	json.Unmarshal(musickeyAsBytes, &musickey)
-	idxStr := strconv.Itoa(musickey.Idx + 1)
+	productkeyAsBytes, _ := APIstub.GetState("latestKey")
+	productkey := ProductKey{}
+	json.Unmarshal(productkeyAsBytes, &productkey)
+	idxStr := strconv.Itoa(productkey.Idx + 1)
 
 	var startKey = "MS0"
-	var endKey = musickey.Key + idxStr
-	fmt.Println(startKey)
-	fmt.Println(endKey)
+	var endKey = productkey.Key + idxStr
+	// fmt.Println(startKey)
+	// fmt.Println(endKey)
 
 	resultsIter, err := APIstub.GetStateByRange(startKey, endKey)
 	if err != nil {
@@ -193,7 +204,7 @@ func (s *SmartContract) getAllMusic(APIstub shim.ChaincodeStubInterface, args []
 	defer resultsIter.Close()
 	
 	var buffer bytes.Buffer
-	music := Music{}
+	product := Product{}
 	var isTrue bool = false
 	buffer.WriteString("[")
 	bArrayMemberAlreadyWritten := false
@@ -203,8 +214,8 @@ func (s *SmartContract) getAllMusic(APIstub shim.ChaincodeStubInterface, args []
 			return shim.Error(err.Error())
 		}
 
-		json.Unmarshal(queryResponse.Value, &music)
-		if args[0] == music.SerialNum {
+		json.Unmarshal(queryResponse.Value, &product)
+		if args[0] == product.SerialNum {
 			isTrue = true
 		}
 		
