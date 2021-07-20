@@ -9,8 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -21,9 +24,10 @@ import java.io.OutputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
-public class registerActicity extends AppCompatActivity {
+public class register_manu_Activity extends AppCompatActivity {
 
     private static String IP_ADDRESS = "192.168.75.31";
     private static String TAG = "phptest";
@@ -31,6 +35,8 @@ public class registerActicity extends AppCompatActivity {
     private TextView mTextViewResult;
 
     private EditText addid, addpwd, addB_name, addAdmin_name, addtel, addemail, addaddr;
+
+    ArrayList arrayList;
 
 
     @Override
@@ -48,6 +54,30 @@ public class registerActicity extends AppCompatActivity {
 
         mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
         mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
+
+        LinearLayout layoutmanu = (LinearLayout) findViewById(R.id.LayoutManu);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0){
+                    layoutmanu.setVisibility(View.INVISIBLE);
+                }
+                else if(i==1){
+                    layoutmanu.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
 
 
 
@@ -90,7 +120,7 @@ public class registerActicity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(registerActicity.this,
+            progressDialog = ProgressDialog.show(register_manu_Activity.this,
                     "Please Wait", null, true, true);
         }
 
