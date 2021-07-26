@@ -2,8 +2,12 @@ package com.example.qrjoinlogin2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +28,10 @@ public class MainActivity extends AppCompatActivity{
     EditText mID, mPassword;
     Button mIdSignInButton, mIdSignUpButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // Set up the login form.
         mID = (EditText) findViewById(R.id.editText_main_searchID);
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity{
                             if(success){
                                 Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
 
+                                Log.v("test", "login success");
 
                                 String id = jsonResponse.getString("id");
                                 String pwd = jsonResponse.getString("pwd");
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity{
 
                             } else {
                                 Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                Log.v("ttest", "login xxXXXxxXX1");
 
                                 return;
                             }
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
         mIdSignUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), register_manu_Activity.class);
+                Intent intent = new Intent(getApplicationContext(), registerActicity.class);
                 startActivity(intent);
             }
         });
