@@ -26,8 +26,9 @@ async function main() {
 
         const contract = network.getContract('product-cc');
 
-        var serialnum = process.argv[2];
-        const result = await contract.evaluateTransaction('getAllProduct', serialnum);
+        var userid = process.argv[2];
+
+        const result = await contract.evaluateTransaction('getAllProduct', userid);
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
     } catch (error) {
