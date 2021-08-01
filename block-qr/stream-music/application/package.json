@@ -1,7 +1,7 @@
 {
-    "name": "fabric-acorn-music",
+    "name": "blockchain-qrcode-product-certification",
     "version": "1.0.0",
-    "description": "Hyperledger Fabric Acorn Music Application",
+    "description": "QR code activation based on distribution tracking using blockchain",
     "main": "server.js",
     "dependencies": {
         "fabric-ca-client": "^1.4.0",
@@ -15,10 +15,9 @@
     },
     "license": "Apache-2.0",
     "keywords": [
-        "Hyperledger",
-        "Fabric",
-        "Acorn",
-        "Music",
-        "Application"
+        "Blockchain",
+        "QRcode",
+        "Product",
+        "Certification"
     ]
 }
