@@ -24,12 +24,13 @@ async function main() {
 
         const network = await gateway.getNetwork('channelsales1');
 
-        const contract = network.getContract('music-cc');
+        const contract = network.getContract('product-cc');
 
-        var walletid = process.argv[2];
-        var key = process.argv[3];
+        var productid = process.argv[2];
+        var factory = process.argv[3];
+        var userid = process.argv[4];
 
-        const result = await contract.submitTransaction('purchaseMusic', walletid, key);
+        const result = await contract.submitTransaction('setSupply', productid, factory, userid);
         console.log('Transaction has been submitted');
 
         await gateway.disconnect();
