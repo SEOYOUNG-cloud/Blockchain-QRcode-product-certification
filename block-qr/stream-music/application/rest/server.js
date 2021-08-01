@@ -7,15 +7,13 @@ var sdk = require('./sdk');
 const PORT = 8080;
 const HOST = 'localhost';
 
-/*
-app.get('/api/getWallet', function (req, res) {
-    var walletid = req.query.walletid;
+app.get('/api/getSupply', function (req, res) {
+    var serialnum = req.query.serialnum;
 
-    let args = [walletid];
+    let args = [serialnum];
 
-    sdk.send(false, 'getWallet', args, res);
+    sdk.send(false, 'getSupply', args, res);
 });
-*/
 app.get('/api/setProduct', function (req, res) {
     var serialnum = req.query.serialnum;
     var name = req.query.name;
@@ -25,20 +23,19 @@ app.get('/api/setProduct', function (req, res) {
     sdk.send(true, 'setProduct', args, res);
 });
 app.get('/api/getAllProduct', function (req, res) {
-    var serialnum = req.query.serialnum;
+    var userid = req.query.userid;
 
-    let args = [serialnum];
+    let args = [userid];
     sdk.send(false, 'getAllProduct', args, res);
 });
-/*
-app.get('/api/purchaseMusic', function (req, res) {
-    var walletid = req.query.walletid;
-    var key = req.query.musickey;
+app.get('/api/setSupply', function (req, res) {
+    var productid = req.query.productid;
+    var factory = req.query.factory;
+    var userid = req.query.userid;
     
-    let args = [walletid, key];
-    sdk.send(true, 'purchaseMusic', args, res);
+    let args = [productid, factory, userid];
+    sdk.send(true, 'setSupply', args, res);
 });
-*/
 app.use(express.static(path.join(__dirname, './client')));
 
 app.listen(PORT, HOST);
