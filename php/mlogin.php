@@ -11,20 +11,20 @@
    mysqli_stmt_execute($statement);
 
    mysqli_stmt_store_result($statement);
-   mysqli_stmt_bind_result($statement, $id, $pwd);
+   mysqli_stmt_bind_result($statement, $B_name, $Admin_name, $addr);
 
    $response = array();
    $response["success"] = false;
 
    while(mysqli_stmt_fetch($statement)) {
         $response["success"] = true;
-        $response["id"] = $id;
+       # $response["id"] = $id;
        # $response["pwd"] = $pwd;
-       # $response["B_name"] = $B_name;
-       # $response["Admin_name"] = $Admin_name;
+        $response["B_name"] = $B_name;
+        $response["Admin_name"] = $Admin_name;
        # $response["tel"] = $tel;
        # $response["email"] = $email;
-       # $response["addr"] = $addr;
+        $response["addr"] = $addr;
    }
 
    echo json_encode($response);
