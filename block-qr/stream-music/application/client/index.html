@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hyperledger Fabric Music Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <style type="text/css">
+      header{
+        background-color: lightgray;
+        font-size:20px;
+        padding:20px;
+      }
+      header, .form-group{
+        margin-bottom: 3%;
+      }
+      .form-group{
+        width:50%;
+      }
+      #body{
+        margin-left:3%;
+        margin-right:3%;
+      }
+      .form-control{
+        margin: 8px;
+      }
+       #right_header{
+        width:20%;
+        font-size:15px;
+        margin-right:0px;
+      }
+      #left_header{
+        margin-left:0;
+        width:40%;
+        display:inline-block;
+      } 
+      #id {
+        width:49%;
+        display: inline-block;
+      }
+      table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+      }
+      td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+      }
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+    </style>
+  </head>
+ <body ng-app="application" ng-controller="AppCtrl">
+    <header>
+      <div id="left_header">block-qr</div>
+    </header>
+    <div id="body">
+      <div class="form-group">
+        <p><input id="getAllProduct" type="submit" value="전체 제품 검색" class="btn btn-primary" ng-click="getAllProduct()"></p>
+      </div>
+ <table id="allProduct" class="table">
+        <tr>
+          <th>시리얼넘버</th>
+          <th>제품명</th>
+          <th>브랜드</th>
+          <th>제조업체</th>
+          <th>유통업체</th>
+          <th>판매처</th>
+          <th>판매완료</th>
+          <th>소비자ID</th>
+        </tr>
+        <tr ng-repeat="product in allProduct">
+          <td>{{product.productid}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.brand}}</td>
+          <td>{{product.factory}}</td>
+          <td>{{product.delivery}}</td>
+          <td>{{product.store}}</td>
+          <td>{{product.status}}</td>
+          <td>{{product.userid}}</td>
+        </tr>
+      </table>
+ <div class="form-group">
+        <label>QR 생성 정보 입력하기</label>
+        <h5 style="color:green;margin-bottom:2%" id="success_setproduct">{{create_product}}</h5>
+        <br>
+        제품명: <input class="form-control" type="text" placeholder="제품을 선택해주세요." ng-model="product.name">
+        제품브랜드: <input class="form-control" type="text" placeholder="브랜드를 선택해주세요." ng-model="product.brand">
+        시리얼넘버: <input class="form-control" type="text" placeholder=" " ng-model="product.serialnum"> 
+        <input id="setProduct" type="submit" value="생성" class="btn btn-primary" ng-click="setProduct()"> 
+      </div>
+  </div>
+  </body>
+  <script type="text/javascript" src="app.js"> </script>
+</html>
