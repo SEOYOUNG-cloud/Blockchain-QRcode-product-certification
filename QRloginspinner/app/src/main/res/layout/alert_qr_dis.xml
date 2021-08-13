@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/alert_style">
+
+    <!--dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)-->
+
+
+    <!--제품 정보, 제품 등록 정보-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="제품 정보"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_margin="20dp" />
+
+    <TextView
+        android:id="@+id/alertQrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="제품명: "
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="20dp"
+        />
+
+    <TextView
+        android:id="@+id/alertQrBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="제품브랜드: "
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/alertQrSerial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시리얼넘버: "
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/alertQrDis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유통정보: "
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/alertComBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="#000000"
+            android:text="확인"
+            android:textColor="@color/white"  />
+
+        <Button
+            android:id="@+id/alertCancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="#000000"
+            android:text="다음"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
