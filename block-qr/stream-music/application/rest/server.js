@@ -22,11 +22,11 @@ app.get('/api/setProduct', function (req, res) {
     let args = [serialnum, name, brand];
     sdk.send(true, 'setProduct', args, res);
 });
-app.get('/api/getAllProduct', function (req, res) {
+app.get('/api/getProduct', function (req, res) {
     var userid = req.query.userid;
 
     let args = [userid];
-    sdk.send(false, 'getAllProduct', args, res);
+    sdk.send(false, 'getProduct', args, res);
 });
 app.get('/api/setSupply', function (req, res) {
     var productid = req.query.productid;
@@ -35,6 +35,11 @@ app.get('/api/setSupply', function (req, res) {
     
     let args = [productid, factory, userid];
     sdk.send(true, 'setSupply', args, res);
+});
+app.get('/api/getAllProduct', function (req, res) {
+
+    let args = [];
+    sdk.send(false, 'getAllProduct', args, res);
 });
 app.use(express.static(path.join(__dirname, './client')));
 
