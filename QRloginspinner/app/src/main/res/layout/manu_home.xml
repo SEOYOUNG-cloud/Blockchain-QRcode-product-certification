@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- "(판매 관리자)님, 환영합니다." -->
+
+    <TextView
+        android:id="@+id/facHi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="(공장 관리자) 님, 환영합니다."
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/facGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 박스 안 facGroup[facImage, facName, facAdmin, facAddress, facRecent]  -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/facGroup"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="30dp"
+        android:background="@drawable/layout_style"
+        app:layout_constraintTop_toBottomOf="@+id/facHi">
+
+        <ImageView
+            android:id="@+id/facImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/facAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/facGroup"
+            android:src="@drawable/factory" />
+
+        <TextView
+            android:id="@+id/facName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="(공장 이름)"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/facImage"
+            app:layout_constraintTop_toTopOf="@+id/facImage" />
+
+        <TextView
+            android:id="@+id/facAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="(공장 관리자 이름)"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/facImage"
+            app:layout_constraintTop_toBottomOf="@+id/facName" />
+
+        <TextView
+            android:id="@+id/facAddress"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="90dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="대전광역시 유성구 덕명동 동서대로 125 과학어쩌고 동 N2동 402호 몇번 째 방"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/facGroup"
+            app:layout_constraintTop_toBottomOf="@+id/facImage" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 버튼  -->
+
+
+        <Button
+            android:id="@+id/facQrscan"
+            android:layout_width="0dp"
+            android:layout_height="150px"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"
+            android:backgroundTint="#000000"
+            android:text="QR 스캔하기"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/facGroup" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

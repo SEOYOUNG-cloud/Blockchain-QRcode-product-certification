@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- "(판매 관리자)님, 환영합니다." -->
+    <TextView
+        android:id="@+id/disHi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="(유통업체 관리자) 님, 환영합니다."
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/disGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 박스 안 dicGroup[dicImage, dicName, dicAdmin, dicAddress, dicRecent]  -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/disGroup"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="30dp"
+        android:background="@drawable/layout_style"
+        app:layout_constraintTop_toBottomOf="@+id/disHi">
+
+        <ImageView
+            android:id="@+id/disImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/disAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/disGroup"
+            android:src="@drawable/truckicon" />
+
+        <TextView
+            android:id="@+id/disName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="(유통업체 이름)"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/disImage"
+            app:layout_constraintTop_toTopOf="@+id/disImage" />
+
+        <TextView
+            android:id="@+id/disAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="(관리자 이름)"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/disImage"
+            app:layout_constraintTop_toBottomOf="@+id/disName" />
+
+        <TextView
+            android:id="@+id/disAddress"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="90dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="대전광역시 유성구 덕명동 동서대로 125 과학어쩌고 동 N*동 ***호 방"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/disGroup"
+            app:layout_constraintTop_toBottomOf="@+id/disImage" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 버튼  -->
+    <Button
+        android:id="@+id/disQrButton"
+        android:layout_width="0dp"
+        android:layout_height="150px"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:backgroundTint="#000000"
+        android:text="QR 스캔하기"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disGroup" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
