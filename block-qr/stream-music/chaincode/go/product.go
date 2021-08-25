@@ -67,6 +67,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 		return s.setStatusId(APIstub, args)
 	} else if function == "getAllProduct" {
 		return s.getAllProduct(APIstub)
+	} else if function == "getSerial" {
+		return s.getSerial(APIstub, args)
 	}
 	fmt.Println("Please check your function : " + function)
 	return shim.Error("Unknown function")
@@ -869,6 +871,43 @@ func (s *SmartContract) getAllProduct(APIstub shim.ChaincodeStubInterface) pb.Re
 		bArrayMemberAlreadyWritten = true
 	}
 	buffer.WriteString("]")
+	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+
+	productAsBytes, _ := APIstub.GetState(args[0] + "pr")
+
+	product := Product{}
+	json.Unmarshal(productAsBytes, &product)
+
+	supply := Supply{}
+	supplyAsBytes, _ := APIstub.GetState(args[0] + "su")
+	json.Unmarshal(supplyAsBytes, &supply)
+	
+	var buffer bytes.Buffer
+	buffer.WriteString("{")
+	buffer.WriteString("\"")
+	buffer.WriteString(product.SerialNum)
+	buffer.WriteString("\":[{")
+
+	buffer.WriteString("\"Name\":")
+	buffer.WriteString("\"")
+	buffer.WriteString(product.Name)
+	buffer.WriteString("\"")
+
+	buffer.WriteString(", \"Brand\":")
+	buffer.WriteString("\"")
+	buffer.WriteString(product.Brand)
+	buffer.WriteString("\"")
+
+	buffer.WriteString(", \"UserID\":")
+	buffer.WriteString("\"")
+	buffer.WriteString(supply.UserID)
+	buffer.WriteString("\"")
+
+	buffer.WriteString("}]}")
+
 	return shim.Success(buffer.Bytes())
 }
 
