@@ -138,7 +138,6 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	APIstub.PutState(supply3.ProductID+"Key", supplykey3AsBytes)
 
 	//supply-Channel
-
 	supply4 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815QWER1234"}
 	supply5 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815TYUI5678"}
 	supply6 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815ASDF4321"}
