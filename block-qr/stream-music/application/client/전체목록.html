@@ -8,6 +8,7 @@
 
     <title>HOME | PARM</title>
     <meta name="robots" content="noindex"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <!-- 소셜 네트워크 공유 meta property og
     <meta property="og:title" content="HOME | PARM"/>
     <meta property="og:url" content=""/>
@@ -96,7 +97,7 @@
     </style>
 </head>
 
-<body>
+<body ng-app="application" ng-controller="AppCtrl">
 
   <link rel="stylesheet" type="text/css" href="css/masterpage.css">
   <link rel="stylesheet" type="text/css" href="css/buttonstyle.css">
@@ -427,4 +428,5 @@ table {
   <div id="SCROLL_TO_BOTTOM" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="bottom of page"></div>
 
 </body>
+<script type="text/javascript" src="app.js"> </script>
 </html>
