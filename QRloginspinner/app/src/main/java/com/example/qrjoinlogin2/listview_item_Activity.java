@@ -1,6 +1,8 @@
 package com.example.qrjoinlogin2;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -101,11 +104,15 @@ public class listview_item_Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.change: // 사용자 변경 클릭
-                userID_change_Dialog dialog = new userID_change_Dialog(listview_item_Activity.this, serial);   /////////////////////여기 변경중 서버 다 되면 되는지 확인!
+                userID_change_Dialog dialog = new userID_change_Dialog(listview_item_Activity.this, serial);
                 dialog.show();
                 break;
             case R.id.share: // 공유하기 클릭
 
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("CODE", "http://13.125.60.252:8000/");
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(), "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home: // 뒤로가기
                 finish();

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +68,17 @@ public class dis_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 qrScan.setPrompt("Scanning QR code");
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
+            }
+        });
+
+        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(dis_Activity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -194,6 +205,7 @@ public class dis_Activity extends AppCompatActivity {
 
         String TAG_JSON = serialnumber;
         String TAG_NAME = "Name";
+        String TAG_FACTORY = "Factory";
 
 
 
@@ -206,13 +218,18 @@ public class dis_Activity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String name = item.getString(TAG_NAME);
+                String factory = item.getString(TAG_FACTORY);
 
                 if(name.equals("False")){
                     //등록 안된 정보라는 창
                     no_register_Dialog dialog = new no_register_Dialog(dis_Activity.this, serialnumber);
                     dialog.show();
                 }
-                else{
+                else if(factory.equals("none")){ // 제조업체에 도착하지 않았을 때
+                    not_arrive_Dialog dialog = new not_arrive_Dialog(dis_Activity.this, serialnumber);
+                    dialog.show();
+                }
+                else{ // 등록이 되어있고 제조업체에 도착했음
                     dis_registerQR_Dialog dialog = new dis_registerQR_Dialog(dis_Activity.this, productName, brandName, serialnumber, B_name);
                     dialog.show();
                 }

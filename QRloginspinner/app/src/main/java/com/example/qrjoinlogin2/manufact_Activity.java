@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class manufact_Activity extends AppCompatActivity {
         TextView facAddress = (TextView) findViewById(R.id.facAddress);   // 제조업체 주소
         Button QRscan = (Button) findViewById(R.id.facQrscan); // QR스캔 버튼
 
+
         //정보 넣기
         hi.setText(Admin_name + " 님 환영합니다.");
         facName.setText(B_name);
@@ -69,7 +71,17 @@ public class manufact_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 qrScan.setPrompt("Scanning QR code");
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
+            }
+        });
+
+        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(manufact_Activity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -229,6 +241,5 @@ public class manufact_Activity extends AppCompatActivity {
         }
 
     }
-
 
 }

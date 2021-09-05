@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.qrjoinlogin2">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -21,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
         <activity android:name=".register_Activity"/>
         <activity android:name=".manufact_Activity"/>
         <activity android:name=".manu_registerQR_Dialog" android:theme="@android:style/Theme.Dialog"/>
@@ -39,6 +44,8 @@
         <activity android:name=".no_register_Dialog" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".listview_item_Activity"/>
         <activity android:name=".userID_change_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".not_arrive_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".already_sold_Dialog" android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>

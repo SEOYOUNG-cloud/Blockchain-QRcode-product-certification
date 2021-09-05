@@ -2,12 +2,16 @@ package com.example.qrjoinlogin2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -33,12 +37,17 @@ public class MainActivity extends AppCompatActivity{
 
     EditText mID, mPassword, dID, dPassword, sID, sPassword, cID, cPassword;
     Button mIdSignInButton, IdSignUpButton, dIdSignInButton, sIdSignInButton, cIdSignInButton;
+    CheckBox mLogin, dLogin, sLogin, cLogin;
+    SharedPreferences mpref, dpref, spref, cpref;
+    SharedPreferences.Editor meditor, deditor, seditor, ceditor;
+    Boolean mloginChecked, dloginChecked, sloginChecked, cloginChecked;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         // Set up the login form.
@@ -64,19 +73,118 @@ public class MainActivity extends AppCompatActivity{
         LinearLayout layoushoplogin = (LinearLayout) findViewById(R.id.Layoutshoplogin);
         LinearLayout layoucustlogin = (LinearLayout) findViewById(R.id.Layoutcustlogin);
 
+        mLogin = (CheckBox) findViewById(R.id.mLoginCheck);
+
+        mLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){  // autologin 체크
+                    mpref = getSharedPreferences("mpref",  Activity.MODE_PRIVATE);
+                    meditor = mpref.edit();
+                    mloginChecked = true;
+                }
+                else{ // augologin 취소
+                    mpref = getSharedPreferences("mpref",  Activity.MODE_PRIVATE);
+                    meditor = mpref.edit();
+                    mloginChecked = false;
+                    meditor.clear();
+                    meditor.commit();
+                }
+            }
+        });
+
+        mpref = getSharedPreferences("mpref", Activity.MODE_PRIVATE);
+        if (mpref.getBoolean("autoLogin", false)) {
+            mID.setText(mpref.getString("id", ""));
+            mPassword.setText(mpref.getString("pw", ""));
+            mLogin.setChecked(true);
+        }
+
+        dLogin = (CheckBox) findViewById(R.id.dLoginCheck);
+        dLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){  // autologin 체크
+                    dpref = getSharedPreferences("dpref",  Activity.MODE_PRIVATE);
+                    deditor = dpref.edit();
+                    dloginChecked = true;
+                }
+                else{ // augologin 취소
+                    dpref = getSharedPreferences("dpref",  Activity.MODE_PRIVATE);
+                    deditor = dpref.edit();
+                    dloginChecked = false;
+                    deditor.clear();
+                    deditor.commit();
+                }
+            }
+        });
+
+        dpref = getSharedPreferences("dpref", Activity.MODE_PRIVATE);
+        if (dpref.getBoolean("autoLogin", false)) {
+            dID.setText(dpref.getString("id", ""));
+            dPassword.setText(dpref.getString("pw", ""));
+            dLogin.setChecked(true);
+        }
+
+        sLogin = (CheckBox) findViewById(R.id.sLoginCheck);
+        sLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){  // autologin 체크
+                    spref = getSharedPreferences("spref",  Activity.MODE_PRIVATE);
+                    seditor = spref.edit();
+                    sloginChecked = true;
+                }
+                else{ // augologin 취소
+                    spref = getSharedPreferences("spref",  Activity.MODE_PRIVATE);
+                    seditor = spref.edit();
+                    sloginChecked = false;
+                    seditor.clear();
+                    seditor.commit();
+                }
+            }
+        });
+
+        spref = getSharedPreferences("spref", Activity.MODE_PRIVATE);
+        if (spref.getBoolean("autoLogin", false)) {
+            sID.setText(spref.getString("id", ""));
+            sPassword.setText(spref.getString("pw", ""));
+            sLogin.setChecked(true);
+        }
+
+        cLogin = (CheckBox) findViewById(R.id.cLoginCheck);
+        cLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){  // autologin 체크
+                    cpref = getSharedPreferences("cpref",  Activity.MODE_PRIVATE);
+                    ceditor = cpref.edit();
+                    cloginChecked = true;
+                }
+                else{ // augologin 취소
+                    cpref = getSharedPreferences("cpref",  Activity.MODE_PRIVATE);
+                    ceditor = cpref.edit();
+                    cloginChecked = false;
+                    ceditor.clear();
+                    ceditor.commit();
+                }
+            }
+        });
+
+        cpref = getSharedPreferences("cpref", Activity.MODE_PRIVATE);
+        if (cpref.getBoolean("autoLogin", false)) {
+            cID.setText(cpref.getString("id", ""));
+            cPassword.setText(cpref.getString("pw", ""));
+            cLogin.setChecked(true);
+        }
+
+
         Spinner loginspinner = (Spinner) findViewById(R.id.loginspinner);
 
         loginspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
-                    layoutmanulogin.setVisibility(View.GONE);
-                    layoutdislogin.setVisibility(View.GONE);
-                    layoushoplogin.setVisibility(View.GONE);
-                    layoucustlogin.setVisibility(View.GONE);
-                }
-
-                else if(i==1){ //customer
+                if(i==0){ //customer
 
                     layoutmanulogin.setVisibility(View.GONE);
                     layoutdislogin.setVisibility(View.GONE);
@@ -98,6 +206,15 @@ public class MainActivity extends AppCompatActivity{
                                         boolean success = jsonObject.getBoolean("success");
                                         if(success){
                                             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+
+                                            if(cloginChecked) {
+                                                cpref = getSharedPreferences("cpref",  Activity.MODE_PRIVATE);
+                                                ceditor = cpref.edit();
+                                                ceditor.putString("id", id);
+                                                ceditor.putString("pw", pwd);
+                                                ceditor.putBoolean("autoLogin", true);
+                                                ceditor.commit();
+                                            } else{}
 
 
                                             String id = jsonObject.getString("id");
@@ -127,11 +244,12 @@ public class MainActivity extends AppCompatActivity{
                         }
                     });
                 }
-                else if(i==2){ // manufacture
+                else if(i==1){ // manufacture
                     layoutmanulogin.setVisibility(View.VISIBLE);
                     layoutdislogin.setVisibility(View.GONE);
                     layoushoplogin.setVisibility(View.GONE);
                     layoucustlogin.setVisibility(View.GONE);
+
 
 
                     // manufacturer 로그인 버튼 클릭
@@ -150,6 +268,15 @@ public class MainActivity extends AppCompatActivity{
                                         if(success){
                                             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
 
+
+                                            if(mloginChecked) {
+                                                mpref = getSharedPreferences("mpref",  Activity.MODE_PRIVATE);
+                                                meditor = mpref.edit();
+                                                meditor.putString("id", id);
+                                                meditor.putString("pw", pwd);
+                                                meditor.putBoolean("autoLogin", true);
+                                                meditor.commit();
+                                            } else{}
 
 
                                             String B_name = jsonObject.getString("B_name");
@@ -184,7 +311,7 @@ public class MainActivity extends AppCompatActivity{
                     });
 
                 }
-                else if(i==3){ // distribution
+                else if(i==2){ // distribution
                     layoutmanulogin.setVisibility(View.GONE);
                     layoutdislogin.setVisibility(View.VISIBLE);
                     layoushoplogin.setVisibility(View.GONE);
@@ -205,6 +332,16 @@ public class MainActivity extends AppCompatActivity{
                                         boolean success = jsonResponse.getBoolean("success");
                                         if(success){
                                             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+
+
+                                            if(dloginChecked) {
+                                                dpref = getSharedPreferences("dpref",  Activity.MODE_PRIVATE);
+                                                deditor = dpref.edit();
+                                                deditor.putString("id", id);
+                                                deditor.putString("pw", pwd);
+                                                deditor.putBoolean("autoLogin", true);
+                                                deditor.commit();
+                                            } else{}
 
 
 
@@ -239,7 +376,7 @@ public class MainActivity extends AppCompatActivity{
                     });
                 }
 
-                else if(i==4){   //shop
+                else if(i==3){   //shop
                     layoutmanulogin.setVisibility(View.GONE);
                     layoutdislogin.setVisibility(View.GONE);
                     layoushoplogin.setVisibility(View.VISIBLE);
@@ -260,6 +397,15 @@ public class MainActivity extends AppCompatActivity{
                                         boolean success = jsonResponse.getBoolean("success");
                                         if(success){
                                             Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+
+                                            if(sloginChecked) {
+                                                spref = getSharedPreferences("spref",  Activity.MODE_PRIVATE);
+                                                seditor = spref.edit();
+                                                seditor.putString("id", id);
+                                                seditor.putString("pw", pwd);
+                                                seditor.putBoolean("autoLogin", true);
+                                                seditor.commit();
+                                            } else{}
 
 
                                             String B_name = jsonResponse.getString("B_name");

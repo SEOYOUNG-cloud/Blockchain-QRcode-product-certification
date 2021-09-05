@@ -5,16 +5,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <ImageButton
+        android:id="@+id/logout"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logout"
+        />
     <!-- "(제조업체 관리자)님, 환영합니다." -->
     <TextView
         android:id="@+id/csmHi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+
         android:layout_marginBottom="30dp"
         android:text="(소비자) 님, 환영합니다."
         android:textColor="@color/black"
         android:layout_gravity="center" />
+
+
 
     <!-- 박스 안 facGroup[facImage, facName, facAdmin, facAddress, facRecent]  -->
     <LinearLayout
@@ -53,10 +66,6 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

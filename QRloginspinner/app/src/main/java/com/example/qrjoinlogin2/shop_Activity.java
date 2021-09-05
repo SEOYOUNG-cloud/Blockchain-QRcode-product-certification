@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class shop_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 QRbool = true;
                 qrScan.setPrompt("Scanning QR code");
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
             }
         });
@@ -85,7 +87,17 @@ public class shop_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 QRbool = false;
                 qrScan.setPrompt("Scanning QR code");
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
+            }
+        });
+
+        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(shop_Activity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -212,6 +224,9 @@ public class shop_Activity extends AppCompatActivity {
 
         String TAG_JSON = serialnumber;
         String TAG_NAME = "Name";
+        String TAG_DELIVERY = "Delivery";
+        String TAG_STORE = "Store";
+        String TAG_STATUS = "Status";
 
 
 
@@ -224,36 +239,55 @@ public class shop_Activity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String name = item.getString(TAG_NAME);
+                String delivery = item.getString(TAG_DELIVERY);
+                String store = item.getString(TAG_STORE);
+                String status = item.getString(TAG_STATUS);
 
                 if(name.equals("False")){
                     //등록 안된 정보라는 창
                     no_register_Dialog dialog = new no_register_Dialog(shop_Activity.this, serialnumber);
                     dialog.show();
                 }
-                else{
+                else if(delivery.equals("none")){ // 유통업체에 도착하지 않았음
+                    not_arrive_Dialog dialog = new not_arrive_Dialog(shop_Activity.this, serialnumber);
+                    dialog.show();
+                }
+
+                else{ // 상품이 등록됨 + 이전 업체에 도착함
                     if(QRbool == true) {
 
-                    try {  //QR 정보를 보내면서 유통 등록 Dialog 띄우기
+                        try {  //QR 정보를 보내면서 유통 등록 Dialog 띄우기
 
-                        shop_registerQR_Dialog dialog1 = new shop_registerQR_Dialog(shop_Activity.this, productName, brandName, serialnumber, B_name);
-                        dialog1.show();
+                            shop_registerQR_Dialog dialog1 = new shop_registerQR_Dialog(shop_Activity.this, productName, brandName, serialnumber, B_name);
+                            dialog1.show();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
 
-                else{
-                    try {  //QR 정보를 보내면서 판매 Dialog 띄우기
+                    else{
+                        if(store.equals("none")){ // 팔려는데 store에 도착 x
+                            not_arrive_Dialog dialog = new not_arrive_Dialog(shop_Activity.this, serialnumber);
+                            dialog.show();
+                        }
+                        else if(status.equals("true")){ // 팔려는데 판매된 상품임
+                            already_sold_Dialog dialog = new already_sold_Dialog(shop_Activity.this, serialnumber);
+                            dialog.show();
 
-                        shop_sale_Dialog dialog2 = new shop_sale_Dialog(shop_Activity.this, productName, brandName, serialnumber);
-                        dialog2.show();
+                        }
+                        else { // store에 도착했고 판매상태가 false임
+                            try {  //QR 정보를 보내면서 판매 Dialog 띄우기
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                                shop_sale_Dialog dialog2 = new shop_sale_Dialog(shop_Activity.this, productName, brandName, serialnumber);
+                                dialog2.show();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
-                }
                 }
 
             }

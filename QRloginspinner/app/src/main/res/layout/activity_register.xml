@@ -38,16 +38,32 @@
                 android:text="아이디"
                 android:id="@+id/mtextView_main_id" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/round_1w_style"
-                android:hint="ID는 16글자 이상"
-                android:textSize="12dp"
-                android:padding="10dp"
-                android:id="@+id/madd_id" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_1w_style"
+                    android:hint="ID"
+                    android:textSize="12dp"
+                    android:padding="10dp"
+                    android:id="@+id/madd_id" />
+
+                <Button
+                    android:id="@+id/midvalidatebtn"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#000000"
+                    android:text="확인"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +71,7 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="패스워드"
+                android:text="비밀번호"
                 android:id="@+id/mtextView_main_pwd" />
 
             <EditText
@@ -64,7 +80,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/round_1w_style"
-                android:hint="패스워드는 특수문자~"
+                android:hint="패스워드 영문 섞어서"
                 android:textSize="12dp"
                 android:padding="10dp"
                 android:id="@+id/madd_pwd" />
@@ -80,6 +96,7 @@
                 android:id="@+id/textView_main_b_name" />
 
             <EditText
+                android:hint="영문"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -182,16 +199,32 @@
                 android:text="아이디"
                 android:id="@+id/dtextView_main_id" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/round_1w_style"
-                android:hint="ID는 16글자 이상"
-                android:textSize="12dp"
-                android:padding="10dp"
-                android:id="@+id/dadd_id" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_1w_style"
+                    android:hint="ID"
+                    android:textSize="12dp"
+                    android:padding="10dp"
+                    android:id="@+id/dadd_id" />
+
+                <Button
+                    android:id="@+id/didvalidatebtn"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#000000"
+                    android:text="확인"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,7 +232,7 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="패스워드"
+                android:text="비밀번호"
                 android:id="@+id/dtextView_main_pwd" />
 
             <EditText
@@ -208,7 +241,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/round_1w_style"
-                android:hint="패스워드는 특수문자~"
+                android:hint="패스워드 영문 섞어서"
                 android:textSize="12dp"
                 android:padding="10dp"
                 android:id="@+id/dadd_pwd" />
@@ -223,6 +256,7 @@
                 android:id="@+id/dtextView_main_b_name" />
 
             <EditText
+                android:hint="영문"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -324,16 +358,32 @@
                 android:text="아이디"
                 android:id="@+id/stextView_main_id" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/round_1w_style"
-                android:hint="ID는 16글자 이상"
-                android:textSize="12dp"
-                android:padding="10dp"
-                android:id="@+id/sadd_id" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_1w_style"
+                    android:hint="ID"
+                    android:textSize="12dp"
+                    android:padding="10dp"
+                    android:id="@+id/sadd_id" />
+
+                <Button
+                    android:id="@+id/sidvalidatebtn"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#000000"
+                    android:text="확인"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -341,7 +391,7 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="패스워드"
+                android:text="비밀번호"
                 android:id="@+id/stextView_main_pwd" />
 
             <EditText
@@ -350,7 +400,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/round_1w_style"
-                android:hint="패스워드는 특수문자~"
+                android:hint="패스워드 영문 섞어서"
                 android:textSize="12dp"
                 android:padding="10dp"
                 android:id="@+id/sadd_pwd" />
@@ -365,6 +415,7 @@
                 android:id="@+id/stextView_main_b_name" />
 
             <EditText
+                android:hint="영문"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -466,16 +517,32 @@
                 android:text="아이디"
                 android:id="@+id/ctextView_main_id" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/round_1w_style"
-                android:hint="ID는 16글자 이상"
-                android:textSize="12dp"
-                android:padding="10dp"
-                android:id="@+id/cadd_id" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/round_1w_style"
+                    android:hint="ID"
+                    android:textSize="12dp"
+                    android:padding="10dp"
+                    android:id="@+id/cadd_id" />
+
+                <Button
+                    android:id="@+id/cidvalidatebtn"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#000000"
+                    android:text="확인"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -483,7 +550,7 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="패스워드"
+                android:text="비밀번호"
                 android:id="@+id/ctextView_main_pwd" />
 
             <EditText
@@ -492,7 +559,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/round_1w_style"
-                android:hint="패스워드는 특수문자~"
+                android:hint="패스워드 영문 섞어서"
                 android:textSize="12dp"
                 android:padding="10dp"
                 android:id="@+id/cadd_pwd" />

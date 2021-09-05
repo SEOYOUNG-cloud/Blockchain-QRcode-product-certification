@@ -98,6 +98,7 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public void onClick(View view) {
                 qrScan.setPrompt("Scanning QR code");
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
             }
         });
@@ -113,6 +114,15 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
                 startActivity(intent);
 
 
+            }
+        });
+
+        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(csm_Activity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
