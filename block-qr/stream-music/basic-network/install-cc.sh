@@ -28,7 +28,7 @@ docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsale
 
 sleep 3
 # query chaincode for channelsales1
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setProduct","Args":["210812GHJK8765","AP0250","Chanel"]}'
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setProduct","Args":["210812GHJK8765","602204 18YLG 9567","Gucci"]}'
 sleep 3
 docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
 
@@ -53,9 +53,10 @@ sleep 3
 docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
 
 sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getProduct","Args":["user1"]}'
-sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getProduct","Args":["bcqr"]}'
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getAllProduct","Args":[""]}'
+
+sleep 3
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSearch","Args":["제품명","583571 1X5CG 6775"]}'
