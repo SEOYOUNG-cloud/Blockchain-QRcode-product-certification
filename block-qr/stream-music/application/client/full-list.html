@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,11 +11,6 @@
   <meta name="robots" content="noindex"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-  <!-- 소셜 네트워크 공유 meta property og
-  <meta property="og:title" content="HOME | PARM"/>
-  <meta property="og:url" content=""/>
-  <meta property="og:site_name" content="PARM"/>
-  <meta property="og:type" content="website"/>-->
 
   <style>
     .rel-of {
@@ -198,26 +191,27 @@
 
   <style>
     table {
-    border-top: 1px solid #AFAFAF;
-    border-bottom: 1px solid #AFAFAF;
-    border-collapse: separate;
-    width: 100%;
-  }
-  th {
-    background-color: #FBFBFB;
-    text-align: center;
-    font-size: 14px;
-    padding: 15px;
-    font-family:nanumgothic-regular,sans-serif;
-  }
+      border-top: 1px solid #AFAFAF;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      border-bottom: 1px solid #DEDEDE;
+      background-color: #FBFBFB;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 15px;
+      font-family:nanumgothic-regular,sans-serif;
+    }
 
-  td{
-    border-top: 1px solid #DEDEDE;
-    text-align: center;
-    font-size: 12px;
-    padding: 12px;
-    font-family:nanumgothic-regular,sans-serif;
-  }
+    td{
+      border-bottom: 1px solid #DEDEDE;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px;
+      font-family:nanumgothic-regular,sans-serif;
+    }
 
     [data-mesh-id=tableContent]{
       height:auto;
@@ -323,16 +317,13 @@
 
   </style>
 
-  <div id="SCROLL_TO_TOP" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="top of page"></div>
   <div id="masterPage" class="mesh-layout">
-    <!--삭제: tabindex는 tab 키보드 선택-->
     <header id="SITE_HEADER" tabindex="-1" >
       <div id="SITE_HEADER" class="header-footer-style">
         <div class="height100-pos-rel">
           <div data-mesh-id="SITE_HEADERinlineContent" class="">
             <div data-mesh-id="SITE_HEADERinlineContent-gridContainer">
 
-              <!--Title Start-->
               <div id="title-id-top" class="title-style" >
                 <h5 class="font_5" style="text-align:center;font-size:50px"><span style="font-weight:bold">PARM</span></h5>
               </div>
@@ -341,12 +332,9 @@
                   <span style="font-family:dancingscript-regular,dancing script,cursive;"><span style="font-size:12px"><span>prove and register mine</span></span></span>
                 </p>
               </div>
-              <!--Title End-->
-              <!--Nav Start-->
               <div id="nav-list" class="nav-drop-style1 nav-drop-style2 hidden-during-prewarmup" dir="ltr" data-stretch-buttons-to-menu-width="false" data-same-width-buttons="false" data-num-items="4" data-menuborder-y="0" data-menubtn-border="0" data-ribbon-els="0" data-label-pad="0" data-ribbon-extra="0" data-dropalign="left">
                 <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
                   <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
-                    <!--삭제: date-marginalchildern 함수-->
                     <li id="nav-list0" data-direction="ltr" data-listposition="left" data-data-id="data-home" data-state="menu selected link" data-index="0" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="index.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
@@ -365,7 +353,6 @@
                       </div>
                     </div>
                     </a></li>
-                    <!--삭제: aria-haspopup 팝업, 여기다가 팝업 넣어야 함-->
                     <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="product-ma.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
@@ -387,7 +374,6 @@
                   </ul>
                 </nav>
               </div>
-              <!--Nav End-->
             </div>
           </div>
         </div>
@@ -531,7 +517,7 @@
                                             <div class="flex-g1-s1">
                                               <div id="serch-input-box" class="serch-input-box-style">
                                                 <div class="serch-input">
-                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord"/>
+                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-click="search.searchWord"/>
                                                 </div>
                                               </div>
                                             </div>
@@ -561,29 +547,8 @@
       </div>
     </main>
 
-    <footer tabindex="-1" id="SITE_FOOTER_WRAPPER">
-      <div id="pinnedBottomCenter">
-        <div id="comp-ksmqifon-pinned-layer" class="riLfl">
-          <div id="comp-ksmqifon" style="display:none">
-          </div>
-        </div>
-      </div>
-      <div id="SITE_FOOTER" class="header-footer-style">
-        <div class="_38XI2">
-          <div class="height100-pos-rel">
-            <div data-mesh-id="SITE_FOOTERinlineContent" data-testid="inline-content" class="">
-              <div data-mesh-id="SITE_FOOTERinlineContent-gridContainer" data-testid="mesh-container-content">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
-  <div id="SCROLL_TO_BOTTOM" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="bottom of page"></div>
 
-
-  <!--selectBox.js-->
   <script>
     const label = document.querySelector('.label');
     const options = document.querySelectorAll('.fl_optionItem');
