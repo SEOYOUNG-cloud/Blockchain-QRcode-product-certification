@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+  <link rel="stylesheet" type="text/css" href="css/initial.css">
+  <link rel="stylesheet" type="text/css" href="css/header.css">
+  <link rel="stylesheet" type="text/css" href="css/img-conainerstyle-head.css">
+  <link rel="stylesheet" type="text/css" href="css/serchboxstyle-head.css">
+
+  <title>HOME | PARM</title>
+  <meta name="robots" content="noindex"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+  <!-- 소셜 네트워크 공유 meta property og
+  <meta property="og:title" content="HOME | PARM"/>
+  <meta property="og:url" content=""/>
+  <meta property="og:site_name" content="PARM"/>
+  <meta property="og:type" content="website"/>-->
+
+  <style>
+    .rel-of {
+        position:relative;
+        overflow:visible;
+      }
+  </style>
+
+  <style id = _headbuttonsty>
+    .style-button-root {
+      -archetype:box;
+      cursor:pointer;
+      border:none;
+      display:block;
+      min-width:10px;
+      min-height:10px;
+      width:100%;
+      height:100%;
+      box-sizing:border-box;
+      padding:0;
+    }
+
+    .style-button-link {
+      -archetype:box;
+      text-decoration:none;
+      box-sizing:border-box;
+      color:#000;
+    }
+
+    .style-button-container {
+      display:flex;
+      flex-basis:auto;
+      justify-content:center;
+      flex-direction:row;
+      flex-grow:1;
+      align-items:center;
+      overflow:hidden;
+      height:100%;
+      width:100%;
+      transition:all .2s ease,visibility 0;
+    }
+
+    .style-button-label {
+      -archetype:text;
+      -controller-part-type:LayoutChildDisplayDropdown,LayoutFlexChildSpacing(first);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      text-align:center;
+      white-space:nowrap;
+      min-width:1.8em;
+      max-width:100%;
+      transition:inherit;
+    }
+
+    .style-button-icon {
+      -archetype:icon;
+      -controller-part-type:LayoutChildDisplayDropdown,LayoutFlexChildSpacing(last);
+      min-width:1px;
+      height:50px;
+      transition:inherit;
+      flex-shrink:0;
+    }
+
+    .style-button-icon>div,.style-button-icon svg {
+      display:flex;
+      width:inherit;
+      height:inherit;
+    }
+  </style>
+
+  <style id=_sectionbg>
+    .display-flex{display:flex}
+
+    .bg-ov-color{background-color:var(--bg-overlay-color)}
+
+    .section-bg-st{
+      position:absolute;
+      top:0;
+      width:100%;
+      height:100%;
+      overflow:hidden
+    }
+
+    .columns-c-style{
+      display:flex;
+      position:relative;
+      width:calc(100% - var(--padding) * 2);
+      margin:0 auto
+    }
+
+    .columns-c-style>* {
+      flex:var(--column-flex) 1 0;
+      min-width:0;
+      margin-top:var(--padding);
+      margin-bottom:var(--padding);
+      position:relative;
+      left:0;
+      top:0;
+      margin-left:var(--margin);
+    }
+  </style>
+  
+</head>
+
+<body ng-app="application" ng-controller="AppCtrl">
+
+  <link rel="stylesheet" type="text/css" href="css/masterpage.css">
+  <link rel="stylesheet" type="text/css" href="css/buttonstyle.css">
+  <link rel="stylesheet" type="text/css" href="css/img-containerstyle.css">
+  <link rel="stylesheet" type="text/css" href="css/selectboxstyle.css">
+  <link rel="stylesheet" type="text/css" href="css/serchboxstyle.css">
+
+  <style>
+    #_2main_grid {
+      left:0;
+      margin-left:0;
+      min-width:980px;
+      width:auto;
+      min-height:908px;
+    }
+  </style>
+
+  <style id=button-style>
+
+    [data-mesh-id=page-button-container]{
+        height:auto;width:100%
+      }
+
+    [data-mesh-id=page-button-container-gridContainer]{
+      position:static;
+      display:grid;
+      height:auto;
+      width:100%;
+      min-height:auto;grid-template-rows:1fr;
+      grid-template-columns:100%
+    }
+
+    [data-mesh-id=page-button-container-gridContainer] > [id="manage-btn"]{
+      position:relative;
+      margin:30px 0px 30px calc((100% - 980px) * 0.5);
+      left:336px;
+      grid-area:1 / 1 / 2 / 2;
+      justify-self:start;align-self:start
+    }
+    [data-mesh-id=page-button-container-gridContainer] > [id="manage-btn2"]{
+      position:relative;
+      margin:30px 0px 30px calc((100% - 980px) * 0.5);
+      left:540px;
+      grid-area:1 / 1 / 2 / 2;
+      justify-self:start;
+      align-self:start
+    }
+    #page-container-button { 
+    --bg-overlay-color:transparent;
+    --padding:0px;
+    --margin:0px;
+    min-width:980px 
+    }
+
+    #page-container-button{
+      left:0;
+      margin-left:0;
+      width:100%;
+      min-width:980px
+    }
+
+    #page-btn-ctr { 
+      --bg-overlay-color:rgb(var(--color_11));
+      width:100%;
+      --column-width:980px;
+      --column-flex:980 
+    }
+
+    #button-bgLayer{width:980px}
+    #button-bgLayer {--bg-overlay-color:rgb(250, 250, 250);width:100%;--column-width:980px;--column-flex:980 }
+
+  </style>
+
+  <style>
+    table {
+    border-top: 1px solid #AFAFAF;
+    border-bottom: 1px solid #AFAFAF;
+    border-collapse: separate;
+    width: 100%;
+  }
+  th {
+    background-color: #FBFBFB;
+    text-align: center;
+    font-size: 14px;
+    padding: 15px;
+    font-family:nanumgothic-regular,sans-serif;
+  }
+
+  td{
+    border-top: 1px solid #DEDEDE;
+    text-align: center;
+    font-size: 12px;
+    padding: 12px;
+    font-family:nanumgothic-regular,sans-serif;
+  }
+
+    [data-mesh-id=tableContent]{
+      height:auto;
+      width:100%
+    }
+    [data-mesh-id=tableContent-gridContainer]{
+      position:static;
+      display:grid;
+      height:auto;
+      width:100%;
+      grid-template-rows:1fr;
+      grid-template-columns:100%;
+      padding-bottom:0px;
+      box-sizing:border-box
+    }
+
+    [data-mesh-id=tableContent-gridContainer] > [id="table-style"]{
+      position:absolute;
+      margin: auto;
+      margin-top: 200px;
+      grid-area:1 / 1 / 2 / 2;
+      justify-self:start;align-self:start
+    }
+
+    [data-mesh-id=table-mesh]{
+      height:auto;
+      width:100%;
+      position:relative;
+    }
+
+    #table-style{
+      width:1300px
+    }
+    #table-style { 
+      --bg:var(--color_0);
+      --alpha-bg:1;
+      --shc-mutated-brightness:113,120,121 
+    }
+  </style>
+
+  <style id = serchBorder>
+
+    #serch-box { 
+      --inputShadow:none;
+      --inputBackgroundColor:242,238,228;
+      --inputFocusBorderWidth:1px;
+      --inputBorderRadius:0px;
+      --inputFont:normal normal normal 12px/1.4em nanumgothic-regular,sans-serif;
+      --inputTextColor:var(--color_15);
+      --alpha-inputTextColor:1;
+      --inputBorderWidth:1px;
+      --inputBorderColor:48,48,48;
+      --alpha-inputBorderColor:1;
+      --inputHoverBackgroundColor:var(--color_11);
+      --inputPlaceholderColor:var(--color_12);
+      --alpha-inputPlaceholderColor:1;
+      --inputIconColor:0,0,0;
+      --alpha-inputIconColor:1;
+      --inputHoverIconColor:0,0,0;
+      --alpha-inputHoverIconColor:1;
+      --inputFocusIconColor:0,0,0;
+      --alpha-inputFocusIconColor:1;
+      --buttonBackgroundColor:235,229,214;
+      --alpha-buttonBackgroundColor:1;
+      --inputFocusBackgroundColor:var(--color_11);
+      --buttonHoverBackgroundColor:201,195,177;
+      --alpha-buttonHoverBackgroundColor:1;
+      --buttonFocusBackgroundColor:235,229,214;
+      --alpha-buttonFocusBackgroundColor:1;
+      --buttonIconColor:0,0,0;
+      --alpha-buttonIconColor:1;
+      --buttonHoverIconColor:0,0,0;
+      --alpha-buttonHoverIconColor:1;
+      --buttonFocusIconColor:0,0,0;
+      --alpha-inputFocusBackgroundColor:1;
+      --inputHoverBorderWidth:1px;
+      --inputHoverBorderColor:107,108,204;
+      --alpha-inputHoverBorderColor:1;
+      --inputFocusBorderColor:107,108,204;
+      --alpha-inputFocusBorderColor:1;
+      --suggestionSectionDividerColorNew:var(--color_15);
+      --alpha-suggestionSectionDividerColorNew:1;
+      --alpha-iconColor:1;
+      --alpha-inputBackgroundColor:0;
+      --alpha-inputHoverBackgroundColor:0;
+      --boxShadowToggleOn-inputShadow:none;
+      --iconColor:0,0,0;
+      --inputPlaceholderTextColor:86,86,86;
+      --alpha-inputPlaceholderTextColor:1;
+      --container-direction:row;
+      --icon-spacing:12px;
+      --input-focus-bottom-border-width:1px;
+      --input-focus-left-border-width:1px;
+      --input-hover-left-border-width:1px;
+      --input-left-border-width:1px;
+      --input-text-align:left;
+      --search-button-display:none;
+      --search-icon-display:flex;
+      --text-padding:8px 0 8px 0;
+      --alpha-buttonFocusIconColor:1;
+      --text-spacing:12px 
+    }
+
+  </style>
+
+  <div id="SCROLL_TO_TOP" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="top of page"></div>
+  <div id="masterPage" class="mesh-layout">
+    <!--삭제: tabindex는 tab 키보드 선택-->
+    <header id="SITE_HEADER" tabindex="-1" >
+      <div id="SITE_HEADER" class="header-footer-style">
+        <div class="height100-pos-rel">
+          <div data-mesh-id="SITE_HEADERinlineContent" class="">
+            <div data-mesh-id="SITE_HEADERinlineContent-gridContainer">
+
+              <!--Title Start-->
+              <div id="title-id-top" class="title-style" >
+                <h5 class="font_5" style="text-align:center;font-size:50px"><span style="font-weight:bold">PARM</span></h5>
+              </div>
+              <div id="title-id-bot" class="title-style">
+                <p class="font_9" style="font-size:12px; line-height:1.875em; text-align:center">
+                  <span style="font-family:dancingscript-regular,dancing script,cursive;"><span style="font-size:12px"><span>prove and register mine</span></span></span>
+                </p>
+              </div>
+              <!--Title End-->
+              <!--Nav Start-->
+              <wix-dropdown-menu id="nav-list" class="nav-drop-style1 nav-drop-style2 hidden-during-prewarmup" dir="ltr" data-stretch-buttons-to-menu-width="false" data-same-width-buttons="false" data-num-items="4" data-menuborder-y="0" data-menubtn-border="0" data-ribbon-els="0" data-label-pad="0" data-ribbon-extra="0" data-dropalign="left">
+                <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
+                  <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
+                    <!--삭제: date-marginalchildern 함수-->
+                    <li id="nav-list0" data-direction="ltr" data-listposition="left" data-data-id="data-home" data-state="menu selected link" data-index="0" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="home.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <div class="nav-item-style">
+                      <div class="" style="text-align:left">
+                        <p class="nav-font-style" style="text-align:left" id="nav-list0-label">
+                          HOME
+                        </p>
+                      </div>
+                    </div>
+                    </a></li>
+                    <li id="nav-list1" data-direction="ltr" data-listposition="center" data-data-id="dataItem-damin" data-state="menu false link" data-index="1" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="소개.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <div class="nav-item-style">
+                      <div class="" style="text-align:left">
+                        <p class="nav-font-style" style="text-align:left" id="nav-list1-label">
+                          소개
+                        </p>
+                      </div>
+                    </div>
+                    </a></li>
+                    <!--삭제: aria-haspopup 팝업, 여기다가 팝업 넣어야 함-->
+                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="product-ma.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <div class="nav-item-style">
+                      <div class="" style="text-align:left">
+                        <p class="nav-font-style" style="text-align:left" id="nav-list2-label">
+                          제품 관리
+                        </p>
+                      </div>
+                    </div>
+                    </a></li>
+                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="제품검색.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <div class="nav-item-style">
+                      <div class="" style="text-align:left">
+                        <p class="nav-font-style" style="text-align:left" id="nav-list3-label">
+                          제품 검색
+                        </p>
+                      </div>
+                    </div>
+                    </a></li>
+                  </ul>
+                </nav>
+              </wix-dropdown-menu>
+              <!--Nav End-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="PAGES_CONTAINER" tabindex="-1">
+      <div id="SITE_PAGES">
+        <div class="main-grid">
+          <div id="_2main_grid" class="_1111grid">
+            <div class="rel-ahei-100wei">
+              <div data-mesh-id="page-main-container" class="">
+                <div data-mesh-id="page-main-container-gridContainer">
+                  <section id="page-container-title">
+                    <div id="img-container" class="rel-of">
+                      <div id="bg-image-management" class="height_100">
+                        <div class="h100-w100">
+                          <img src="src/man-img.png" alt="제품관리.png" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%"/>
+                        </div>
+                      </div>
+                      <div data-mesh-id="page-title-content" class="">
+                        <div data-mesh-id="page-title-content-gridContainer">
+                          <div id="page-title" class="ex-font">
+                            <p class="font_7" style="text-align: center; font-size: 24px;">
+                              <span style="font-size:24px;">
+                                <span style="font-family:nanumgothic-regular,sans-serif">
+                                  <span class="color_11">
+                                    <span style="font-weight:bold">​제품 관리</span>
+                                  </span>
+                                </span>
+                              </span>
+                            </p>
+                          </div>
+                          <div id="page-ex" class="ex-font">
+                            <p class="font_7" style="font-size: 12px; text-align: center;">
+                              <span style="font-family:nanumgothic-regular,sans-serif;">
+                                <span class="color_11">
+                                  <span style="font-size:12px;">제품에 부착할 QR을 생성하고 생성된 제품 목록을 확인합니다.</span>
+                                </span>
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  
+                  <section id="page-container-button">
+                      <div id="page-btn-ctr" class="rel-of">
+                        <div data-testid="columns" class="columns-c-style">
+                          <div id="button-bgLayer">
+                            <div id="bgLayers_comp-kt9o56lt" data-hook="bgLayers" class="_3wnIc">
+                              <div data-testid="colorUnderlay" class="bg-ov-color section-bg-st"></div>
+                            </div>
+                            <div data-mesh-id="page-button-container" data-testid="inline-content" class="">
+                              <div data-mesh-id="page-button-container-gridContainer">
+                                <div id="manage-btn">
+                                  <a data-testid="linkElement" href="product-ma.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="QR 생성">
+                                    <div class="style-button-container">
+                                      <span class="style-button-label">QR 생성</span>
+                                      <span class="style-button-icon" aria-hidden="true"></span>
+                                    </div>
+                                  </a>
+                                </div>
+                                <div id="manage-btn2"> 
+                                  <a data-testid="linkElement" href="full-list.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="전체 목록">
+                                    <div class="style-button-container">
+                                      <span class="style-button-label">전체 목록</span>
+                                      <span class="style-button-icon" aria-hidden="true"></span>
+                                    </div>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </section>
+
+                  <div data-mesh-id="tableContent" class="">
+                    <div data-mesh-id="tableContent-gridContainer">
+                      <div id="table-style">
+                        <div data-mesh-id="table-mesh" class="">
+                          <table id="allProduct" class="table">
+                            <tr>
+                                <th>시리얼넘버</th>
+                                <th>제품명</th>
+                                <th>브랜드</th>
+                                <th>제조업체</th>
+                                <th>유통업체</th>
+                                <th>판매처
+                                <th>판매완료</th>
+                                <th>소비자ID</th>
+                            </tr>
+                            <tr ng-repeat="product in allProduct">
+                                <td>{{product.productid}}</td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.brand}}</td>
+                                <td>{{product.factory}}</td>
+                                <td>{{product.delivery}}</td>
+                                <td>{{product.store}}</td>
+                                <td>{{product.status}}</td>
+                                <td>{{product.userid}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <section id="top-serch-section" class="display-flex">
+                    <div data-testid="columns" class="columns-c-style">
+                      <div id="top-serch-container" class="rel-of">
+                        <div data-mesh-id="serchContent" class="">
+                          <div data-mesh-id="serchContent-gridContainer">
+                            <div id="selectBox-container">
+                              <div class="selectBox">
+                                <button class="label">선택해주세요.</button>
+                                <ul class="optionList">
+                                  <li class="optionItem">제품명</li>
+                                  <li class="optionItem">브랜드</li>
+                                  <li class="optionItem">제조업체</li>
+                                  <li class="optionItem">유통업체</li>
+                                  <li class="optionItem">판매처</li>
+                                </ul>
+                              </div>
+                            </div>
+                            
+                            <div id="serch-container">
+                              <div data-mesh-id="serchBox-container" class="">
+                                <div data-mesh-id="serchBox-container-gridContainer">
+                                  <div id="serch-box" class="serch-box-border" aria-live="polite" tabindex="-1">
+                                    <div class="serch-borderline">
+                                      <form class="serch-box-form" role="search" action="#">
+                                        <div class="serch-style">
+                                          <div class="serch-input-style"> </div>
+                                            <div class="serch-icon">
+                                              <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
+                                            </div>
+                                          <div class="input-text">
+                                            <div class="flex-g1-s1">
+                                              <div id="serch-input-box" class="serch-input-box-style">
+                                                <div class="serch-input">
+                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord"/>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <button aria-label="serch-input-box" class="serch-button-style" type="submit">
+                                            <div class="serch-icon">
+                                              <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
+                                            </div>
+                                          </button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer tabindex="-1" id="SITE_FOOTER_WRAPPER">
+      <div id="pinnedBottomCenter">
+        <div id="comp-ksmqifon-pinned-layer" class="riLfl">
+          <div id="comp-ksmqifon" style="display:none">
+          </div>
+        </div>
+      </div>
+      <div id="SITE_FOOTER" class="header-footer-style">
+        <div class="_38XI2">
+          <div class="height100-pos-rel">
+            <div data-mesh-id="SITE_FOOTERinlineContent" data-testid="inline-content" class="">
+              <div data-mesh-id="SITE_FOOTERinlineContent-gridContainer" data-testid="mesh-container-content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <div id="SCROLL_TO_BOTTOM" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="bottom of page"></div>
+
+
+  <!--selectBox.js-->
+  <script>
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    const optionL = document.querySelector('.optionList');
+    const handleSelect = function(item) {
+      label.innerHTML = item.textContent;
+      label.parentNode.classList.remove('active');
+    }
+    options.forEach(function(option){
+      option.addEventListener('click', function(){handleSelect(option)})
+    })
+    
+    label.addEventListener('click', function(){
+      if(label.parentNode.classList.contains('active')) {
+        label.parentNode.classList.remove('active');
+        optionL.style.visibility = 'hidden'; 
+      } else {
+        label.parentNode.classList.add('active');
+        optionL.style.visibility = 'visible';
+      }
+    });
+  </script>
+
+</body>
+<script type="text/javascript" src="app.js"> </script>
+</html>
