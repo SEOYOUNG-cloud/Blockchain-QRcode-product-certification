@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -336,25 +337,7 @@
               <div id="nav-list" class="nav-drop-style1 nav-drop-style2 hidden-during-prewarmup" dir="ltr" data-stretch-buttons-to-menu-width="false" data-same-width-buttons="false" data-num-items="4" data-menuborder-y="0" data-menubtn-border="0" data-ribbon-els="0" data-label-pad="0" data-ribbon-extra="0" data-dropalign="left">
                 <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
                   <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
-                    <li id="nav-list0" data-direction="ltr" data-listposition="left" data-data-id="data-home" data-state="menu selected link" data-index="0" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="index.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
-                    <div class="nav-item-style">
-                      <div class="" style="text-align:left">
-                        <p class="nav-font-style" style="text-align:left" id="nav-list0-label">
-                          HOME
-                        </p>
-                      </div>
-                    </div>
-                    </a></li>
-                    <li id="nav-list1" data-direction="ltr" data-listposition="center" data-data-id="dataItem-damin" data-state="menu false link" data-index="1" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="소개.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
-                    <div class="nav-item-style">
-                      <div class="" style="text-align:left">
-                        <p class="nav-font-style" style="text-align:left" id="nav-list1-label">
-                          소개
-                        </p>
-                      </div>
-                    </div>
-                    </a></li>
-                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="product-ma.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="index.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
                         <p class="nav-font-style" style="text-align:left" id="nav-list2-label">
@@ -432,7 +415,7 @@
                             <div data-mesh-id="page-button-container" data-testid="inline-content" class="">
                               <div data-mesh-id="page-button-container-gridContainer">
                                 <div id="manage-btn">
-                                  <a data-testid="linkElement" href="product-ma.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="QR 생성">
+                                  <a data-testid="linkElement" href="index.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="QR 생성">
                                     <div class="style-button-container">
                                       <span class="style-button-label">QR 생성</span>
                                       <span class="style-button-icon" aria-hidden="true"></span>
@@ -511,14 +494,14 @@
                                       <form class="serch-box-form" role="search" action="#">
                                         <div class="serch-style">
                                           <div class="serch-input-style"> </div>
-                                            <div class="serch-icon">
+                                            <div class="serch-icon" ng-click="getSearch()">
                                               <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
                                             </div>
                                           <div class="input-text">
                                             <div class="flex-g1-s1">
                                               <div id="serch-input-box" class="serch-input-box-style">
                                                 <div class="serch-input">
-                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-click="search.searchWord"/>
+                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord"/>
                                                 </div>
                                               </div>
                                             </div>
@@ -547,7 +530,7 @@
         </div>
       </div>
     </main>
-    
+
   </div>
 
   <script>
@@ -574,5 +557,5 @@
   </script>
 
 </body>
-<script type="text/javascript" src="app.js"> </script>
+<script type="text/javascript" src="app-full-list.js"> </script>
 </html>
