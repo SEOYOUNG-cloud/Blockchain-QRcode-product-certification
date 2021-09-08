@@ -31,7 +31,6 @@ var app = angular.module('application', []);
       });
       $scope.setProduct = function(){
         appFactory.setProduct($scope.product, function(data){
-          var qrcode = new QRCode(document.getElementById("qr-img-src"), {
              text: '{"id":"' + document.getElementById("input_qr-create-content3").value + '"}',
             width: 416,
             height: 416,
@@ -39,7 +38,6 @@ var app = angular.module('application', []);
              colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
           });
-        });
       }
     });
     app.factory('appFactory', function($http){
