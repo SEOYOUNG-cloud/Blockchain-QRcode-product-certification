@@ -69,6 +69,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 		return s.getAllProduct(APIstub)
 	} else if function == "getSerial" {
 		return s.getSerial(APIstub, args)
+	} else if function == "getSearch" {
+		return s.getSearch(APIstub, args)
 	}
 	fmt.Println("Please check your function : " + function)
 	return shim.Error("Unknown function")
@@ -907,6 +909,82 @@ func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []st
 
 	buffer.WriteString("}]}")
 
+	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) getSearch(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	
+	supplykey_allAsBytes, _ := APIstub.GetState("latestKey_all")
+	supplykey_all := SupplyKey{}
+	json.Unmarshal(supplykey_allAsBytes, &supplykey_all)
+	idxStr := strconv.Itoa(supplykey_all.Idx + 1)
+
+	var startKey = "ALL0"
+	var endKey = supplykey_all.Key + idxStr
+
+	resultsIter, err := APIstub.GetStateByRange(startKey, endKey)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIter.Close()
+	
+	var buffer bytes.Buffer
+	all := All{}
+
+	buffer.WriteString("[")
+	bArrayMemberAlreadyWritten := false
+	write_String := false
+	for resultsIter.HasNext() {
+		queryResponse, err := resultsIter.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		json.Unmarshal(queryResponse.Value, &all)
+		
+		switch args[0] {
+		case "제품명":
+			if args[1] == all.Name {
+				write_String = true
+			}
+		case "브랜드":
+			if args[1] == all.Brand {
+				write_String = true
+			}
+		case "제조업체":
+			if args[1] == all.Factory {
+				write_String = true
+			}
+		case "유통업체":
+			if args[1] == all.Delivery {
+				write_String = true
+			}
+		default:
+			if args[1] == all.Store {
+				write_String = true
+			}
+		} 
+
+		if write_String != true {
+			continue
+		}
+		
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"Key\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(queryResponse.Key)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Record\":")
+		
+		buffer.WriteString(string(queryResponse.Value))
+		buffer.WriteString("}")
+		write_String = false
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
 	return shim.Success(buffer.Bytes())
 }
 
