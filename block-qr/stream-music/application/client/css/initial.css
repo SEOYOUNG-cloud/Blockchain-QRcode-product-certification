@@ -201,6 +201,7 @@ body.blockSiteScrolling #SITE_CONTAINER {
 body.blockSiteScrolling:not(.responsive) #WIX_ADS {
     margin-top: var(--blocked-site-scroll-margin-top)
 }
+
 .fullScreenOverlay {
     z-index: 1005;
     position: fixed;
