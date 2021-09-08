@@ -28,13 +28,34 @@ app.get('/api/getProduct', function (req, res) {
     let args = [userid];
     sdk.send(false, 'getProduct', args, res);
 });
-app.get('/api/setSupply', function (req, res) {
+app.get('/api/setFactory', function (req, res) {
     var productid = req.query.productid;
     var factory = req.query.factory;
+    
+    let args = [productid, factory];
+    sdk.send(true, 'setFactory', args, res);
+});
+app.get('/api/setDelivery', function (req, res) {
+    var productid = req.query.productid;
+    var delivery = req.query.delivery;
+    
+    let args = [productid, delivery];
+    sdk.send(true, 'setDelivery', args, res);
+});
+app.get('/api/setStore', function (req, res) {
+    var productid = req.query.productid;
+    var store = req.query.store;
+    
+    let args = [productid, store];
+    sdk.send(true, 'setStore', args, res);
+});
+app.get('/api/setStatusId', function (req, res) {
+    var productid = req.query.productid;
+    var status = req.query.status;
     var userid = req.query.userid;
     
-    let args = [productid, factory, userid];
-    sdk.send(true, 'setSupply', args, res);
+    let args = [productid, status, userid];
+    sdk.send(true, 'setStatusId', args, res);
 });
 app.get('/api/getAllProduct', function (req, res) {
 
