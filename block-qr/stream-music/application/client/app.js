@@ -8,7 +8,7 @@ app.controller('AppCtrl', function($scope, appFactory){
           $scope.search.option = option[0].innerHTML;
           // $scope.search.searchWord = searchWord[0].value;
 
-                appFactory.getList($scope.search, function(data){
+                appFactory.getSearch($scope.search, function(data){
                         var array = [];
                         for (var i = 0; i < data.length; i++){
                                 parseInt(data[i].Key);
