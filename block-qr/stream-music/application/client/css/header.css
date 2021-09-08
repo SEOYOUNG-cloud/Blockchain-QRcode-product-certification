@@ -1,0 +1,196 @@
+@charset "utf-8";
+
+.height100-pos-rel {
+    height: auto
+}
+.height100-pos-rel,
+._38XI2 {
+    position: relative;
+    width: 100%
+}
+
+.header-footer-style[data-focuscycled=active] {
+    outline: 1px solid transparent
+}
+.header-footer-style[data-focuscycled=active]:not(:focus-within) {
+    outline: 2px solid transparent;
+    transition: outline 0.01s ease
+}
+
+.header-footer-style {
+    top: var(--brwt, 0);
+    bottom: var(--brwb, 0);
+    border-radius: var(--rd, 0);
+    background-color: rgba(var(--bgctr, var(--color_11)), var(--alpha-bgctr, 1))
+}
+.header-footer-style {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+ 
+.title-style blockquote,
+.title-style h1,
+.title-style h2,
+.title-style h3,
+.title-style h4,
+.title-style h5,
+.title-style h6,
+.title-style p {
+    line-height: normal;
+    letter-spacing: normal;
+    margin: 0
+}
+.title-style {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: start;
+    pointer-events: none;
+    min-height: var(--min-height)
+}
+.title-style {
+    pointer-events: auto
+}
+.title-style li {
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: normal
+}
+.title-style ol,
+.title-style ul {
+    padding-left: 1.3em;
+    padding-right: 0;
+    margin-left: 0.5em;
+    margin-right: 0;
+    line-height: normal;
+    letter-spacing: normal
+}
+.title-style ul {
+    list-style-type: disc
+}
+.title-style ol {
+    list-style-type: decimal
+}
+.title-style ol ul,
+.title-style ul ul {
+    list-style-type: circle
+}
+.title-style ol ol ul,
+.title-style ol ul ul,
+.title-style ul ol ul,
+.title-style ul ul ul {
+    list-style-type: square
+}
+.title-style ol[dir=rtl],
+.title-style ol[dir=rtl] ol,
+.title-style ol[dir=rtl] ul,
+.title-style ul[dir=rtl],
+.title-style ul[dir=rtl] ol,
+.title-style ul[dir=rtl] ul {
+    padding-left: 0;
+    padding-right: 1.3em;
+    margin-left: 0;
+    margin-right: 0.5em
+}
+.title-style a {
+    color: inherit
+}
+
+.nav-drop-style1 .ul-style,
+.nav-drop-style1 > nav {
+    position: absolute
+}
+.nav-drop-style2 .nav-main-style .ul-style {
+    width: calc(100% -(var(--menuTotalBordersX, 0px)));
+    height: calc(100% -(var(--menuTotalBordersY, 0px)));
+    white-space: nowrap;
+    overflow: visible
+}
+.nav-drop-style2 .nav-main-style .ul-style .nav-sty-ib {
+    display: inline-block
+}
+.nav-drop-style2 .nav-main-style {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%
+}
+
+.nav-style {
+    height: 100%;
+    width: auto;
+    position: relative;
+    box-sizing: border-box;
+    overflow: visible
+}
+
+.nav-style[data-state~=header] a,
+.nav-style[data-state~=header] div {
+    cursor: default !important
+}
+
+.nav-style .navlink-sty-ib {
+    display: inline-block;
+    height: 100%;
+    width: 100%
+}
+.nav-style {
+    display: inline-block;
+    cursor: pointer;
+    font: var(--fnt, var(--font_1))
+}
+.nav-style .nav-item-style {
+    padding: 0 var(--pad, 5px)
+}
+.nav-style .nav-font-style {
+    display: inline-block;
+    padding: 0 10px;
+    color: rgb(var(--txt, var(--color_15)));
+    transition: var(--trans, color 0.4s ease 0s)
+}
+.nav-style[data-state~=drop] {
+    width: 100%;
+    display: block
+}
+.nav-style[data-state~=drop] .nav-font-style {
+    padding: 0 0.5em
+}
+.nav-style[data-state~=link]:hover .nav-font-style,
+.nav-style[data-state~=over] .nav-font-style {
+    color: rgb(var(--txth, var(--color_14)));
+    transition: var(--trans, color 0.4s ease 0s)
+}
+.nav-style[data-state~=selected] .nav-font-style {
+    color: rgb(var(--txts, var(--color_14)));
+    transition: var(--trans, color 0.4s ease 0s)
+}
+
+.nav-drop-style1 > nav {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+
+.nav-style .nav-font2-style {
+    display: inline-block;
+    padding: 0 10px;
+    color: rgb(var(--txt, var(--color_15)));
+    transition: var(--trans, color 0.4s ease 0s)
+}
+
+.nav-style[data-state~=drop] .nav-font2-style {
+    padding: 0 0.5em
+}
+.nav-style[data-state~=link]:hover .nav-font2-style,
+.nav-style[data-state~=over] .nav-font2-style {
+    color: #028EBA;
+    transition: var(--trans, color 0.4s ease 0s)
+}
+.nav-style[data-state~=selected] .nav-font2-style {
+    color: rgb(var(--txts, var(--color_14)));
+    transition: var(--trans, color 0.4s ease 0s)
+}

@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+.selectBox {
+    position: relative;
+    width: 150px;
+    height: 35px;
+    border: 1px solid #303030;
+    background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
+    background-size: 20px;
+    background-color:#fff;
+    cursor: pointer;
+    font-family:nanumgothic-regular,sans-serif;
+}
+  
+.selectBox .label {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    border: 0 none;
+    outline: 0 none;
+    color: #757575;
+    padding-left: 15px;
+    font-size: 12px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.selectBox .optionList {
+    position: absolute; 
+    width: 150px;
+    background: #fff;
+    color: #303030;
+    list-style-type: none;
+    left:-1px;
+    top: 35px;
+    padding: 0;
+    visibility: hidden;
+    overflow: hidden;
+    max-height: 0;
+    transition: .3s ease-in;
+    font-size: 12px;
+    border: 1px solid #303030;
+    border-top: none;
+    font-family:nanumgothic-regular,sans-serif;
+}
+
+.selectBox.active .optionList {
+    max-height: 500px;
+}
+
+.selectBox .fl_optionItem {
+    padding: 10px 15px 10px;
+    transition: .1s;
+}
+
+.selectBox .fl_optionItem:hover {
+    background-color: #6B6CCC;
+    color:#FBFBFB
+}
+
+.selectBox .fl_optionItem:first-child {
+    border-top: 1px solid #303030;
+}
+
+.selectBox .fl_optionItem:last-child {
+border-bottom: 0 none;
+}
+
+.selectBox .ps_optionItem {
+    padding: 10px 15px 10px;
+    transition: .1s;
+}
+
+.selectBox .ps_optionItem:hover {
+    background-color: #028EBA;
+    color:#FBFBFB
+}
+
+.selectBox .ps_optionItem:first-child {
+    border-top: 1px solid #303030;
+}
+
+.selectBox .ps_optionItem:last-child {
+border-bottom: 0 none;
+}
