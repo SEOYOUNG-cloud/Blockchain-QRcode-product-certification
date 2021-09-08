@@ -1,8 +1,14 @@
 'use strict';
 var app = angular.module('application', []);
 app.controller('AppCtrl', function($scope, appFactory){
-        $(document).ready(function(){
-                appFactory.getAllProduct(function(data){
+        $scope.getSearch = function(){
+          var option = document.getElementsByClassName("label");
+          // var searchWord = document.getElementsByClassName("serch-input-text-style");
+
+          $scope.search.option = option[0].innerHTML;
+          // $scope.search.searchWord = searchWord[0].value;
+
+                appFactory.getList($scope.search, function(data){
                         var array = [];
                         for (var i = 0; i < data.length; i++){
                                 parseInt(data[i].Key);
@@ -14,7 +20,7 @@ app.controller('AppCtrl', function($scope, appFactory){
                 });
                 $scope.allProduct = array;
                 });
-        });
+        }
         $scope.setProduct = function(){
             appFactory.setProduct($scope.product, function(data){
                         $scope.create_product = data;
@@ -24,8 +30,8 @@ app.controller('AppCtrl', function($scope, appFactory){
 });
  app.factory('appFactory', function($http){
         var factory = {};
-        factory.getAllProduct = function(callback){
-            $http.get('/api/getAllProduct/').success(function(output){
+        factory.getSearch = function(data, callback){
+            $http.get('/api/getSearch?option='+data.option+'&searchWord='+data.searchWord).success(function(output){
                         callback(output)
                 });
         }
