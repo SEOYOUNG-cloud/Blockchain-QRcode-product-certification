@@ -343,7 +343,7 @@
               </div>
               <!--Title End-->
               <!--Nav Start-->
-              <wix-dropdown-menu id="nav-list" class="nav-drop-style1 nav-drop-style2 hidden-during-prewarmup" dir="ltr" data-stretch-buttons-to-menu-width="false" data-same-width-buttons="false" data-num-items="4" data-menuborder-y="0" data-menubtn-border="0" data-ribbon-els="0" data-label-pad="0" data-ribbon-extra="0" data-dropalign="left">
+              <div id="nav-list" class="nav-drop-style1 nav-drop-style2 hidden-during-prewarmup" dir="ltr" data-stretch-buttons-to-menu-width="false" data-same-width-buttons="false" data-num-items="4" data-menuborder-y="0" data-menubtn-border="0" data-ribbon-els="0" data-label-pad="0" data-ribbon-extra="0" data-dropalign="left">
                 <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
                   <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
                     <!--삭제: date-marginalchildern 함수-->
@@ -375,7 +375,7 @@
                       </div>
                     </div>
                     </a></li>
-                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="제품검색.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="product-search.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
                         <p class="nav-font-style" style="text-align:left" id="nav-list3-label">
@@ -386,7 +386,7 @@
                     </a></li>
                   </ul>
                 </nav>
-              </wix-dropdown-menu>
+              </div>
               <!--Nav End-->
             </div>
           </div>
@@ -439,7 +439,7 @@
                       <div id="page-btn-ctr" class="rel-of">
                         <div data-testid="columns" class="columns-c-style">
                           <div id="button-bgLayer">
-                            <div id="bgLayers_comp-kt9o56lt" data-hook="bgLayers" class="_3wnIc">
+                            <div id="bgLayers_comp-kt9o56lt" data-hook="bgLayers">
                               <div data-testid="colorUnderlay" class="bg-ov-color section-bg-st"></div>
                             </div>
                             <div data-mesh-id="page-button-container" data-testid="inline-content" class="">
@@ -507,11 +507,11 @@
                               <div class="selectBox">
                                 <button class="label">선택해주세요.</button>
                                 <ul class="optionList">
-                                  <li class="optionItem">제품명</li>
-                                  <li class="optionItem">브랜드</li>
-                                  <li class="optionItem">제조업체</li>
-                                  <li class="optionItem">유통업체</li>
-                                  <li class="optionItem">판매처</li>
+                                  <li class="fl_optionItem">제품명</li>
+                                  <li class="fl_optionItem">브랜드</li>
+                                  <li class="fl_optionItem">제조업체</li>
+                                  <li class="fl_optionItem">유통업체</li>
+                                  <li class="fl_optionItem">판매처</li>
                                 </ul>
                               </div>
                             </div>
@@ -586,7 +586,7 @@
   <!--selectBox.js-->
   <script>
     const label = document.querySelector('.label');
-    const options = document.querySelectorAll('.optionItem');
+    const options = document.querySelectorAll('.fl_optionItem');
     const optionL = document.querySelector('.optionList');
     const handleSelect = function(item) {
       label.innerHTML = item.textContent;
