@@ -16,7 +16,6 @@
     outline: 2px solid transparent;
     transition: outline 0.01s ease
 }
-
 .header-footer-style {
     top: var(--brwt, 0);
     bottom: var(--brwb, 0);
