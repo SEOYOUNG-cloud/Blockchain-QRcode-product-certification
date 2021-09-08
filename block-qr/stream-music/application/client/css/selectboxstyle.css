@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+.selectBox {
+    position: relative;
+    width: 150px;
+    height: 35px;
+    border: 1px solid #303030;
+    background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    font-family:nanumgothic-regular,sans-serif;
+}
+  
+.selectBox .label {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    border: 0 none;
+    outline: 0 none;
+    color: #757575;
+    padding-left: 15px;
+    font-size: 12px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.selectBox .optionList {
+    position: absolute; 
+    width: 150px;
+    background: #fff;
+    color: #303030;
+    list-style-type: none;
+    left:-1px;
+    top: 35px;
+    padding: 0;
+    visibility: hidden;
+    overflow: hidden;
+    max-height: 0;
+    transition: .3s ease-in;
+    font-size: 12px;
+    border: 1px solid #303030;
+    border-top: none;
+    font-family:nanumgothic-regular,sans-serif;
+}
+
+.selectBox .optionList::-webkit-scrollbar {width: 6px;}
+.selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
+.selectBox .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
+.selectBox .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
+
+.selectBox.active .optionList {
+    max-height: 500px;
+}
+
+.selectBox .optionItem {
+    padding: 10px 15px 10px;
+    transition: .1s;
+}
+
+.selectBox .optionItem:hover {
+    background-color: #6B6CCC;
+    color:#FBFBFB
+}
+
+.selectBox .optionItem:first-child {
+    border-top: 1px solid #303030;
+}
+
+.selectBox .optionItem:last-child {
+border-bottom: 0 none;
+}
