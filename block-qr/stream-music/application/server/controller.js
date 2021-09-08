@@ -12,4 +12,11 @@ app.get('/api/getAllProduct', function(req, res){
     let args = [];
     sdk.send(false, 'getAllProduct', args, res);
 });
+app.get('/api/getSearch', function(req, res){
+    var option = req.query.option;
+    var searchWord = req.query.searchWord;
+
+    let args = [option, searchWord];
+    sdk.send(false, 'getSearch', args, res);
+});
 }
