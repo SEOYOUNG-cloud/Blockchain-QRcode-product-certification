@@ -19,4 +19,11 @@ app.get('/api/getSearch', function(req, res){
     let args = [option, searchWord];
     sdk.send(false, 'getSearch', args, res);
 });
+app.get('/api/getSerial', function(req, res){
+    var option = req.query.option;
+    var searchWord = req.query.searchWord;
+
+    let args = [option, searchWord];
+    sdk.send(false, 'getSerial', args, res);
+});
 }
