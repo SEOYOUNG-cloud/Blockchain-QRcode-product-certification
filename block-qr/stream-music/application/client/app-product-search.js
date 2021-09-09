@@ -8,12 +8,13 @@ app.controller('AppCtrl', function($scope, appFactory){
                 appFactory.getSerial($scope.search, function(data){
                         var array = [];
                         for (var i = 0; i < data.length; i++){
-                                data[i].productid = $scope.search.searchWord;
-		       data[i].name = data[i].Name;
-		       data[i].brand = data[i].Brand;
-		       data[i].userid = data[i].UserID;
-                                array.push(data[i]);
+                                parseInt(data[i].Key);
+                                data[i].Record.Key = data[i].Key;
+                                array.push(data[i].Record);
                         }
+                array.sort(function(a, b) {
+                        return parseFloat(a.Key) - parseFloat(b.Key);
+                });
                 $scope.allProduct = array;
                 });
         }
