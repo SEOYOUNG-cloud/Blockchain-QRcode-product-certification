@@ -888,12 +888,13 @@ func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []st
 	}
 	
 	var buffer bytes.Buffer
-	buffer.WriteString("{")
+	buffer.WriteString("[")
+	buffer.WriteString("{\"ProductID\":")
 	buffer.WriteString("\"")
 	buffer.WriteString(all.ProductID)
-	buffer.WriteString("\":[{")
+	buffer.WriteString("\"")
 
-	buffer.WriteString("\"Name\":")
+	buffer.WriteString(", \"Name\":")
 	buffer.WriteString("\"")
 	buffer.WriteString(all.Name)
 	buffer.WriteString("\"")
@@ -908,7 +909,8 @@ func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []st
 	buffer.WriteString(all.UserID)
 	buffer.WriteString("\"")
 
-	buffer.WriteString("}]}")
+	buffer.WriteString("}")
+	buffer.WriteString("]")
 
 	return shim.Success(buffer.Bytes())
 }
