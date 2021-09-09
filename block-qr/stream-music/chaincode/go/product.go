@@ -452,7 +452,6 @@ func (s *SmartContract) getProduct(APIstub shim.ChaincodeStubInterface, args []s
 			continue
 
 		}
-		buffer.WriteString(supply.UserID)
 		
 		if bArrayMemberAlreadyWritten == false {
 			buffer.WriteString("\n{\"")
