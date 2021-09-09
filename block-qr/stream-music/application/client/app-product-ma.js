@@ -38,6 +38,7 @@ var app = angular.module('application', []);
              colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
           });
+           $scope.product.serialnum = document.getElementById("input_qr-create-content3").value;
           appFactory.setProduct($scope.product, function(data){
               
           });
