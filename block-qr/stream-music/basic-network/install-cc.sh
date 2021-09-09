@@ -60,3 +60,6 @@ docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsal
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSearch","Args":["제품명","583571 1X5CG 6775"]}'
+
+sleep 3
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSerial","Args":["GUCCI","210812QWER1234"]}'
