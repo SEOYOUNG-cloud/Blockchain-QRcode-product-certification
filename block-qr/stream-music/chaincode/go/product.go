@@ -878,38 +878,34 @@ func (s *SmartContract) getAllProduct(APIstub shim.ChaincodeStubInterface) pb.Re
 
 func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	productAsBytes, _ := APIstub.GetState(args[1] + "pr")
+	allAsBytes, _ := APIstub.GetState(args[1] + "all")
 
-	product := Product{}
-	json.Unmarshal(productAsBytes, &product)
+	all:= All{}
+	json.Unmarshal(allAsBytes, &all)
 
-	if args[0] != strings.ToUpper(product.Brand) {
+	if args[0] != strings.ToUpper(all.Brand) {
 		return shim.Error("Failed to get product")
 	}
-
-	supply := Supply{}
-	supplyAsBytes, _ := APIstub.GetState(args[1] + "su")
-	json.Unmarshal(supplyAsBytes, &supply)
 	
 	var buffer bytes.Buffer
 	buffer.WriteString("{")
 	buffer.WriteString("\"")
-	buffer.WriteString(product.SerialNum)
+	buffer.WriteString(all.ProductID)
 	buffer.WriteString("\":[{")
 
 	buffer.WriteString("\"Name\":")
 	buffer.WriteString("\"")
-	buffer.WriteString(product.Name)
+	buffer.WriteString(all.Name)
 	buffer.WriteString("\"")
 
 	buffer.WriteString(", \"Brand\":")
 	buffer.WriteString("\"")
-	buffer.WriteString(product.Brand)
+	buffer.WriteString(all.Brand)
 	buffer.WriteString("\"")
 
 	buffer.WriteString(", \"UserID\":")
 	buffer.WriteString("\"")
-	buffer.WriteString(supply.UserID)
+	buffer.WriteString(all.UserID)
 	buffer.WriteString("\"")
 
 	buffer.WriteString("}]}")
