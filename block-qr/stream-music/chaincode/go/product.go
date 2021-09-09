@@ -884,7 +884,7 @@ func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []st
 	json.Unmarshal(productAsBytes, &product)
 
 	if args[0] != strings.ToUpper(product.Brand) {
-		return shim.Error(err.Error())
+		return shim.Error("Failed to get product")
 	}
 
 	supply := Supply{}
