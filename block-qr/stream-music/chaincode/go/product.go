@@ -877,13 +877,17 @@ func (s *SmartContract) getAllProduct(APIstub shim.ChaincodeStubInterface) pb.Re
 
 func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	productAsBytes, _ := APIstub.GetState(args[0] + "pr")
+	productAsBytes, _ := APIstub.GetState(args[1] + "pr")
 
 	product := Product{}
 	json.Unmarshal(productAsBytes, &product)
 
+	if args[0] != product.Brand {
+		return shim.Error(err.Error())
+	}
+
 	supply := Supply{}
-	supplyAsBytes, _ := APIstub.GetState(args[0] + "su")
+	supplyAsBytes, _ := APIstub.GetState(args[1] + "su")
 	json.Unmarshal(supplyAsBytes, &supply)
 	
 	var buffer bytes.Buffer
