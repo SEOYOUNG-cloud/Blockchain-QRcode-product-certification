@@ -38,6 +38,9 @@ var app = angular.module('application', []);
              colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
           });
+          appFactory.setProduct($scope.product, function(data){
+              
+          });
       }
     });
     app.factory('appFactory', function($http){
