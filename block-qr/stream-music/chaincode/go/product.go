@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
@@ -882,7 +883,7 @@ func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []st
 	product := Product{}
 	json.Unmarshal(productAsBytes, &product)
 
-	if args[0] != product.Brand {
+	if args[0] != strings.ToUpper(product.Brand) {
 		return shim.Error(err.Error())
 	}
 
