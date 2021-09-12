@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.PARM">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:usesCleartextTraffic="true"
+
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name="com.example.PARM.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+        <activity android:name="com.example.PARM.register_Activity"/>
+        <activity android:name="com.example.PARM.manufact_Activity"/>
+        <activity android:name="com.example.PARM.manu_registerQR_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.manu_registerQR_OK"/>
+        <activity android:name="com.example.PARM.dis_Activity"/>
+        <activity android:name="com.example.PARM.dis_registerQR_OK"/>
+        <activity android:name="com.example.PARM.dis_registerQR_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.shop_Activity"/>
+        <activity android:name="com.example.PARM.shop_registerQR_OK"/>
+        <activity android:name="com.example.PARM.shop_registerQR_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.shop_sale_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.shop_sale_OK"/>
+        <activity android:name="com.example.PARM.csm_Activity"/>
+        <activity android:name="com.example.PARM.csm_register_userID_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.csm_no_register_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.no_register_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.listview_item_Activity"/>
+        <activity android:name="com.example.PARM.userID_change_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.not_arrive_Dialog" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="com.example.PARM.already_sold_Dialog" android:theme="@android:style/Theme.Dialog"/>
+    </application>
+
+</manifest>
