@@ -111,13 +111,7 @@
       top:0;
       margin-left:var(--margin);
     }
-  </style>
-  
-  <style>
-    tr:nth-child(even) {
-      background-color: #FBFBFB;
-    }
-  </style>   
+  </style> 
   
 </head>
 
@@ -216,6 +210,9 @@
       padding: 12px;
       font-family:nanumgothic-regular,sans-serif;
     }
+    #tr_hover:hover {
+      background-color: #FBFBFB; 
+    }  
 
     [data-mesh-id=tableContent]{
       height:auto;
@@ -454,7 +451,7 @@
                                 <th>판매완료</th>
                                 <th>소비자ID</th>
                             </tr>
-                            <tr ng-repeat="product in allProduct">
+                            <tr ng-repeat="product in allProduct" id="tr_hover">
                                 <td>{{product.productid}}</td>
                                 <td>{{product.name}}</td>
                                 <td>{{product.brand}}</td>
