@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
-	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
@@ -877,14 +876,10 @@ func (s *SmartContract) getAllProduct(APIstub shim.ChaincodeStubInterface) pb.Re
 
 func (s *SmartContract) getSerial(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	allAsBytes, _ := APIstub.GetState(args[1] + "all")
+	allAsBytes, _ := APIstub.GetState(args[0] + "all")
 
 	all:= All{}
 	json.Unmarshal(allAsBytes, &all)
-
-	if args[0] != strings.ToUpper(all.Brand) {
-		return shim.Error("Failed to get product")
-	}
 	
 	var buffer bytes.Buffer
 	buffer.WriteString("[")
