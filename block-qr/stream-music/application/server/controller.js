@@ -20,10 +20,9 @@ app.get('/api/getSearch', function(req, res){
     sdk.send(false, 'getSearch', args, res);
 });
 app.get('/api/getSerial', function(req, res){
-    var option = req.query.option;
-    var searchWord = req.query.searchWord;
+    var serialnum = req.query.serialnum;
 
-    let args = [option, searchWord];
+    let args = [serialnum];
     sdk.send(false, 'getSerial', args, res);
 });
 }
