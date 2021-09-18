@@ -318,17 +318,17 @@
                                     <div data-mesh-id="serchBox-container-gridContainer">
                                       <div id="serch-box" class="serch-box-border" aria-live="polite" tabindex="-1">
                                         <div class="serch-borderline">
-                                          <form class="serch-box-form" role="search" action="#">
+                                          <form class="serch-box-form" role="search" action="#" onsubmit="return false">
                                             <div class="serch-style">
                                               <div class="serch-input-style"> </div>
-                                                <div class="serch-icon" ng-click="getSerial()">
+                                                <div class="serch-icon">
                                                   <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
                                                 </div>
                                               <div class="input-text">
                                                 <div class="flex-g1-s1">
                                                   <div id="serch-input-box" class="serch-input-box-style">
                                                     <div class="serch-input">
-                                                      <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord"/>
+                                                      <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord" ng-keypress="getSerial($event)"/>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -407,5 +407,5 @@
   </script>
 
 </body>
-<script type="text/javascript" src="app-product-search.js"> </script>
+<script type="text/javascript" src="js/app-product-search.js"> </script>
 </html>
