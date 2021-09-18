@@ -1,11 +1,13 @@
 package com.example.PARM;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -43,7 +45,6 @@ import java.util.regex.Pattern;
 
 public class register_Activity extends AppCompatActivity {
 
-   // private static String IP_ADDRESS = "192.168.75.31";
     private static String IP_ADDRESS = "3.35.134.164";
     private static String TAG = "phptest";
 
@@ -54,7 +55,7 @@ public class register_Activity extends AppCompatActivity {
     private EditText saddid, saddpwd, saddB_name, saddAdmin_name, saddtel, saddemail, saddaddr;
     private EditText caddid, caddpwd, caddname, caddtel, caddemail, caddaddr;
 
-    int USE = 0; // 중복확인 했는지
+    int cUSE, dUSE, sUSE, mUSE = 0; // 중복확인 했는지
     private boolean validate = false;
 
 
@@ -148,9 +149,9 @@ public class register_Activity extends AppCompatActivity {
 
                                                 Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
                                                 caddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                caddid.setBackgroundColor(getResources().getColor(R.color.gray));
+                                                caddid.setTextColor(getResources().getColor(R.color.gray));
                                                 validate = true;//검증완료
-                                                USE = 1;
+                                                cUSE = 1;
 
                                             } else {//사용할 수 없는 아이디라면
                                                 Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
@@ -175,7 +176,7 @@ public class register_Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            if(USE==0){
+                            if(cUSE==0){
                                 Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
                             }
                             else {
@@ -197,6 +198,11 @@ public class register_Activity extends AppCompatActivity {
                                 caddtel.setText("");
                                 caddemail.setText("");
                                 caddaddr.setText("");
+
+                                caddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
+                                caddid.setTextColor(getResources().getColor(R.color.black));
+                                cUSE=0;
+                                validate = false;
 
                             }
 
@@ -235,9 +241,9 @@ public class register_Activity extends AppCompatActivity {
 
                                                 Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
                                                 maddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                maddid.setBackgroundColor(getResources().getColor(R.color.gray));
+                                                maddid.setTextColor(getResources().getColor(R.color.gray));
                                                 validate = true;//검증완료
-                                                USE = 1;
+                                                mUSE = 1;
 
                                             } else {//사용할 수 없는 아이디라면
                                                 Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
@@ -262,7 +268,7 @@ public class register_Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            if (USE == 0) {
+                            if (mUSE == 0) {
                                 Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
                             } else {
 
@@ -285,6 +291,11 @@ public class register_Activity extends AppCompatActivity {
                                 maddtel.setText("");
                                 maddemail.setText("");
                                 maddaddr.setText("");
+
+                                maddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
+                                maddid.setTextColor(getResources().getColor(R.color.black));
+                                mUSE=0;
+                                validate = false;
 
                             }
                         }
@@ -320,9 +331,9 @@ public class register_Activity extends AppCompatActivity {
 
                                                 Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
                                                 daddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                daddid.setBackgroundColor(getResources().getColor(R.color.gray));
+                                                daddid.setTextColor(getResources().getColor(R.color.gray));
                                                 validate = true;//검증완료
-                                                USE = 1;
+                                                dUSE = 1;
 
                                             } else {//사용할 수 없는 아이디라면
                                                 Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
@@ -347,7 +358,7 @@ public class register_Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            if (USE == 0) {
+                            if (dUSE == 0) {
                                 Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
                             } else {
 
@@ -370,6 +381,11 @@ public class register_Activity extends AppCompatActivity {
                                 daddtel.setText("");
                                 daddemail.setText("");
                                 daddaddr.setText("");
+
+                                daddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
+                                daddid.setTextColor(getResources().getColor(R.color.black));
+                                dUSE=0;
+                                validate = false;
 
                             }
                         }
@@ -406,9 +422,9 @@ public class register_Activity extends AppCompatActivity {
 
                                                 Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
                                                 saddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                saddid.setBackgroundColor(getResources().getColor(R.color.gray));
+                                                saddid.setTextColor(getResources().getColor(R.color.gray));
                                                 validate = true;//검증완료
-                                                USE = 1;
+                                                sUSE = 1;
 
                                             } else {//사용할 수 없는 아이디라면
                                                 Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
@@ -433,7 +449,7 @@ public class register_Activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            if (USE == 0) {
+                            if (sUSE == 0) {
                                 Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
                             } else {
 
@@ -456,6 +472,11 @@ public class register_Activity extends AppCompatActivity {
                                 saddtel.setText("");
                                 saddemail.setText("");
                                 saddaddr.setText("");
+
+                                saddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
+                                saddid.setTextColor(getResources().getColor(R.color.black));
+                                sUSE=0;
+                                validate = false;
 
                             }
                         }

@@ -110,7 +110,7 @@ public class listview_item_Activity extends AppCompatActivity {
             case R.id.share: // 공유하기 클릭
 
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("CODE", "http://13.125.60.252:8000/");
+                ClipData clipData = ClipData.newPlainText("CODE", "http://www.parm-block.ml/product-search.html?serialnum=" + serial);
                 clipboardManager.setPrimaryClip(clipData);
                 Toast.makeText(getApplicationContext(), "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
                 break;

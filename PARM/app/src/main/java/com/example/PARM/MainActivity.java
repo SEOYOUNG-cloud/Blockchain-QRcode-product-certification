@@ -30,7 +30,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
-   // private static String IP_ADDRESS = "192.168.75.31";
     private static String IP_ADDRESS = "3.35.134.164";
     private static String TAG = "logintest";
 
