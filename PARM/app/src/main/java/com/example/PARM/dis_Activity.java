@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -36,11 +43,21 @@ public class dis_Activity extends AppCompatActivity {
     private IntentIntegrator qrScan;
     private String mJsonString;
     String serialnumber, brandName, productName, B_name;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dis_home);
+
+        //툴바
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false); // 기본 제목을 없애기
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 (왼쪽)
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
 
         //정보 받아오기
         Intent intent = getIntent();
@@ -73,17 +90,45 @@ public class dis_Activity extends AppCompatActivity {
             }
         });
 
-        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
-        logout.setOnClickListener(new View.OnClickListener() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(dis_Activity.this, MainActivity.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                String title = menuItem.getTitle().toString();
+
+                if(id == R.id.list){
+
+                    Intent intent = new Intent(dis_Activity.this, webView.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.logout){
+                    Toast.makeText(dis_Activity.this, "로그아웃", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(dis_Activity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
+                return true;
             }
         });
-
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
 
     //QR 스캔시
