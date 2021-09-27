@@ -47,6 +47,8 @@
         <activity android:name="com.example.PARM.not_arrive_Dialog" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name="com.example.PARM.already_sold_Dialog" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name="com.example.PARM.webView"/>
+        <activity android:name="com.example.PARM.GucciWebView"/>
+        <activity android:name="com.example.PARM.ChanelWebView"/>
     </application>
 
 </manifest>

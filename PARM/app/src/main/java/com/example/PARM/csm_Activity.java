@@ -5,17 +5,23 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,7 +41,7 @@ import java.util.ArrayList;
 public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     private static String IP_ADDRESS = "13.125.60.252";
-    private static String TAG = "distrbution";
+    private static String TAG = "customer";
 
     public ArrayList<PersonalData> mArrayList;
     public UserAdapter mAdapter;
@@ -48,12 +54,22 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private IntentIntegrator qrScan;
+    private DrawerLayout mDrawerLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csm_home);
+
+        //툴바
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false); // 기본 제목을 없애기
+        actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 (왼쪽)
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
 
         //정보 받아오기
         Intent intent = getIntent();
@@ -99,7 +115,6 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public void onItemClick(View v, int position) {
 
-
                 Intent intent = new Intent(csm_Activity.this, listview_item_Activity.class);
                 intent.putExtra("serial", serial_list[position]);
                 startActivity(intent);
@@ -108,18 +123,50 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
-        ImageView logout = (ImageView) findViewById(R.id.logout); // logout 버튼
-        logout.setOnClickListener(new View.OnClickListener() {
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(csm_Activity.this, MainActivity.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                String title = menuItem.getTitle().toString();
+
+                if(id == R.id.gucci){ // 구찌 홈페이지
+                    Intent intent = new Intent(csm_Activity.this, GucciWebView.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.chanel){  // 샤넬 홈페이지
+                    Intent intent = new Intent(csm_Activity.this, ChanelWebView.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.logout){  // 로그아웃
+                    Toast.makeText(csm_Activity.this, "로그아웃", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(csm_Activity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
+                return true;
             }
         });
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
 
     }
+
 
     @Override
     public void onRefresh() { // listview swipe 했을 때
