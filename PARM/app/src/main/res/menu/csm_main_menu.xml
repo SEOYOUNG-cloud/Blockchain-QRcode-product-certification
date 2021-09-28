@@ -10,12 +10,12 @@
     <item
         android:id="@+id/gucci"
         android:icon="@drawable/gucci"
-        android:title="구찌 공식 홈페이지"/>
+        android:title="GUCCI 홈페이지"/>
 
     <item
         android:id="@+id/chanel"
         android:icon="@drawable/chanel"
-        android:title="샤넬 공식 홈페이지"/>
+        android:title="CHANEL 홈페이지"/>
 
     <item
         android:id="@+id/logout"
