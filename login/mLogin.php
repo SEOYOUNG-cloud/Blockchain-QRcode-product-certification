@@ -1,0 +1,423 @@
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/initial.css">
+
+<style>
+    .login_button_root {
+        -archetype:box;
+        cursor:pointer;
+        border:none;
+        display:block;
+        min-width:10px;
+        min-height:10px;
+        width:100%;
+        height:100%;
+        box-sizing:border-box;
+        padding:0
+    }
+    .login_button_root[disabled] {
+        pointer-events:none
+    }
+
+    .login_button_container {
+        display:flex;
+        flex-basis:auto;
+        justify-content:center;
+        flex-direction:row;
+        flex-grow:1;
+        align-items:center;
+        overflow:hidden;
+        height:100%;
+        width:100%;
+        transition:all .2s ease,visibility 0s
+    }
+    .login_button_label {
+        -archetype:text;
+        -controller-part-type:LayoutChildDisplayDropdown,LayoutFlexChildSpacing(first);
+        overflow:hidden;
+        text-overflow:ellipsis;
+        text-align:center;
+        white-space:nowrap;
+        min-width:1.8em;
+        max-width:100%;
+        transition:inherit
+    }
+
+    .input-login-style1.input-login-style2 .input-login-label-style {
+        font:var(--fntlbl,var(--font_8));
+        font-size:12px;
+        color:#1f1f1f;
+        word-break:break-word;
+        display:inline-block;
+        line-height:1;
+        margin-bottom:5px;
+        padding-left:5px;
+        text-align:left;
+    }
+    .input-login-style1 .input-login-style {
+        box-shadow:var(--shd,0 0 0 transparent);
+        font:var(--fnt,var(--font_8));
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        border-radius:var(--corvid-border-radius,var(--rd,0));
+        background-color:var(--corvid-background-color,rgba(var(--bg,255,255,255),var(--alpha-bg,1)));
+        border-color:var(--corvid-border-color,rgba(var(--brd,227,227,227),var(--alpha-brd,1)));
+        border-width:var(--corvid-border-width,var(--brw,1px));
+        box-sizing:border-box!important;
+        border-style:solid;
+        padding-left:10px;
+        margin:0;
+        max-width:100%;
+        text-overflow:ellipsis;
+        text-align:var(--textAlign);
+        direction:var(--dir);
+        min-height:var(--inputHeight);
+        width:100%
+    }
+    .input-login-style1 .input-login-style[type=number] {
+        -webkit-appearance:textfield;
+        -moz-appearance:textfield;
+        width:100%
+    }
+    .input-login-style1 .input-login-style::-moz-placeholder {
+        color:rgb(var(--txt2,var(--color_15)))
+    }
+    .input-login-style1 .input-login-style:-ms-input-placeholder {
+        color:rgb(var(--txt2,var(--color_15)))
+    }
+    .input-login-style1 .input-login-style::placeholder {
+        color:rgb(var(--txt2,var(--color_15)))
+    }
+    .input-login-style1 .input-login-style:hover {
+        border-width:var(--brwh,1px);
+        background-color:rgba(var(--bgh,255,255,255),var(--alpha-bgh,1));
+        border-style:solid;
+        border-color:rgba(var(--brdh,163,217,246),var(--alpha-brdh,1))
+    }
+    .input-login-style1.input-login-style-ms .input-login-style:invalid {
+        border-width:var(--brwe,1px);
+        background-color:rgba(var(--bge,255,255,255),var(--alpha-bge,1));
+        border-style:solid;
+        border-color:rgba(var(--brde,163,217,246),var(--alpha-brde,1))
+    }
+    .input-login-style1.input-login-style-ms .input-login-style:not(:invalid):focus {
+        border-width:var(--brwf,1px);
+        background-color:rgba(var(--bgf,255,255,255),var(--alpha-bgf,1));
+        border-style:solid;
+        border-color:rgba(var(--brdf,163,217,246),var(--alpha-brdf,1))
+    }
+    .input-login-style1 .input-login-label-style {
+        display:none
+    }
+    .input-login-style1 {
+        position:relative;
+        min-height:25px;
+        display:flex;
+        flex-direction: column
+    }
+
+</style>
+
+</head>
+<body>
+
+    <link rel="stylesheet" type="text/css" href="css/masterpage.css">
+    
+    <style id=login-title>
+
+        [data-mesh-id=loginContent] {
+            height:auto;
+            width:100%
+        }
+
+        [data-mesh-id=loginContent-gridContainer] {
+            position:static;
+            display:grid;
+            height:auto;
+            width:100%;
+            min-height:853px;
+            grid-template-rows:repeat(5,min-content) 1fr;
+            grid-template-columns:100%;
+            padding-bottom:0px;
+            box-sizing:border-box
+        }
+
+        [data-mesh-id=loginContent-gridContainer]>[id="title-contentContainer"] {
+            position:relative;
+            margin:235px 0px 40px calc((100% - 980px) * 0.5);
+            left:342px;
+            grid-area:1 / 1 / 2 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        [data-mesh-id=title-content] {
+            height:auto;
+            width:295px
+        }
+
+        [data-mesh-id=title-content-gridContainer] {
+            position:static;
+            display:grid;
+            height:auto;
+            width:100%;
+            min-height:auto;
+            grid-template-rows:min-content 1fr;
+            grid-template-columns:100%
+        }
+
+        [data-mesh-id=title-content-gridContainer]>[id="title-container"] {
+            position:relative;
+            margin:0px 0px -18px 0;
+            left:0px;
+            grid-area:1 / 1 / 2 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        [data-mesh-id=title-content-gridContainer]>[id="title-content-container"] {
+            position:relative;
+            margin:0px 0px 0px 0;
+            left:4px;
+            grid-area:2 / 1 / 3 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        #title-container {
+            width:295px;
+            height:70px
+        }
+        #title-container {
+            height:auto
+        }
+
+        #title-contentContainer {
+            width:295px
+        }
+
+        #title{
+            text-align: center; 
+            font-size: 60px;
+            font-weight:bold
+        }
+
+        #title-content-container {
+            width:286px;
+            height:33px
+        }
+        #title-content-container {
+            height:auto
+        }
+
+        #title-content{
+            font-size: 18px; 
+            line-height: 1.875em; 
+            text-align: center;
+            color: #000000;
+            font-family:dancingscript-regular, dancing script,cursive;
+        }
+
+    </style>
+
+    <style id=input-style>
+
+        [data-mesh-id=login-pw-inlineContent], [data-mesh-id=login-id-inlineContent] {
+            height:auto;
+            width:100%;
+            position:static;
+            min-height:34px
+        }
+
+        [data-mesh-id=loginContent-gridContainer]>[id="login-id"] {
+            position:relative;
+            margin:0px 0px 19px calc((100% - 980px) * 0.5);
+            left:367px;
+            grid-area:3 / 1 / 4 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        [data-mesh-id=loginContent-gridContainer]>[id="login-pw"] {
+            position:relative;
+            margin:0px 0px 32px calc((100% - 980px) * 0.5);
+            left:367px;
+            grid-area:5 / 1 / 6 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        #login-style {
+            --shd:none;
+            --alpha-txtd:1;
+            --rd:0px;
+            --fnt:normal normal normal 13px/1.4em nanumgothic-regular,sans-serif;
+            --brw:1px;
+            --bg:245,255,254;
+            --txt:0,0,0;
+            --alpha-txt:1;
+            --brd:var(--color_12);
+            --txt2:127,128,138;
+            --brwd:1px;
+            --alpha-txt2:1;
+            --brwh:1px;
+            --bgh:255,255,255;
+            --brdh:82,82,82;
+            --alpha-brdh:1;
+            --brwf:1px;
+            --bgf:245,255,254;
+            --brdf:147,80,255;
+            --alpha-brdf:1;
+            --brwe:1px;
+            --brdd:219,219,219;
+            --bge:255,64,64;
+            --brde:255,64,64;
+            --alpha-brde:1;
+            --trns:opacity 0.5s ease 0s,border 0.5s ease 0s,color 0.5s ease 0s;
+            --bgd:255,255,255;
+            --alpha-brdd:1;
+            --fntlbl:normal normal 700 12px/1.4em nanumgothic-regular,sans-serif;
+            --txtlbl:97,97,95;
+            --alpha-txtlbl:1;
+            --txtlblrq:97,97,95;
+            --alpha-txtlblrq:1;
+            --fntprefix:normal normal normal 16px/1.4em helvetica-w01-roman,helvetica-w02-roman,helvetica-lt-w10-roman,sans-serif;
+            --alpha-bg:0;
+            --alpha-bgd:1;
+            --alpha-bge:0;
+            --alpha-bgf:0;
+            --alpha-bgh:1;
+            --alpha-brd:1;
+            --boxShadowToggleOn-shd:none;
+            --dir:ltr;
+            --textAlign:left;
+            --textPadding:3px 3px 3px 12px;
+            --labelPadding:0 20px 0 1px;
+            --requiredIndicationDisplay:inline;
+            --labelMarginBottom:10px;
+            height:auto;
+            --txtd:219,219,219;
+            --inputHeight:34px
+        }
+
+        #login-id, #login-pw {
+            --brw:1px;
+            --brd:var(--color_14);
+            --bg:255,255,255;
+            --rd:5px 5px 5px 5px;
+            --shd:none;
+            --alpha-bg:1;
+            --alpha-brd:1;
+            --boxShadowToggleOn-shd:none;
+            --shc-mutated-brightness:128,128,128;
+            width:246px
+        }
+        
+        input::placeholder {
+            font-size: 12px;
+        }
+
+    </style>
+
+    <style id=login-button>
+        [data-mesh-id=loginContent-gridContainer]>[id="login_button_content"] {
+            position:relative;
+            margin:0px 0px 0 calc((100% - 980px) * 0.5);
+            left:367px;
+            grid-area:6 / 1 / 7 / 2;
+            justify-self:start;
+            align-self:start
+        }
+
+        #login_button_content {
+            width:246px;
+            height:40px
+        }
+        #login_button_content .login_button_style {
+            -st-extends:StylableButton;
+            transition:all 0.2s ease,visibility 0s;
+            border-radius:7px;
+            background:#000000
+        }
+        #login_button_content .login_button_style:hover {
+            background:#FFFFFF;
+            border:1px solid #000000;
+        }
+        #login_button_content .login_button_style:disabled {
+            background:#E2E2E2
+        }
+        #login_button_content .login_button_style:disabled .login_button_label {
+            color:#8F8F8F
+        }
+        #login_button_content .login_button_style .login_button_container {
+            transition:inherit
+        }
+        #login_button_content .login_button_style .login_button_label {
+            transition:inherit;
+            font-size:12px;
+            letter-spacing:0.1em;
+            text-transform:uppercase;
+            font-family:nanumgothic-regular,sans-serif;
+            color:#FFFFFF;
+            font-style:normal;
+            font-weight:400
+        }
+        #login_button_content .login_button_style:hover .login_button_label {
+            letter-spacing:0.1em;
+            color: #000000
+        }
+    </style>
+
+    <form action="mLoginProcess.php" method="post">
+    <div data-mesh-id="loginContent">
+        <div data-mesh-id="loginContent-gridContainer">
+            <div id="title-contentContainer">
+                <div data-mesh-id="title-content"class="">
+                    <div data-mesh-id="title-content-gridContainer">
+                        <div id="title-container">
+                            <h5 id=title class="font_5">PARM</h5>
+                        </div>
+                        <div id="title-content-container">
+                            <p id=title-content class="font_9">prove and register mine</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	              
+            <div id="login-id" class="input-login-style1 input-login-style2 input-login-style-ms">
+                <div data-mesh-id="login-id-inlineContent">
+                    <div data-mesh-id="login-id-inlineContent-gridContainer">
+                        <div id="login-style">
+                            <label for="input_login-id" class="input-login-label-style">ID</label>     
+                            <input type="text" name="id" id="input_login-id" class="input-login-style" value="" placeholder="ID를 입력해주세요">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="login-pw" class="input-login-style1 input-login-style2 input-login-style-ms">
+                <div data-mesh-id="login-pw-inlineContent">
+                    <div data-mesh-id="login-pw-inlineContent-gridContainer">
+                        <div id="login-style">
+                            <label for="input_login-pw" class="input-login-label-style">PASSWORD</label>     
+                            <input type="password" name="pwd" id="input_login-pw" class="input-login-style" value="" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="login_button_content">
+                <button type="submit" class="login_button_root login_button_style" aria-label="로그인">
+                    <div class="login_button_container">
+                        <span class="login_button_label">로그인</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>	
+    </form>					
+</body>
+</html>
