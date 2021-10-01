@@ -63,3 +63,12 @@ docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsal
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSerial","Args":["210812QWER1234"]}'
+
+sleep 3
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getFactoryID","Args":["abcFactory"]}'
+
+sleep 3
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getDeliveryID","Args":["GucciOutlet"]}'
+
+sleep 3
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getStoreID","Args":["galleria"]}'
