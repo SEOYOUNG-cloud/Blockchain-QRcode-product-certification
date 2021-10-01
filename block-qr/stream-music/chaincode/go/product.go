@@ -1034,7 +1034,7 @@ func (s *SmartContract) getFactoryID(APIstub shim.ChaincodeStubInterface, args [
 
 		buffer.WriteString("{\"SerialNum\":")
 		buffer.WriteString("\"")
-		buffer.WriteString(all.SerialNum)
+		buffer.WriteString(all.ProductID)
 		buffer.WriteString("\"")
 
 		buffer.WriteString(", \"Name\":")
@@ -1098,7 +1098,7 @@ func (s *SmartContract) getDeliveryID(APIstub shim.ChaincodeStubInterface, args 
 
 		buffer.WriteString("{\"SerialNum\":")
 		buffer.WriteString("\"")
-		buffer.WriteString(all.SerialNum)
+		buffer.WriteString(all.ProductID)
 		buffer.WriteString("\"")
 
 		buffer.WriteString(", \"Name\":")
@@ -1162,7 +1162,7 @@ func (s *SmartContract) getStoreID(APIstub shim.ChaincodeStubInterface, args []s
 
 		buffer.WriteString("{\"SerialNum\":")
 		buffer.WriteString("\"")
-		buffer.WriteString(all.SerialNum)
+		buffer.WriteString(all.ProductID)
 		buffer.WriteString("\"")
 
 		buffer.WriteString(", \"Name\":")
