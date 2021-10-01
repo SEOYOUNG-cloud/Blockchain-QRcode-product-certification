@@ -62,6 +62,24 @@ app.get('/api/getAllProduct', function (req, res) {
     let args = [];
     sdk.send(false, 'getAllProduct', args, res);
 });
+app.get('/api/getFactoryID', function (req, res) {
+    var factory = req.query.factory;
+
+    let args = [factory];
+    sdk.send(false, 'getFactoryID', args, res);
+});
+app.get('/api/getDeliveryID', function (req, res) {
+    var delivery = req.query.delivery;
+
+    let args = [delivery];
+    sdk.send(false, 'getDeliveryID', args, res);
+});
+app.get('/api/getStoreID', function (req, res) {
+    var store = req.query.store;
+
+    let args = [store];
+    sdk.send(false, 'getStoreID', args, res);
+});
 app.use(express.static(path.join(__dirname, './client')));
 
 app.listen(PORT, HOST);
