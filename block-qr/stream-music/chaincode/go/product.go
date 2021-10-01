@@ -71,6 +71,12 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 		return s.getSerial(APIstub, args)
 	} else if function == "getSearch" {
 		return s.getSearch(APIstub, args)
+	} else if function == "getFactoryID" {
+		return s.getFactoryID(APIstub, args)
+	} else if function == "getDeliveryID" {
+		return s.getDeliveryID(APIstub, args)
+	} else if function == "getStoreID" {
+		return s.getStoreID(APIstub, args)
 	}
 	fmt.Println("Please check your function : " + function)
 	return shim.Error("Unknown function")
@@ -982,6 +988,198 @@ func (s *SmartContract) getSearch(APIstub shim.ChaincodeStubInterface, args []st
 		bArrayMemberAlreadyWritten = true
 	}
 	buffer.WriteString("]")
+	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) getFactoryID(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	
+	supplykey_allAsBytes, _ := APIstub.GetState("latestKey_all")
+	supplykey_all := SupplyKey{}
+	json.Unmarshal(supplykey_allAsBytes, &supplykey_all)
+	idxStr := strconv.Itoa(supplykey_all.Idx + 1)
+
+	var startKey = "ALL0"
+	var endKey = supplykey_all.Key + idxStr
+
+	resultsIter, err := APIstub.GetStateByRange(startKey, endKey)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIter.Close()
+	
+	var buffer bytes.Buffer
+	all := All{}
+
+	buffer.WriteString("{")
+	bArrayMemberAlreadyWritten := false
+	for resultsIter.HasNext() {
+		queryResponse, err := resultsIter.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		json.Unmarshal(queryResponse.Value, &all)
+		
+		if args[0] != all.Factory {
+			continue
+		}
+
+		if bArrayMemberAlreadyWritten == false {
+			buffer.WriteString("{\"")
+			buffer.WriteString(all.Factory)
+			buffer.WriteString("\":[")
+		} else {
+			buffer.WriteString(",")
+		}
+
+		buffer.WriteString("{\"SerialNum\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.SerialNum)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Name\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Name)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Brand\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Brand)
+		buffer.WriteString("\"")		
+
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]}")
+
+	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) getDeliveryID(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	
+	supplykey_allAsBytes, _ := APIstub.GetState("latestKey_all")
+	supplykey_all := SupplyKey{}
+	json.Unmarshal(supplykey_allAsBytes, &supplykey_all)
+	idxStr := strconv.Itoa(supplykey_all.Idx + 1)
+
+	var startKey = "ALL0"
+	var endKey = supplykey_all.Key + idxStr
+
+	resultsIter, err := APIstub.GetStateByRange(startKey, endKey)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIter.Close()
+	
+	var buffer bytes.Buffer
+	all := All{}
+
+	buffer.WriteString("{")
+	bArrayMemberAlreadyWritten := false
+	for resultsIter.HasNext() {
+		queryResponse, err := resultsIter.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		json.Unmarshal(queryResponse.Value, &all)
+		
+		if args[0] != all.Delivery {
+			continue
+		}
+
+		if bArrayMemberAlreadyWritten == false {
+			buffer.WriteString("{\"")
+			buffer.WriteString(all.Delivery)
+			buffer.WriteString("\":[")
+		} else {
+			buffer.WriteString(",")
+		}
+
+		buffer.WriteString("{\"SerialNum\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.SerialNum)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Name\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Name)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Brand\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Brand)
+		buffer.WriteString("\"")		
+
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]}")
+
+	return shim.Success(buffer.Bytes())
+}
+
+func (s *SmartContract) getStoreID(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	
+	supplykey_allAsBytes, _ := APIstub.GetState("latestKey_all")
+	supplykey_all := SupplyKey{}
+	json.Unmarshal(supplykey_allAsBytes, &supplykey_all)
+	idxStr := strconv.Itoa(supplykey_all.Idx + 1)
+
+	var startKey = "ALL0"
+	var endKey = supplykey_all.Key + idxStr
+
+	resultsIter, err := APIstub.GetStateByRange(startKey, endKey)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIter.Close()
+	
+	var buffer bytes.Buffer
+	all := All{}
+
+	buffer.WriteString("{")
+	bArrayMemberAlreadyWritten := false
+	for resultsIter.HasNext() {
+		queryResponse, err := resultsIter.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		json.Unmarshal(queryResponse.Value, &all)
+		
+		if args[0] != all.Store {
+			continue
+		}
+
+		if bArrayMemberAlreadyWritten == false {
+			buffer.WriteString("{\"")
+			buffer.WriteString(all.Store)
+			buffer.WriteString("\":[")
+		} else {
+			buffer.WriteString(",")
+		}
+
+		buffer.WriteString("{\"SerialNum\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.SerialNum)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Name\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Name)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Brand\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(all.Brand)
+		buffer.WriteString("\"")		
+
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]}")
+
 	return shim.Success(buffer.Bytes())
 }
 
