@@ -72,3 +72,4 @@ docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsal
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getStoreID","Args":["galleria"]}'
+
