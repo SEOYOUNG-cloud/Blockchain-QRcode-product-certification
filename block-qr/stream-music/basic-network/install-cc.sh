@@ -13,47 +13,21 @@ docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsal
 sleep 3
 docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812AAAA1111"]}'
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812QWER1234"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007NDUW1872"]}'
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812TYUI5678"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007RKLW5269"]}'
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812ASDF4321"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007KPWL4218"]}'
 
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210815QWER1234"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007EISH0576"]}'
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210815TYUI5678"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007QWFC3741"]}'
 sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210815ASDF4321"]}'
+docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["211007YWIF3724"]}'
 
 sleep 3
-# query chaincode for channelsales1
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setProduct","Args":["210812GHJK8765","602204 18YLG 9567","Gucci"]}'
-sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
-
-sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setFactory","Args":["210812GHJK8765","abcFactory"]}'
-sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
-
-sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setDelivery","Args":["210812GHJK8765","GucciOutlet"]}'
-sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
-
-sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setStore","Args":["210812GHJK8765","galleria"]}'
-sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
-
-sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"setStatusId","Args":["210812GHJK8765","true","bcqr"]}'
-sleep 3
-docker exec cli peer chaincode query -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSupply","Args":["210812GHJK8765"]}'
-
-sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getProduct","Args":["bcqr"]}'
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getProduct","Args":["sohye0312"]}'
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getAllProduct","Args":[""]}'
@@ -62,14 +36,13 @@ sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSearch","Args":["제품명","583571 1X5CG 6775"]}'
 
 sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSerial","Args":["210812QWER1234"]}'
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getSerial","Args":["211007NDUW1872"]}'
 
 sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getFactoryID","Args":["abcFactory"]}'
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getFactoryID","Args":["Rolfo"]}'
 
 sleep 3
-docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getDeliveryID","Args":["GucciOutlet"]}'
+docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getDeliveryID","Args":["Brizzi"]}'
 
 sleep 3
 docker exec cli peer chaincode invoke -o orderer.acornpub.com:7050 -C channelsales1 -n product-cc -c '{"function":"getStoreID","Args":["galleria"]}'
-
