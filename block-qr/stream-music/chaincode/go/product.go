@@ -84,9 +84,9 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 
 func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Response {
 	//product-Gucci
-	product1 := Product{SerialNum: "210812QWER1234", Name: "583571 1X5CG 6775", Brand: "Gucci"}
-	product2 := Product{SerialNum: "210812TYUI5678", Name: "660195 17QDT 2582", Brand: "Gucci"}
-	product3 := Product{SerialNum: "210812ASDF4321", Name: "443496 DRWAR 9022", Brand: "Gucci"}
+	product1 := Product{SerialNum: "211007NDUW1872", Name: "583571 1X5CG 6775", Brand: "Gucci"}
+	product2 := Product{SerialNum: "211007RKLW5269", Name: "660195 17QDT 2582", Brand: "Gucci"}
+	product3 := Product{SerialNum: "211007KPWL4218", Name: "443496 DRWAR 9022", Brand: "Gucci"}
 
 	product1AsJSONBytes, _ := json.Marshal(product1)
 	APIstub.PutState(product1.SerialNum + "pr", product1AsJSONBytes)
@@ -98,9 +98,9 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	APIstub.PutState(product3.SerialNum + "pr", product3AsJSONBytes)
 
 	//product-Channel
-	product4 := Product{SerialNum: "210815QWER1234", Name: "AS2696 B06364 NE798", Brand: "Chanel"}
-	product5 := Product{SerialNum: "210815TYUI5678", Name: "AS2756 B06315 NF024", Brand: "Chanel"}
-	product6 := Product{SerialNum: "210815ASDF4321", Name: "AS2785 B06505 ND365", Brand: "Chanel"}
+	product4 := Product{SerialNum: "211007EISH0576", Name: "AS2696 B06364 NE798", Brand: "Chanel"}
+	product5 := Product{SerialNum: "211007QWFC3741", Name: "AS2756 B06315 NF024", Brand: "Chanel"}
+	product6 := Product{SerialNum: "211007YWIF3724", Name: "AS2785 B06505 ND365", Brand: "Chanel"}
 
 	product4AsJSONBytes, _ := json.Marshal(product4)
 	APIstub.PutState(product4.SerialNum + "pr", product4AsJSONBytes)
@@ -115,9 +115,9 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	var supplykey = SupplyKey{}
 	json.Unmarshal(generateKey(APIstub, "latestKey"), &supplykey)
 
-	supply1 := Supply{Factory: "abcFactory", Delivery: "GucciOutlet", Store: "galleria", Status: true, UserID: "bcqr", ProductID: "210812QWER1234"}
-	supply2 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210812TYUI5678"}
-	supply3 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210812ASDF4321"}
+	supply1 := Supply{Factory: "Rolfo", Delivery: "Brizzi", Store: "galleria", Status: true, UserID: "sohye0312", ProductID: "211007NDUW1872"}
+	supply2 := Supply{Factory: "Simmel Difesa", Delivery: "Resintex", Store: "Shinsegae", Status: true, UserID: "none", ProductID: "211007RKLW5269"}
+	supply3 := Supply{Factory: "Trussardi", Delivery: "FR09", Store: "Starfield Gangnam", Status: true, UserID: "mongel99", ProductID: "211007KPWL4218"}
 
 	keyidx1 := strconv.Itoa(supplykey.Idx)
 	supply1AsJSONBytes, _ := json.Marshal(supply1)
@@ -146,9 +146,9 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	APIstub.PutState(supply3.ProductID+"Key", supplykey3AsBytes)
 
 	//supply-Channel
-	supply4 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815QWER1234"}
-	supply5 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815TYUI5678"}
-	supply6 := Supply{Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815ASDF4321"}
+	supply4 := Supply{Factory: "Montegrappa", Delivery: "ENDOMED", Store: "Shinsegae Duty Free Incheon Airport", Status: false, UserID: "none", ProductID: "211007EISH0576"}
+	supply5 := Supply{Factory: "Rolfo", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "211007QWFC3741"}
+	supply6 := Supply{Factory: "Persol", Delivery: "Brizzi", Store: "Shinsegae", Status: true, UserID: "sohye0312", ProductID: "211007YWIF3724"}
 
 	keyidx4 := strconv.Itoa(supplykey.Idx + 1)
 	supply4AsJSONBytes, _ := json.Marshal(supply4)
@@ -182,9 +182,9 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	var supplykey_all = SupplyKey{}
 	json.Unmarshal(generateKey_all(APIstub, "latestKey_all"), &supplykey_all)
 
-	all1 := All{Name: "583571 1X5CG 6775", Brand: "Gucci", Factory: "abcFactory", Delivery: "GucciOutlet", Store: "galleria", Status: true, UserID: "bcqr", ProductID: "210812QWER1234"}
-	all2 := All{Name: "660195 17QDT 2582", Brand: "Gucci", Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210812TYUI5678"}
-	all3 := All{Name: "443496 DRWAR 9022", Brand: "Gucci", Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210812ASDF4321"}
+	all1 := All{Name: "583571 1X5CG 6775", Brand: "Gucci", Factory: "Rolfo", Delivery: "Brizzi", Store: "galleria", Status: true, UserID: "sohye0312", ProductID: "211007NDUW1872"}
+	all2 := All{Name: "660195 17QDT 2582", Brand: "Gucci", Factory: "Simmel Difesa", Delivery: "Resintex", Store: "Shinsegae", Status: true, UserID: "none", ProductID: "211007RKLW5269"}
+	all3 := All{Name: "443496 DRWAR 9022", Brand: "Gucci", Factory: "Trussardi", Delivery: "FR09", Store: "Starfield Gangnam", Status: true, UserID: "mongel99", ProductID: "211007KPWL4218"}
 	
 	keyidx1_all := strconv.Itoa(supplykey_all.Idx)
 	all1AsJSONBytes, _ := json.Marshal(all1)
@@ -217,9 +217,9 @@ func (s *SmartContract) initSupply(APIstub shim.ChaincodeStubInterface) pb.Respo
 	buffer.WriteString("keystring:"+ keyString_all)
 
 	//all-Channel
-	all4 := All{Name: "AS2696 B06364 NE798", Brand: "Chanel", Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815QWER1234"}
-	all5 := All{Name: "AS2756 B06315 NF024", Brand: "Chanel", Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815TYUI5678"}
-	all6 := All{Name: "AS2785 B06505 ND365", Brand: "Chanel", Factory: "none", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "210815ASDF4321"}
+	all4 := All{Name: "AS2696 B06364 NE798", Brand: "Chanel", Factory: "Montegrappa", Delivery: "ENDOMED", Store: "Shinsegae Duty Free Incheon Airport", Status: false, UserID: "none", ProductID: "211007EISH0576"}
+	all5 := All{Name: "AS2756 B06315 NF024", Brand: "Chanel", Factory: "Rolfo", Delivery: "none", Store: "none", Status: false, UserID: "none", ProductID: "211007QWFC3741"}
+	all6 := All{Name: "AS2785 B06505 ND365", Brand: "Chanel", Factory: "Persol", Delivery: "Brizzi", Store: "Shinsegae", Status: true, UserID: "sohye0312", ProductID: "211007YWIF3724"}
 	
 	keyidx4_all := strconv.Itoa(supplykey_all.Idx + 1)
 	all4AsJSONBytes, _ := json.Marshal(all4)
