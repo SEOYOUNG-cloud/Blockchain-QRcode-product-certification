@@ -1010,7 +1010,6 @@ func (s *SmartContract) getFactoryID(APIstub shim.ChaincodeStubInterface, args [
 	var buffer bytes.Buffer
 	all := All{}
 
-	buffer.WriteString("{")
 	bArrayMemberAlreadyWritten := false
 	for resultsIter.HasNext() {
 		queryResponse, err := resultsIter.Next()
@@ -1074,7 +1073,6 @@ func (s *SmartContract) getDeliveryID(APIstub shim.ChaincodeStubInterface, args 
 	var buffer bytes.Buffer
 	all := All{}
 
-	buffer.WriteString("{")
 	bArrayMemberAlreadyWritten := false
 	for resultsIter.HasNext() {
 		queryResponse, err := resultsIter.Next()
@@ -1138,7 +1136,6 @@ func (s *SmartContract) getStoreID(APIstub shim.ChaincodeStubInterface, args []s
 	var buffer bytes.Buffer
 	all := All{}
 
-	buffer.WriteString("{")
 	bArrayMemberAlreadyWritten := false
 	for resultsIter.HasNext() {
 		queryResponse, err := resultsIter.Next()
