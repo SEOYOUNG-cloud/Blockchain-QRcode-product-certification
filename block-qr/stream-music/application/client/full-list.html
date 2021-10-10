@@ -12,6 +12,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
 
+  <!-- <script type="text/javascript" src="js/autocomplete/jquery.js"></script>
+  <script type='text/javascript' src='js/autocomplete/jquery.bgiframe.min.js'></script>
+  <script type='text/javascript' src='js/autocomplete/jquery.ajaxQueue.js'></script>
+  <script type='text/javascript' src='js/autocomplete/jquery.autocomplete.js'></script>
+  <link rel="stylesheet" type="text/css" href="css/autocomplete/jquery.autocomplete.css" /> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <style>
     .rel-of {
         position:relative;
@@ -232,7 +241,7 @@
     [data-mesh-id=tableContent-gridContainer] > [id="table-style"]{
       position:absolute;
       margin: auto;
-      margin-top: 200px;
+      margin-top: 130px;
       grid-area:1 / 1 / 2 / 2;
       justify-self:start;align-self:start
     }
@@ -500,7 +509,7 @@
                                             <div class="flex-g1-s1">
                                               <div id="serch-input-box" class="serch-input-box-style">
                                                 <div class="serch-input">
-                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord" ng-keypress="getSearch($event)"/>
+                                                  <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord" ng-keypress="getSearch($event)" id="searchInput"/>
                                                 </div>
                                               </div>
                                             </div>
