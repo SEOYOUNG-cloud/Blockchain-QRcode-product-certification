@@ -44,12 +44,27 @@
     justify-self:start;
     align-self:start
 }
+
 [data-mesh-id=serchContent-gridContainer] > [id="serch-container"]{
     position:relative;
     margin:30px 0px 31px calc((100% - 980px) * 0.5);
-    left:235px;grid-area:1 / 1 / 2 / 2;
+    left:235px;
+    grid-area:1 / 1 / 2 / 2;
     justify-self:start;
     align-self:start
+}
+
+[data-mesh-id=serchContent-gridContainer] > [id="serch-container-ps"]{
+    position:relative;
+    margin:30px 0px 31px calc((100% - 980px) * 0.5);
+    left:77px;
+    grid-area:1 / 1 / 2 / 2;
+    justify-self:start;
+    align-self:start
+}
+
+#serch-container, #serch-container-ps{
+    width:669px
 }
 
 #serch-container{
