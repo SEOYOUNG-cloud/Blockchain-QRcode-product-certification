@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,6 +12,27 @@
   <meta name="robots" content="noindex"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+
+  <style id = main_section>
+    .mainsection-line-border {
+        box-sizing:border-box;
+        border-top:var(--lnw,2px) solid rgba(var(--brd,var(--color_15)),var(--alpha-brd,1));
+        height:0
+    }
+
+    .mainsection-box-border {
+        border:var(--container-corvid-border-width,var(--brw,1px)) solid var(--container-corvid-border-color,rgba(var(--brd,var(--color_15)),var(--alpha-brd,1)));
+        background-color:var(--container-corvid-background-color,rgba(var(--bg,var(--color_11)),var(--alpha-bg,1)));
+        border-radius:var(--rd,5px);
+        box-shadow:var(--shd,0 1px 4px rgba(0,0,0,.6));
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left: 0
+    }
+  </style>
 
   <style>
     .rel-of {
@@ -55,155 +77,249 @@
 
 <body ng-app="application" ng-controller="AppCtrl">
 
-  <link rel="stylesheet" type="text/css" href="css/masterpage.css">
-  <link rel="stylesheet" type="text/css" href="css/buttonstyle.css">
-  <link rel="stylesheet" type="text/css" href="css/img-containerstyle.css">
-  <link rel="stylesheet" type="text/css" href="css/selectboxstyle.css">
-  <link rel="stylesheet" type="text/css" href="css/serchboxstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/masterpage.css">
+    <link rel="stylesheet" type="text/css" href="css/buttonstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/img-containerstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/selectboxstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/serchboxstyle.css">
 
-  <style>
-    #_2main_grid {
-      left:0;
-      margin-left:0;
-      min-width:980px;
-      width:auto;
-      min-height:908px;
+    <style>
+        #_2main_grid {
+        left:0;
+        margin-left:0;
+        min-width:980px;
+        width:auto;
+        min-height:908px;
+        }
+    </style>
+
+    <style>
+
+        #button-bgLayer{width:980px}
+        #button-bgLayer {--bg-overlay-color:rgb(250, 250, 250);width:100%;--column-width:980px;--column-flex:980 }
+
+    </style>
+
+    <style id = serchBorder>
+
+        #serch-box { 
+        --inputShadow:none;
+        --inputBackgroundColor:242,238,228;
+        --inputFocusBorderWidth:1px;
+        --inputBorderRadius:0px;
+        --inputFont:normal normal normal 12px/1.4em nanumgothic-regular,sans-serif;
+        --inputTextColor:var(--color_15);
+        --alpha-inputTextColor:1;
+        --inputBorderWidth:1px;
+        --inputBorderColor:48,48,48;
+        --alpha-inputBorderColor:1;
+        --inputHoverBackgroundColor:var(--color_11);
+        --inputPlaceholderColor:var(--color_12);
+        --alpha-inputPlaceholderColor:1;
+        --inputIconColor:0,0,0;
+        --alpha-inputIconColor:1;
+        --inputHoverIconColor:0,0,0;
+        --alpha-inputHoverIconColor:1;
+        --inputFocusIconColor:0,0,0;
+        --alpha-inputFocusIconColor:1;
+        --buttonBackgroundColor:235,229,214;
+        --alpha-buttonBackgroundColor:1;
+        --inputFocusBackgroundColor:var(--color_11);
+        --buttonHoverBackgroundColor:201,195,177;
+        --alpha-buttonHoverBackgroundColor:1;
+        --buttonFocusBackgroundColor:235,229,214;
+        --alpha-buttonFocusBackgroundColor:1;
+        --buttonIconColor:0,0,0;
+        --alpha-buttonIconColor:1;
+        --buttonHoverIconColor:0,0,0;
+        --alpha-buttonHoverIconColor:1;
+        --buttonFocusIconColor:0,0,0;
+        --alpha-inputFocusBackgroundColor:1;
+        --inputHoverBorderWidth:1px;
+        --inputHoverBorderColor:2, 142, 186;
+        --alpha-inputHoverBorderColor:1;
+        --inputFocusBorderColor:2, 142, 186;
+        --alpha-inputFocusBorderColor:1;
+        --suggestionSectionDividerColorNew:var(--color_15);
+        --alpha-suggestionSectionDividerColorNew:1;
+        --alpha-iconColor:1;
+        --alpha-inputBackgroundColor:0;
+        --alpha-inputHoverBackgroundColor:0;
+        --boxShadowToggleOn-inputShadow:none;
+        --iconColor:0,0,0;
+        --inputPlaceholderTextColor:86,86,86;
+        --alpha-inputPlaceholderTextColor:1;
+        --container-direction:row;
+        --icon-spacing:12px;
+        --input-focus-bottom-border-width:1px;
+        --input-focus-left-border-width:1px;
+        --input-hover-left-border-width:1px;
+        --input-left-border-width:1px;
+        --input-text-align:left;
+        --search-button-display:none;
+        --search-icon-display:flex;
+        --text-padding:8px 0 8px 0;
+        --alpha-buttonFocusIconColor:1;
+        --text-spacing:12px 
+        }
+
+    </style>
+    <style>
+        [data-mesh-id=Containeruf4jwinlineContent-gridContainer]>[id="comp-ktoivpn5"] {
+        position:relative;
+        margin:0px 0px 0 calc((100% - 980px) * 0.5);
+        left:0px;
+        grid-area:1 / 1 / 2 / 2;
+        justify-self:start;
+        align-self:start
     }
-  </style>
-
-  <style>
-
-    #button-bgLayer{width:980px}
-    #button-bgLayer {--bg-overlay-color:rgb(250, 250, 250);width:100%;--column-width:980px;--column-flex:980 }
-
-  </style>
-  <style>
-    table {
-      border-top: 1px solid #AFAFAF;
-      border-collapse: collapse;
-      width: 100%;
+    #comp-ktoivpn5 {
+        left:0;
+        margin-left:0;
+        width:100%;
+        min-width:980px
     }
-    th {
-      border-bottom: 1px solid #DEDEDE;
-      background-color: #FBFBFB;
-      text-align: center;
-      font-weight: bold;
-      font-size: 14px;
-      padding: 15px;
-      font-family:nanumgothic-regular,sans-serif;
+    #comp-ktoivpn5 {
+        --bg-overlay-color:transparent;
+        --padding:0px;
+        --margin:0px;
+        min-width:980px;
+        --firstChildMarginTop:-1px;
+        --lastChildMarginBottom:-1px
     }
-
-    td{
-      border-bottom: 1px solid #DEDEDE;
-      text-align: center;
-      font-size: 12px;
-      padding: 8px;
-      font-family:nanumgothic-regular,sans-serif;
+    #comp-ktoivpot {
+        width:980px
     }
-
-    [data-mesh-id=tableContent]{
-      height:auto;
-      width:100%
+    #comp-ktoivpot {
+        --bg-overlay-color:rgb(var(--color_11));
+        width:100%;
+        --column-width:980px;
+        --column-flex:980
     }
-    [data-mesh-id=tableContent-gridContainer]{
-      position:static;
-      display:grid;
-      height:auto;
-      width:100%;
-      grid-template-rows:1fr;
-      grid-template-columns:100%;
-      padding-bottom:0px;
-      box-sizing:border-box
+    [data-mesh-id=comp-ktoivpotinlineContent] {
+        height:auto;
+        width:100%
     }
-
-    [data-mesh-id=tableContent-gridContainer] > [id="table-style"]{
-      position:absolute;
-      margin: auto;
-      margin-top: 100px;
-      grid-area:1 / 1 / 2 / 2;
-      justify-self:start;align-self:start
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer] {
+        position:static;
+        display:grid;
+        height:auto;
+        width:100%;
+        min-height:684px;
+        grid-template-rows:repeat(4,min-content) 1fr;
+        grid-template-columns: 100%
     }
-
-    [data-mesh-id=table-mesh]{
-      height:auto;
-      width:100%;
-      position:relative;
+    /*사진*/
+    [data-mesh-id=comp-ktoiw2duinlineContent] {
+        height:auto;
+        width:100%;
+        position:static;
+        min-height:391px
     }
-
-    #table-style{
-      width:1300px
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="comp-ktoiw2du"] {
+        position:relative;
+        margin:96px 0px 10px calc((100% - 980px) * 0.5);
+        left:28px;
+        grid-area:1 / 1 / 6 / 2;
+        justify-self:start;
+        align-self:start
     }
-    #table-style { 
-      --bg:var(--color_0);
-      --alpha-bg:1;
-      --shc-mutated-brightness:113,120,121 
+    #comp-ktoiw2du {
+        --brw:1px;
+        --brd:var(--color_14);
+        --bg:255,255,255;
+        --rd:5px 5px 5px 5px;
+        --shd:none;
+        --alpha-bg:1;
+        --alpha-brd:1;
+        --boxShadowToggleOn-shd:none;
+        --shc-mutated-brightness:128,128,128
     }
-  </style>
-  <style id = serchBorder>
-
-    #serch-box { 
-      --inputShadow:none;
-      --inputBackgroundColor:242,238,228;
-      --inputFocusBorderWidth:1px;
-      --inputBorderRadius:0px;
-      --inputFont:normal normal normal 12px/1.4em nanumgothic-regular,sans-serif;
-      --inputTextColor:var(--color_15);
-      --alpha-inputTextColor:1;
-      --inputBorderWidth:1px;
-      --inputBorderColor:48,48,48;
-      --alpha-inputBorderColor:1;
-      --inputHoverBackgroundColor:var(--color_11);
-      --inputPlaceholderColor:var(--color_12);
-      --alpha-inputPlaceholderColor:1;
-      --inputIconColor:0,0,0;
-      --alpha-inputIconColor:1;
-      --inputHoverIconColor:0,0,0;
-      --alpha-inputHoverIconColor:1;
-      --inputFocusIconColor:0,0,0;
-      --alpha-inputFocusIconColor:1;
-      --buttonBackgroundColor:235,229,214;
-      --alpha-buttonBackgroundColor:1;
-      --inputFocusBackgroundColor:var(--color_11);
-      --buttonHoverBackgroundColor:201,195,177;
-      --alpha-buttonHoverBackgroundColor:1;
-      --buttonFocusBackgroundColor:235,229,214;
-      --alpha-buttonFocusBackgroundColor:1;
-      --buttonIconColor:0,0,0;
-      --alpha-buttonIconColor:1;
-      --buttonHoverIconColor:0,0,0;
-      --alpha-buttonHoverIconColor:1;
-      --buttonFocusIconColor:0,0,0;
-      --alpha-inputFocusBackgroundColor:1;
-      --inputHoverBorderWidth:1px;
-      --inputHoverBorderColor:2, 142, 186;
-      --alpha-inputHoverBorderColor:1;
-      --inputFocusBorderColor:2, 142, 186;
-      --alpha-inputFocusBorderColor:1;
-      --suggestionSectionDividerColorNew:var(--color_15);
-      --alpha-suggestionSectionDividerColorNew:1;
-      --alpha-iconColor:1;
-      --alpha-inputBackgroundColor:0;
-      --alpha-inputHoverBackgroundColor:0;
-      --boxShadowToggleOn-inputShadow:none;
-      --iconColor:0,0,0;
-      --inputPlaceholderTextColor:86,86,86;
-      --alpha-inputPlaceholderTextColor:1;
-      --container-direction:row;
-      --icon-spacing:12px;
-      --input-focus-bottom-border-width:1px;
-      --input-focus-left-border-width:1px;
-      --input-hover-left-border-width:1px;
-      --input-left-border-width:1px;
-      --input-text-align:left;
-      --search-button-display:none;
-      --search-icon-display:flex;
-      --text-padding:8px 0 8px 0;
-      --alpha-buttonFocusIconColor:1;
-      --text-spacing:12px 
+    #comp-ktoiw2du {
+        width: 416px
+    }
+    /*선*/
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-line1"] {
+        position:relative;
+        margin:220px 0px 0px calc((100% - 980px) * 0.5);
+        left:495px;
+        grid-area:1 / 1 / 2 / 2;
+        justify-self:start;
+        align-self:start
+    }
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-line2"] {
+        position:relative;
+        margin:0px 0px 25px calc((100% - 980px) * 0.5);
+        left:495px;
+        grid-area:3 / 1 / 4 / 2;
+        justify-self:start;
+        align-self:start
+    }
+    #mainsection-line1,#mainsection-line2 {
+        --lnw:1px;
+        --brd:var(--color_12);
+        --alpha-brd:1;
+        transform-origin:center 0.5px
+    }
+    #mainsection-line1,#mainsection-line2 {
+        width:450px;
+        height: 5px
+    }
+    /*글자*/
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-product-brand"] {
+        position:relative;
+        margin:180px 0px 0px calc((100% - 980px) * 0.5);
+        left:500px;
+        grid-area:1 / 1 / 2 / 2;
+        justify-self:start;
+        align-self:start
+    }
+    #mainsection-product-brand {
+        --min-height:28px;
+        height:auto
     }
 
-  </style>
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-product-name"] {
+        position:relative;
+        margin:20px 0px 20px calc((100% - 980px) * 0.5);
+        left:500px;
+        grid-area:2 / 1 / 3 / 2;
+        justify-self:start;
+        align-self:start
+    }
 
+    #mainsection-product-name {
+        --min-height:16px;
+        height:auto
+    }
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-category"] {
+        position:relative;
+        margin:0px 0px 0px calc((100% - 980px) * 0.5);
+        left:500px;
+        grid-area:4 / 1 / 5 / 2;
+        justify-self:start;
+        align-self:start
+    }
+    #mainsection-category {
+        --min-height:16px;
+        height:auto
+    }
+
+    [data-mesh-id=comp-ktoivpotinlineContent-gridContainer]>[id="mainsection-contents"] {
+        position:relative;
+        margin:0px 0px 10px calc((100% - 980px) * 0.5);
+        left:580px;
+        grid-area:4 / 1 / 5 / 2;
+        justify-self:start;
+        align-self:start
+    }
+
+    #mainsection-contents {
+        --min-height:16px;
+        height: auto
+    }
+    
+</style>
 
   <div id="masterPage" class="mesh-layout">
 
@@ -226,11 +342,11 @@
                 <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
                   <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
 
-                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="index.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a onclick="login_popup();" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
-                        <p class="nav-font2-style" style="text-align:left" id="nav-list2-label">
-                          제품 관리
+                        <p class="nav-font-style" style="text-align:left" id="nav-list2-label">
+                            제품 관리
                         </p>
                       </div>
                     </div>
@@ -254,156 +370,198 @@
     </header>
 
     <main id="PAGES_CONTAINER" tabindex="-1">
-      <div id="SITE_PAGES">
-        <div class="main-grid">
-          <div id="_2main_grid" class="_1111grid">
-            <div class="rel-ahei-100wei">
-              <div data-mesh-id="page-main-container" class="">
-                <div data-mesh-id="page-main-container-gridContainer">
-                  <section id="page-container-title">
-                    <div id="img-container" class="rel-of">
-                      <div id="bg-image-management" class="height_100">
-                        <div class="h100-w100">
-                          <img src="src/sear-img.png" alt="제품검색.png" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%"/>
-                        </div>
-                      </div>
-                      <div data-mesh-id="page-title-content" class="">
-                        <div data-mesh-id="page-title-content-gridContainer">
-                          <div id="page-title" class="ex-font">
-                            <p class="font_7" style="text-align: center; font-size: 24px;">
-                              <span style="font-size:24px;">
-                                <span style="font-family:nanumgothic-regular,sans-serif">
-                                  <span class="color_11">
-                                    <span style="font-weight:bold">​제품 검색</span>
-                                  </span>
-                                </span>
-                              </span>
-                            </p>
-                          </div>
-                          <div id="page-ex" class="ex-font">
-                            <p class="font_7" style="font-size: 12px; text-align: center;">
-                              <span style="font-family:nanumgothic-regular,sans-serif;">
-                                <span class="color_11">
-                                  <span style="font-size:12px;">제품 시리얼넘버를 검색해 제품 정보를 확인합니다.</span>
-                                </span>
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                  
-                  <section id="page-container-button">
-                      <div id="page-btn-ctr" class="rel-of">
-                        <div data-testid="columns" class="columns-c-style">
-                          <div id="button-bgLayer">
-                            <div id="bgLayers_comp-kt9o56lt" data-hook="bgLayers">
-                              <div data-testid="colorUnderlay" class="bg-ov-color section-bg-st"></div>
-                            </div>
-                            <div data-mesh-id="serchContent" class="">
-                              <div data-mesh-id="serchContent-gridContainer">
-                                <div id="selectBox-container">
-                                  <div class="selectBox">
-                                    <button class="label">BRAND</button>
-                                    <ul class="optionList">
-                                      <li class="ps_optionItem">CHANEL</li>
-                                      <li class="ps_optionItem">GUCCI</li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                
-                                <div id="serch-container">
-                                  <div data-mesh-id="serchBox-container" class="">
-                                    <div data-mesh-id="serchBox-container-gridContainer">
-                                      <div id="serch-box" class="serch-box-border" aria-live="polite" tabindex="-1">
-                                        <div class="serch-borderline">
-                                          <form class="serch-box-form" role="search" action="#" onsubmit="return false">
-                                            <div class="serch-style">
-                                              <div class="serch-input-style"> </div>
-                                                <div class="serch-icon">
-                                                  <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
-                                                </div>
-                                              <div class="input-text">
-                                                <div class="flex-g1-s1">
-                                                  <div id="serch-input-box" class="serch-input-box-style">
-                                                    <div class="serch-input">
-                                                      <input type="search"class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="search.searchWord" ng-keypress="getSerial($event)"/>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <button aria-label="serch-input-box" class="serch-button-style" type="submit">
-                                                <div class="serch-icon">
-                                                  <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
-                                                </div>
-                                              </button>
+        <div id="SITE_PAGES">
+            <div class="main-grid">
+                <div id="_2main_grid" class="_1111grid">
+                    <div class="rel-ahei-100wei">
+                        <div data-mesh-id="page-main-container" class="">
+                            <div data-mesh-id="page-main-container-gridContainer">
+                                <section id="page-container-title">
+                                    <div id="img-container" class="rel-of">
+                                        <div id="bg-image-management" class="height_100">
+                                            <div class="h100-w100">
+                                                <img src="src/sear-img.png" alt="제품검색.png" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%"/>
                                             </div>
-                                          </form>
                                         </div>
-                                      </div>
+                                        <div data-mesh-id="page-title-content" class="">
+                                            <div data-mesh-id="page-title-content-gridContainer">
+                                            <div id="page-title" class="ex-font">
+                                                <p class="font_7" style="text-align: center; font-size: 24px;">
+                                                <span style="font-size:24px;">
+                                                    <span style="font-family:nanumgothic-regular,sans-serif">
+                                                    <span class="color_11">
+                                                        <span style="font-weight:bold">​제품 검색</span>
+                                                    </span>
+                                                    </span>
+                                                </span>
+                                                </p>
+                                            </div>
+                                            <div id="page-ex" class="ex-font">
+                                                <p class="font_7" style="font-size: 12px; text-align: center;">
+                                                <span style="font-family:nanumgothic-regular,sans-serif;">
+                                                    <span class="color_11">
+                                                    <span style="font-size:12px;">제품 시리얼넘버를 검색해 제품 정보를 확인합니다.</span>
+                                                    </span>
+                                                </span>
+                                                </p>
+                                            </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                  </div>
+                                </section>
+                            
+                                <section id="page-container-button">
+                                    <div id="page-btn-ctr" class="rel-of">
+                                        <div data-testid="columns" class="columns-c-style">
+                                            <div id="button-bgLayer">
+                                                <div id="bgLayers_comp-kt9o56lt" data-hook="bgLayers">
+                                                    <div data-testid="colorUnderlay" class="bg-ov-color section-bg-st"></div>
+                                                </div>
+                                                <div data-mesh-id="serchContent" class="">
+                                                    <div data-mesh-id="serchContent-gridContainer">
+                                                        <div id="serch-container-ps">
+                                                            <div data-mesh-id="serchBox-container" class="">
+                                                                <div data-mesh-id="serchBox-container-gridContainer">
+                                                                    <div id="serch-box" class="serch-box-border" aria-live="polite" tabindex="-1">
+                                                                        <div class="serch-borderline">
+                                                                            <form class="serch-box-form" method="GET" role="search" action="product-search.html">
+                                                                                <div class="serch-style">
+                                                                                    <div class="serch-input-style"></div>
+                                                                                    <div class="serch-icon" ng-click="getSerial()">
+                                                                                        <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
+                                                                                </div>
+                                                                                <div class="input-text">
+                                                                                    <div class="flex-g1-s1">
+                                                                                        <div id="serch-input-box" class="serch-input-box-style">
+                                                                                            <div class="serch-input">
+                                                                                                <input type="search" name="serialnum" class="serch-input-text-style" value="" placeholder="검색어를 입력해주세요." maxlength="100" autocomplete="off" aria-label="serch" ng-model="serialnum" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <button aria-label="serch-input-box" class="serch-button-style" type="submit">
+                                                                                    <div class="serch-icon">
+                                                                                        <svg viewbox="5 5 14 14"><path fill="currentColor" d="M15.683 14.6l3.265 3.265a.2.2 0 010 .282l-.8.801a.2.2 0 01-.283 0l-3.266-3.265a5.961 5.961 0 111.084-1.084zm-4.727 1.233a4.877 4.877 0 100-9.754 4.877 4.877 0 000 9.754z"></path></svg>
+                                                                                    </div>
+                                                                                </button>
+                                                                                <!--<button type="submit">
+                                                                                </button>-->
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div id="allProduct" style="visibility: hidden;">
+                                    <section id="comp-ktoivpn5" class="display-flex">
+                                        <div id="comp-ktoivpot" class="rel-of">
+                                            <div data-mesh-id="comp-ktoivpotinlineContent" data-testid="inline-content" class="">
+                                                <div ng-repeat="product in allProduct" data-mesh-id="comp-ktoivpotinlineContent-gridContainer" >
+                                                    <div id="comp-ktoiw2du">
+                                                        <div data-testid="container-bg">
+                                                            <img ng-src="{{imageSource}}" width="416" height="400" style="border-radius: 5px;" alt=""/>
+                                                        </div>
+                                                        <div data-mesh-id="comp-ktoiw2duinlineContent" class="">
+                                                            <div data-mesh-id="comp-ktoiw2duinlineContent-gridContainer"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="mainsection-product-brand">
+                                                        <p class="font_7" style="font-size: 25px; font-family: orig_nanumbarungothic_bold; font-weight:bold; text-transform:uppercase;">{{product.brand}}</p>
+                                                    </div>
+                                                    <div id="mainsection-line1" class="mainsection-line-border"></div>
+                                                    <div id="mainsection-product-name">
+                                                        <p class="font_7" style="font-size:15px; font-family:nanumgothic-regular,sans-serif">{{product.name}}</p>
+                                                    </div>
+                                                    <div id="mainsection-line2" class="mainsection-line-border"></div>
+                                                    <div id="mainsection-category">
+                                                        <p class="font_7" style="font-size:12px; font-family:nanumgothic-regular,sans-serif; font-weight:bold;">
+                                                        시리얼넘버</br></br>
+                                                        소유자
+                                                        </p>
+                                                    </div>
+                                                    <div id="mainsection-contents">
+                                                        <p class="font_7" style="font-size:12px; font-family:nanumgothic-regular,sans-serif">
+                                                        {{product.productid}}</br></br>
+                                                        {{product.userid}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
-                              </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                  </section>
-                  <div data-mesh-id="tableContent" class="">
-                    <div data-mesh-id="tableContent-gridContainer">
-                      <div id="table-style">
-                        <div data-mesh-id="table-mesh" class="">
-                          <table id="allProduct" class="table">
-                            <tr>
-                                <th>시리얼넘버</th>
-                                <th>제품명</th>
-                                <th>브랜드</th>
-                                <th>소비자ID</th>
-                            </tr>
-                            <tr ng-repeat="product in allProduct">
-                                <td>{{product.productid}}</td>
-                                <td>{{product.name}}</td>
-                                <td>{{product.brand}}</td>
-                                <td>{{product.userid}}</td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </main>
 
   </div>
 
-  <script>
-    const label = document.querySelector('.label');
-    const options = document.querySelectorAll('.ps_optionItem');
-    const optionL = document.querySelector('.optionList');
-    const handleSelect = function(item) {
-      label.innerHTML = item.textContent;
-      label.parentNode.classList.remove('active');
+
+
+<script>
+var getParameters = function (paramName) { 
+    var returnValue; 
+    var url = location.href; 
+    var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&'); 
+
+    for (var i = 0; i < parameters.length; i++) { 
+        var varName = parameters[i].split('=')[0]; 
+        if (varName.toUpperCase() == paramName.toUpperCase()) { 
+            returnValue = parameters[i].split('=')[1]; 
+            return decodeURIComponent(returnValue); 
+        } 
+    } 
+};
+
+</script>
+
+<script>
+    var mysql = require('mysql');
+  
+  var db = mysql.createConnection({
+    host : '3.35.134.164',
+    user : 'manager',
+    password : 'root',
+    database : 'products'
+  });
+  
+  db.connect();
+  
+  var sql = 'SELECT *FROM product';
+  db.query(sql, (err, rows, fields) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log('rows', rows);
     }
-    options.forEach(function(option){
-      option.addEventListener('click', function(){handleSelect(option)})
-    })
-    
-    label.addEventListener('click', function(){
-      if(label.parentNode.classList.contains('active')) {
-        label.parentNode.classList.remove('active');
-        optionL.style.visibility = 'hidden'; 
-      } else {
-        label.parentNode.classList.add('active');
-        optionL.style.visibility = 'visible';
-      }
-    });
+  });
+  
+  db.end();
+  </script>
+  
+  <script>
+        function login_popup() {
+            if (confirm("로그인 후에 이용하실 수 있습니다") == true){
+                location = "http://3.35.134.164/mLogin.php";
+
+}else{
+
+return;
+
+            
+}
+        }
   </script>
 
 </body>
