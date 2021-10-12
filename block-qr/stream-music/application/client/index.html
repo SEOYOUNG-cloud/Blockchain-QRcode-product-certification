@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -611,6 +612,44 @@
       width: 416px
     }
 
+    [data-mesh-id=SITE_HEADERinlineContent-gridContainer] > [id="logout_header"] {
+    position: relative;
+    margin: 40px 0px 18px calc((100% - 980px) * 0.5);
+    left: 910px;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
+    align-self: start;
+    }
+
+    [data-mesh-id=SITE_HEADERinlineContent-gridContainer] > [id="login_id_header"] {
+    position: relative;
+    margin: 40px 0px 18px calc((100% - 980px) * 0.5);
+    left: 770px;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
+    align-self: start;
+    }
+
+    #login_id_header {
+    --min-height: 23px;
+    height: auto;
+    }
+
+    #login_id_header {
+    width: 133px;
+    height: 23px;
+    }
+
+    #logout_header {
+    --min-height: 23px;
+    height: auto;
+    }
+
+    #logout_header {
+    width: 70px;
+    height: 23px;
+    }
+
   </style>
 
   <div id="SCROLL_TO_TOP" class="qhwIj ignore-focus" tabindex="-1" role="region" aria-label="top of page"></div>
@@ -658,6 +697,24 @@
                   </ul>
                 </nav>
               </div>
+
+	      <div id="login_id_header">
+              	<p id="login_id_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif">
+			<?php
+				session_start();
+				if(isset($_SESSION['id'])) {
+					echo $_SESSION['id'];
+				}
+			?> 
+                    (제조업체) 님
+                </p>
+              </div>
+              <div id="logout_header">
+                <p class="logout_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif">
+                    로그아웃
+                </p>
+            </div>
+
             </div>
           </div>
         </div>
