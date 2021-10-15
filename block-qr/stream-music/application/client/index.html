@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -676,7 +675,7 @@
                 <nav class="nav-main-style" id="nav-listnavContainer" aria-label="사이트">
                   <ul class="ul-style" id="ul-items" style="text-align:left" data-marginallchildren="true">
 
-                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="index.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list2" data-direction="ltr" data-listposition="center" data-data-id="dataItem-introduction" data-state="menu false link" data-index="2" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="/index" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
                         <p class="nav-font-style" style="text-align:left" id="nav-list2-label">
@@ -685,7 +684,7 @@
                       </div>
                     </div>
                     </a></li>
-                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="product-search.html" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="/product-search" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
                         <p class="nav-font-style" style="text-align:left" id="nav-list3-label">
@@ -699,13 +698,13 @@
               </div>
 
 	      <div id="login_id_header">
-              	<p id="login_id_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif">
-                    (제조업체) 님
+              	<p id="login_id_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif;  cursor: pointer;">
+                  (제조업체) 님
                 </p>
               </div>
               <div id="logout_header">
-                <p class="logout_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif">
-                    로그아웃
+                <p class="logout_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif; cursor: pointer;">
+                    <a id="logout_login" href="/logout" style="color: black">로그아웃</a>
                 </p>
             </div>
 
@@ -766,7 +765,7 @@
                           <div data-mesh-id="page-button-container" data-testid="inline-content" class="">
                             <div data-mesh-id="page-button-container-gridContainer">
                               <div id="manage-btn">
-                                <a data-testid="linkElement" href="index.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="QR 생성">
+                                <a data-testid="linkElement" href="/index" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="QR 생성">
                                   <div class="style-button-container">
                                     <span class="style-button-label">QR 생성</span>
                                     <span class="style-button-icon" aria-hidden="true"></span>
@@ -774,7 +773,7 @@
                                 </a>
                               </div>
                               <div id="manage-btn2"> 
-                                <a data-testid="linkElement" href="full-list.html" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="전체 목록">
+                                <a data-testid="linkElement" href="/full-list" target="_self" class="manage-btn-size style-button-root manage-btn-root style-button-link" aria-label="전체 목록">
                                   <div class="style-button-container">
                                     <span class="style-button-label">전체 목록</span>
                                     <span class="style-button-icon" aria-hidden="true"></span>
@@ -853,6 +852,17 @@
       </div>
     </main>
   </div>
+
+<script>
+  var userString = "<%= user %>";
+  if (userString.length > 0) { //로그인 o
+    document.getElementById('login_id_header_style').innerHTML = userString + " 님";
+  } else {  //로그인 x
+    document.getElementById('login_id_header_style').style.visibility = "hidden";
+    document.getElementById('logout_login').innerHTML = "로그인";
+    document.getElementById('logout_login').setAttribute('href','/login' );
+  }
+</script>
 
 </body>
 <script type="text/javascript" src="js/qrcode.js"></script>
