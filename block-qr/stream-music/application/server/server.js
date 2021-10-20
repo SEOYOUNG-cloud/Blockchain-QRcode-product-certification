@@ -19,10 +19,6 @@ app.use(express.json());
 
 require('./controller.js')(app);
 app.use(express.static(path.join(__dirname, '../client')));
-
-//css 추가한거 
-app.use('/css', express.static(__dirname+"../client/css/"));
-
 var port = process.env.PORT || 8000;
 
 
