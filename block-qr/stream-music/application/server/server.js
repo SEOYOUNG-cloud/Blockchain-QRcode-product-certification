@@ -43,31 +43,31 @@ app.set('views', path.join(__dirname, '../client'));
 
 app.get('/index',function(req,res){
   if (req.session.user) {
-    res.render('index.html', {user :req.session.user});
+    res.render('index', {user :req.session.user});
   }
 });
 
 app.get('/full-list',function(req,res){
   if (req.session.user) {
-    res.render('full-list.html', {user :req.session.user});
+    res.render('full-list', {user :req.session.user});
   }
 });
 
 app.get('/product-search',function(req,res){
   if (req.session.user) {
-    res.render('product-search.html', {user :req.session.user});
+    res.render('product-search', {user :req.session.user});
   }
 });
 
 app.get('/login',function(req,res){
-    res.render('login.html');
+    res.render('login');
 });
 
 app.get('/logout',function(req,res){
     req.session.destroy(function () {
         req.session;
     });
-    res.render('product-search.html', {user : ''});
+    res.render('product-search', {user : ''});
 });
 
 app.post('/user', function(req, res){
@@ -82,14 +82,11 @@ app.post('/user', function(req, res){
           console.log(err);
        } else{
            if(result.length === 0){
-	alert('아이디를 정확히 입력해 주세요.');
-	res.render('login.html');
-       } else if(pwd !== result[0].pwd){
-	alert('비밀번호를 정확히 입력해 주세요.');
-	history.back();
-        } else{
+		res.send("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요.'); history.back();</script>");
+		res.render('login');
+       } else{
 	req.session.user = result[0].Admin_name;
-	res.render('index.html', {user :req.session.user});
+	res.render('index', {user :req.session.user});
         }
      }    
    })
