@@ -402,15 +402,15 @@
               </div>
 
               <div id="login_id_header">
-              	<p id="login_id_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif;  cursor: pointer;">
-                  (제조업체) 님
-                </p>
-              </div>
-              <div id="logout_header">
-                <p class="logout_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif; cursor: pointer;">
-                    <a id="logout_login" href="/logout" style="color: black">로그아웃</a>
-                </p>
+                <p id="login_id_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif;  cursor: pointer;">
+                (제조업체) 님
+              </p>
             </div>
+            <div id="logout_header">
+              <p class="logout_header_style" style="font-size:14px; text-align:right; font-weight:bold; font-family:nanumgothic-regular,sans-serif; cursor: pointer;">
+                  <a id="logout_login" href="/logout" style="color: black">로그아웃</a>
+              </p>
+          </div>
 
             </div>
           </div>
@@ -614,14 +614,14 @@ return;
   </script>
 
 <script>
-  var userString = "<%= user %>";
-  if (userString.indexOf("%") == -1) { //로그인 o
-    document.getElementById('login_id_header_style').innerHTML = userString + " 님";
-  } else {  //로그인 x
-    document.getElementById('login_id_header_style').style.visibility = "hidden";
-    document.getElementById('logout_login').innerHTML = "로그인";
-    document.getElementById('logout_login').setAttribute('href','/login' );
-  }
+    var userString = "<%= user %>";
+    if (userString.length > 0) { //로그인 o
+      document.getElementById('login_id_header_style').innerHTML = userString + " 님";
+    } else {  //로그인 x
+      document.getElementById('login_id_header_style').style.visibility = "hidden";
+      document.getElementById('logout_login').innerHTML = "로그인";
+      document.getElementById('logout_login').setAttribute('href','/login' );
+    }
 </script>
 
 </body>
