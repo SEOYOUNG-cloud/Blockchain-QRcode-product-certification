@@ -36,7 +36,7 @@ app.use(session({
     saveUninitialized: true 
 }));
 
-app.engine('html', require('ejs').renderFile);
+app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 //app.set('views','./views');
 app.set('views', path.join(__dirname, '../client'));
@@ -44,18 +44,24 @@ app.set('views', path.join(__dirname, '../client'));
 app.get('/index',function(req,res){
   if (req.session.user) {
     res.render('index', {user :req.session.user});
+  } else {
+    res.render('index', {user :''});
   }
 });
 
 app.get('/full-list',function(req,res){
   if (req.session.user) {
     res.render('full-list', {user :req.session.user});
+  } else {
+    res.render('full-list', {user :''});
   }
 });
 
 app.get('/product-search',function(req,res){
   if (req.session.user) {
     res.render('product-search', {user :req.session.user});
+  } else {
+    res.render('product-search', {user :''});
   }
 });
 
