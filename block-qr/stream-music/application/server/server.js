@@ -45,7 +45,7 @@ app.get('/index',function(req,res){
   if (req.session.user) {
     res.render('index', {user :req.session.user});
   } else {
-    res.render('index', {user :''});
+    res.send("<script>alert('로그인 후에 이용하실 수 있습니다.'); location.href='/login';</script>");
   }
 });
 
@@ -53,7 +53,7 @@ app.get('/full-list',function(req,res){
   if (req.session.user) {
     res.render('full-list', {user :req.session.user});
   } else {
-    res.render('full-list', {user :''});
+    res.send("<script>alert('로그인 후에 이용하실 수 있습니다.'); location.href='/login';</script>");
   }
 });
 
