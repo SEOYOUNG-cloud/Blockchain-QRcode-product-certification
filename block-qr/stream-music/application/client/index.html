@@ -600,17 +600,17 @@ var getParameters = function (paramName) {
   </script>
   
   <script>
-        function login_popup() {
-            if (confirm("로그인 후에 이용하실 수 있습니다") == true){
+    function login_popup() {
+        if (document.getElementById('logout_login').innerHTML == "로그인") {
+            if (confirm("로그인 후에 이용하실 수 있습니다.") == true){
                 location = "/login";
-
-}else{
-
-location = "/product-create";
-
-            
-}
+            }else{
+                history.back();  
+            }
+        } else {
+            location = "/product-create";
         }
+    }
   </script>
 
 <script>
