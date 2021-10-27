@@ -41,9 +41,9 @@ app.set('view engine', 'html');
 //app.set('views','./views');
 app.set('views', path.join(__dirname, '../client'));
 
-app.get('/index',function(req,res){
+app.get('/product-create',function(req,res){
   if (req.session.user) {
-    res.render('index', {user :req.session.user});
+    res.render('product-create', {user :req.session.user});
   } else {
     res.send("<script>alert('로그인 후에 이용하실 수 있습니다.'); location.href='/login';</script>");
   }
@@ -57,11 +57,11 @@ app.get('/full-list',function(req,res){
   }
 });
 
-app.get('/product-search',function(req,res){
+app.get('/index',function(req,res){
   if (req.session.user) {
-    res.render('product-search', {user :req.session.user});
+    res.render('index', {user :req.session.user});
   } else {
-    res.render('product-search', {user :''});
+    res.render('index', {user :''});
   }
 });
 
@@ -73,7 +73,7 @@ app.get('/logout',function(req,res){
     req.session.destroy(function () {
         req.session;
     });
-    res.render('product-search', {user : ''});
+    res.render('index', {user : ''});
 });
 
 app.post('/user', function(req, res){
@@ -92,7 +92,7 @@ app.post('/user', function(req, res){
 		res.render('login');
        } else{
 	req.session.user = result[0].Admin_name;
-	res.render('index', {user :req.session.user});
+	res.render('product-create', {user :req.session.user});
         }
      }    
    })
