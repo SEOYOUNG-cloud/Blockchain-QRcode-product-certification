@@ -605,7 +605,7 @@ var getParameters = function (paramName) {
             if (confirm("로그인 후에 이용하실 수 있습니다.") == true){
                 location = "/login";
             }else{
-                history.back();  
+                return;
             }
         } else {
             location = "/product-create";
