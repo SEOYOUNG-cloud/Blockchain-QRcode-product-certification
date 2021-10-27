@@ -61,7 +61,7 @@ app.get('/index',function(req,res){
   if (req.session.user) {
     res.render('index', {user :req.session.user});
   } else {
-    res.redirect('/');
+    res.render('index');
   }
 });
 
