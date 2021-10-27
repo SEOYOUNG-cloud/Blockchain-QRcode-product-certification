@@ -388,7 +388,7 @@
                       </div>
                     </div>
                     </a></li>
-                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="/product-search" target="_self" class="navlink-sty-ib" aria-haspopup="false">
+                    <li id="nav-list3" data-direction="ltr" data-listposition="center" data-data-id="dataItem-serch" data-state="menu false link" data-index="3" class="nav-sty-ib nav-style"><a data-testid="linkElement" href="/index" target="_self" class="navlink-sty-ib" aria-haspopup="false">
                     <div class="nav-item-style">
                       <div class="" style="text-align:left">
                         <p class="nav-font2-style" style="text-align:left" id="nav-list3-label">
@@ -614,14 +614,14 @@ return;
   </script>
 
 <script>
-    var userString = "<%= user %>";
-    if (userString.length > 0) { //로그인 o
-      document.getElementById('login_id_header_style').innerHTML = userString + " 님";
-    } else {  //로그인 x
-      document.getElementById('login_id_header_style').style.visibility = "hidden";
-      document.getElementById('logout_login').innerHTML = "로그인";
-      document.getElementById('logout_login').setAttribute('href','/login' );
-    }
+  var userString = "<%= user %>";
+  if (userString.indexOf("%") == -1) { //로그인 o
+    document.getElementById('login_id_header_style').innerHTML = userString + " 님";
+  } else {  //로그인 x
+    document.getElementById('login_id_header_style').style.visibility = "hidden";
+    document.getElementById('logout_login').innerHTML = "로그인";
+    document.getElementById('logout_login').setAttribute('href','/login' );
+  }
 </script>
 
 <script>
