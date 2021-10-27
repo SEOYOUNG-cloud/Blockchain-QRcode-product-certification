@@ -615,7 +615,7 @@ location = "/product-create";
 
 <script>
   var userString = "<%= user %>";
-  if (userString.indexOf("%") == -1) { //로그인 o
+  if (userString.indexOf("%") == -1 && userString.length > 0) { //로그인 o
     document.getElementById('login_id_header_style').innerHTML = userString + " 님";
   } else {  //로그인 x
     document.getElementById('login_id_header_style').style.visibility = "hidden";
