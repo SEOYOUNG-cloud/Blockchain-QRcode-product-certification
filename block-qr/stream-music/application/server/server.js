@@ -76,7 +76,7 @@ app.get('/logout',function(req,res){
     res.redirect('/');
 });
 
-app.post('/user', function(req, res){
+app.post('/product-create', function(req, res){
     var id = req.body.id;
     var pwd = req.body.pwd;
     var sql = 'SELECT * FROM manufacturer WHERE id = ? AND pwd = ?';
