@@ -73,7 +73,7 @@ app.get('/logout',function(req,res){
     req.session.destroy(function () {
         req.session;
     });
-    res.render('index', {user : ''});
+    res.redirect('/');
 });
 
 app.post('/user', function(req, res){
