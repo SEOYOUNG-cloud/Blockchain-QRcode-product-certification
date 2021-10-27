@@ -40,7 +40,8 @@ import java.util.ArrayList;
 
 public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "customer";
 
     public ArrayList<PersonalData> mArrayList;
@@ -124,6 +125,7 @@ public class csm_Activity extends AppCompatActivity implements SwipeRefreshLayou
         });
 
 
+        //툴바
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

@@ -10,9 +10,9 @@
         android:usesCleartextTraffic="true"
 
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_icon3"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_icon3_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name="com.example.PARM.MainActivity">
@@ -46,7 +46,9 @@
         <activity android:name="com.example.PARM.userID_change_Dialog" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name="com.example.PARM.not_arrive_Dialog" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name="com.example.PARM.already_sold_Dialog" android:theme="@android:style/Theme.Dialog"/>
-        <activity android:name="com.example.PARM.webView"/>
+        <activity android:name="com.example.PARM.dis_list_view"/>
+        <activity android:name="com.example.PARM.manu_list_view"/>
+        <activity android:name="com.example.PARM.shop_list_view"/>
         <activity android:name="com.example.PARM.GucciWebView"/>
         <activity android:name="com.example.PARM.ChanelWebView"/>
     </application>

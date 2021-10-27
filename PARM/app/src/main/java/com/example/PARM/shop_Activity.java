@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +36,8 @@ import java.net.URL;
 
 public class shop_Activity extends AppCompatActivity {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "shop";
 
     private IntentIntegrator qrScan;
@@ -122,8 +122,7 @@ public class shop_Activity extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.list){
-
-                    Intent intent = new Intent(shop_Activity.this, webView.class);
+                    Intent intent = new Intent(shop_Activity.this, shop_list_view.class);
                     startActivity(intent);
                 }
                 else if(id == R.id.logout){

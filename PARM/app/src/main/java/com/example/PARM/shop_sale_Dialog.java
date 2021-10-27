@@ -24,7 +24,8 @@ import java.net.URL;
 
 public class shop_sale_Dialog extends Dialog {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "sale_register_QR";
     private Context context;
     private String Name, Brand, Serial;

@@ -14,7 +14,8 @@ import android.widget.Toast;
 
 public class csm_register_userID_Dialog extends Dialog {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "customer_register_userID";
     private Context context;
     private String user_ID, Serial;

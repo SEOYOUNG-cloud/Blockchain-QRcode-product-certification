@@ -23,7 +23,8 @@ import java.net.URL;
 
 public class dis_registerQR_Dialog extends Dialog {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "distribution_register_QR";
     private Context context;
     private String Name, Brand, Serial, disName;
@@ -109,12 +110,13 @@ public class dis_registerQR_Dialog extends Dialog {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                new JSONTask().execute("http://" + IP_ADDRESS + ":8080/api/setDelivery?productid=" + Serial
+                        +"&delivery=" + disName);
+
                 intent = new Intent(getContext(), dis_registerQR_OK.class);
                 getContext().startActivity(intent);
 
-                new JSONTask().execute("http://" + IP_ADDRESS + ":8080/api/setDelivery?productid=" + Serial
-                        +"&delivery=" + disName);
+                dismiss();
             }
         });
 

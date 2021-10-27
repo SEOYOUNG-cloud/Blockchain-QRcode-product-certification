@@ -1,13 +1,9 @@
 package com.example.PARM;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -22,32 +18,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class register_Activity extends AppCompatActivity {
 
-    private static String IP_ADDRESS = "3.35.134.164";
-    private static String TAG = "phptest";
+    private static String TAG = "signup";
 
+    private ServiceApi service;
     private TextView mTextViewResult;
 
     private EditText maddid, maddpwd, maddB_name, maddAdmin_name, maddtel, maddemail, maddaddr;
@@ -55,8 +36,7 @@ public class register_Activity extends AppCompatActivity {
     private EditText saddid, saddpwd, saddB_name, saddAdmin_name, saddtel, saddemail, saddaddr;
     private EditText caddid, caddpwd, caddname, caddtel, caddemail, caddaddr;
 
-    int cUSE, dUSE, sUSE, mUSE = 0; // 중복확인 했는지
-    private boolean validate = false;
+    boolean cChecked, mChecked, dChecked, sChecked = false; // 아이디 중복체크 여부
 
 
     @Override
@@ -72,6 +52,7 @@ public class register_Activity extends AppCompatActivity {
         maddemail = (EditText)findViewById(R.id.madd_email);
         maddaddr = (EditText)findViewById(R.id.madd_addr);
         maddB_name.setFilters(new InputFilter[]{filter});
+        service = RetrofitClient.getClient().create(ServiceApi.class);
 
 
         daddid = (EditText)findViewById(R.id.dadd_id);
@@ -127,84 +108,17 @@ public class register_Activity extends AppCompatActivity {
                     cbuttonvalidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = caddid.getText().toString();
-                            if (validate) {
-                                return;//검증 완료
-                            }
-                            //ID 값을 입력하지 않았다면
-                            if (id.equals("")) {
-                                Toast.makeText(register_Activity.this, "ID 칸이 비어있습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
+                            validatecID(new checkidData(caddid.getText().toString()));
 
-                                //검증시작
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
-
-                                            if (success) {//사용할 수 있는 아이디라면
-
-                                                Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                                caddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                caddid.setTextColor(getResources().getColor(R.color.gray));
-                                                validate = true;//검증완료
-                                                cUSE = 1;
-
-                                            } else {//사용할 수 없는 아이디라면
-                                                Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                };//Response.Listener 완료
-
-                                //Volley 라이브러리를 이용해서 실제 서버와 통신을 구현하는 부분
-                                cValidateRequest validateRequest = new cValidateRequest(id, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(register_Activity.this);
-                                queue.add(validateRequest);
-
-                            }
                         }
                     });
 
                     buttonInsert.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            if(cUSE==0){
-                                Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-
-                                String id = caddid.getText().toString();
-                                String pwd = caddpwd.getText().toString();
-                                String name = caddname.getText().toString();
-                                String tel = caddtel.getText().toString();
-                                String email = caddemail.getText().toString();
-                                String addr = caddaddr.getText().toString();
-
-                                InsertData2 task = new InsertData2();
-                                task.execute("http://" + IP_ADDRESS + "/cinsert.php", id, pwd, name, tel, email, addr);
-
-
-                                caddid.setText("");
-                                caddpwd.setText("");
-                                caddname.setText("");
-                                caddtel.setText("");
-                                caddemail.setText("");
-                                caddaddr.setText("");
-
-                                caddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
-                                caddid.setTextColor(getResources().getColor(R.color.black));
-                                cUSE=0;
-                                validate = false;
-
-                            }
+                            if(!cChecked) Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
+                            else
+                                attemptJoin();
 
                         }
                     });
@@ -218,86 +132,17 @@ public class register_Activity extends AppCompatActivity {
                     mbuttonvalidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = maddid.getText().toString();
-                            if(validate){
-                                return;//검증 완료
-                            }
-                            //ID 값을 입력하지 않았다면
-                            if(id.equals("")){
-                                Toast.makeText(register_Activity.this, "ID 칸이 비어있습니다.", Toast.LENGTH_SHORT).show();
-                            }
+                            validatemID(new checkidData(maddid.getText().toString()));
 
-                            else {
-                                //검증시작
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
-
-                                            if (success) {//사용할 수 있는 아이디라면
-
-                                                Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                                maddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                maddid.setTextColor(getResources().getColor(R.color.gray));
-                                                validate = true;//검증완료
-                                                mUSE = 1;
-
-                                            } else {//사용할 수 없는 아이디라면
-                                                Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                };//Response.Listener 완료
-
-                                //Volley 라이브러리를 이용해서 실제 서버와 통신을 구현하는 부분
-                                mValidateRequest validateRequest = new mValidateRequest(id, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(register_Activity.this);
-                                queue.add(validateRequest);
-                            }
-
-                        }
+                          }
                     });
 
                     buttonInsert.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            if (mUSE == 0) {
-                                Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
-                            } else {
-
-                                String id = maddid.getText().toString();
-                                String pwd = maddpwd.getText().toString();
-                                String B_name = maddB_name.getText().toString();
-                                String Admin_name = maddAdmin_name.getText().toString();
-                                String tel = maddtel.getText().toString();
-                                String email = maddemail.getText().toString();
-                                String addr = maddaddr.getText().toString();
-
-                                InsertData task = new InsertData();
-                                task.execute("http://" + IP_ADDRESS + "/minsert.php", id, pwd, B_name, Admin_name, tel, email, addr);
-
-
-                                maddid.setText("");
-                                maddpwd.setText("");
-                                maddB_name.setText("");
-                                maddAdmin_name.setText("");
-                                maddtel.setText("");
-                                maddemail.setText("");
-                                maddaddr.setText("");
-
-                                maddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
-                                maddid.setTextColor(getResources().getColor(R.color.black));
-                                mUSE=0;
-                                validate = false;
-
-                            }
+                            if(!mChecked) Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
+                            else
+                                attemptmJoin();
                         }
                     });
                 }
@@ -310,84 +155,16 @@ public class register_Activity extends AppCompatActivity {
                     dbuttonvalidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = daddid.getText().toString();
-                            if (validate) {
-                                return;//검증 완료
-                            }
-                            //ID 값을 입력하지 않았다면
-                            if (id.equals("")) {
-                                Toast.makeText(register_Activity.this, "ID칸이 비어있습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                //검증시작
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
-
-                                            if (success) {//사용할 수 있는 아이디라면
-
-                                                Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                                daddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                daddid.setTextColor(getResources().getColor(R.color.gray));
-                                                validate = true;//검증완료
-                                                dUSE = 1;
-
-                                            } else {//사용할 수 없는 아이디라면
-                                                Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                };//Response.Listener 완료
-
-                                //Volley 라이브러리를 이용해서 실제 서버와 통신을 구현하는 부분
-                                dValidateRequest validateRequest = new dValidateRequest(id, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(register_Activity.this);
-                                queue.add(validateRequest);
-
-                            }
+                            validatedID(new checkidData(daddid.getText().toString()));
                         }
                     });
 
                     buttonInsert.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            if (dUSE == 0) {
-                                Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
-                            } else {
-
-                                String id = daddid.getText().toString();
-                                String pwd = daddpwd.getText().toString();
-                                String B_name = daddB_name.getText().toString();
-                                String Admin_name = daddAdmin_name.getText().toString();
-                                String tel = daddtel.getText().toString();
-                                String email = daddemail.getText().toString();
-                                String addr = daddaddr.getText().toString();
-
-                                InsertData task = new InsertData();
-                                task.execute("http://" + IP_ADDRESS + "/dinsert.php", id, pwd, B_name, Admin_name, tel, email, addr);
-
-
-                                daddid.setText("");
-                                daddpwd.setText("");
-                                daddB_name.setText("");
-                                daddAdmin_name.setText("");
-                                daddtel.setText("");
-                                daddemail.setText("");
-                                daddaddr.setText("");
-
-                                daddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
-                                daddid.setTextColor(getResources().getColor(R.color.black));
-                                dUSE=0;
-                                validate = false;
-
-                            }
+                            if(!dChecked) Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
+                            else
+                             attemptdJoin();
                         }
                     });
                 }
@@ -401,84 +178,16 @@ public class register_Activity extends AppCompatActivity {
                     sbuttonvalidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = saddid.getText().toString();
-                            if (validate) {
-                                return;//검증 완료
-                            }
-                            //ID 값을 입력하지 않았다면
-                            if (id.equals("")) {
-                                Toast.makeText(register_Activity.this, "ID칸이 비어있습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                //검증시작
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
-
-                                            if (success) {//사용할 수 있는 아이디라면
-
-                                                Toast.makeText(register_Activity.this, "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                                saddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
-                                                saddid.setTextColor(getResources().getColor(R.color.gray));
-                                                validate = true;//검증완료
-                                                sUSE = 1;
-
-                                            } else {//사용할 수 없는 아이디라면
-                                                Toast.makeText(register_Activity.this, "중복된 ID 입니다.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                };//Response.Listener 완료
-
-                                //Volley 라이브러리를 이용해서 실제 서버와 통신을 구현하는 부분
-                                sValidateRequest validateRequest = new sValidateRequest(id, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(register_Activity.this);
-                                queue.add(validateRequest);
-
-                            }
+                            validatesID(new checkidData(saddid.getText().toString()));
                         }
                     });
 
                     buttonInsert.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            if (sUSE == 0) {
-                                Toast.makeText(getApplicationContext(), "중복체크를 해주세요", Toast.LENGTH_SHORT).show();
-                            } else {
-
-                                String id = saddid.getText().toString();
-                                String pwd = saddpwd.getText().toString();
-                                String B_name = saddB_name.getText().toString();
-                                String Admin_name = saddAdmin_name.getText().toString();
-                                String tel = saddtel.getText().toString();
-                                String email = saddemail.getText().toString();
-                                String addr = saddaddr.getText().toString();
-
-                                InsertData task = new InsertData();
-                                task.execute("http://" + IP_ADDRESS + "/sinsert.php", id, pwd, B_name, Admin_name, tel, email, addr);
-
-
-                                saddid.setText("");
-                                saddpwd.setText("");
-                                saddB_name.setText("");
-                                saddAdmin_name.setText("");
-                                saddtel.setText("");
-                                saddemail.setText("");
-                                saddaddr.setText("");
-
-                                saddid.setEnabled(true);//아이디값을 바꿀 수 없도록 함
-                                saddid.setTextColor(getResources().getColor(R.color.black));
-                                sUSE=0;
-                                validate = false;
-
-                            }
+                            if(!sChecked) Toast.makeText(getApplicationContext(),"중복체크를 해주세요",Toast.LENGTH_SHORT).show();
+                            else
+                                attemptsJoin();
                         }
                     });
                 }
@@ -494,271 +203,11 @@ public class register_Activity extends AppCompatActivity {
 
 
 
-    class InsertData extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(register_Activity.this,
-                    "Please Wait", null, true, true);
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            mTextViewResult.setText(result);///////////
-            Log.d(TAG, "POST response  - " + result);
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String id = (String)params[1];
-            String pwd = (String)params[2];
-            String B_name = (String)params[3];
-            String Admin_name = (String)params[4];
-            String tel = (String)params[5];
-            String email = (String)params[6];
-            String addr = (String)params[7];
-
-            String serverURL = (String)params[0];
-            String postParameters = "id=" + id + "&pwd=" + pwd + "&B_name=" + B_name + "&Admin_name=" + Admin_name + "&tel=" + tel + "&email=" + email + "&addr=" + addr;
-
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-
-                bufferedReader.close();
-
-
-                return sb.toString();
-
-
-            } catch (Exception e) {
-
-                Log.d(TAG, "InsertData: Error ", e);
-
-                return new String("Error: " + e.getMessage());
-            }
-
-        }
-    }
-
-    class InsertData2 extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(register_Activity.this,
-                    "Please Wait", null, true, true);
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            mTextViewResult.setText(result);///////////
-            Log.d(TAG, "POST response  - " + result);
-        }
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String id = (String)params[1];
-            String pwd = (String)params[2];
-            String name = (String)params[3];
-            String tel = (String)params[4];
-            String email = (String)params[5];
-            String addr = (String)params[6];
-
-            String serverURL = (String)params[0];
-            String postParameters = "id=" + id + "&pwd=" + pwd + "&name=" + name + "&tel=" + tel + "&email=" + email + "&addr=" + addr;
-
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-
-
-                bufferedReader.close();
-
-
-                return sb.toString();
-
-
-            } catch (Exception e) {
-
-                Log.d(TAG, "InsertData: Error ", e);
-
-                return new String("Error: " + e.getMessage());
-            }
-
-        }
-    }
-
-    public static class mValidateRequest extends StringRequest {
-
-        final static private String URL = "http://" + IP_ADDRESS + "/mUserValidate.php";
-        private Map<String, String> parameters;
-
-        public mValidateRequest(String id, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
-        }
-    }
-
-    public static class dValidateRequest extends StringRequest {
-
-        final static private String URL = "http://" + IP_ADDRESS + "/dUserValidate.php";
-        private Map<String, String> parameters;
-
-        public dValidateRequest(String id, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
-        }
-    }
-
-    public static class sValidateRequest extends StringRequest {
-
-        final static private String URL = "http://" + IP_ADDRESS + "/sUserValidate.php";
-        private Map<String, String> parameters;
-
-        public sValidateRequest(String id, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
-        }
-    }
-
-    public static class cValidateRequest extends StringRequest {
-
-        final static private String URL = "http://" + IP_ADDRESS + "/cUserValidate.php";
-        private Map<String, String> parameters;
-
-        public cValidateRequest(String id, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
-        }
-    }
-
     public InputFilter filter= new InputFilter() {
 
         public CharSequence filter(CharSequence source, int start, int end,
 
                                    Spanned dest, int dstart, int dend) {
-
 
 
             Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
@@ -774,5 +223,419 @@ public class register_Activity extends AppCompatActivity {
         }
 
     };
+    /////////////////////////////////////////////////
+    private void attemptJoin() {
+        caddid.setError(null);
+        caddpwd.setError(null);
+        caddname.setError(null);
+        caddtel.setError(null);
+        caddemail.setError(null);
+        caddaddr.setError(null);
+
+        String id = caddid.getText().toString();
+        String pwd = caddpwd.getText().toString();
+        String name = caddname.getText().toString();
+        String tel = caddtel.getText().toString();
+        String email = caddemail.getText().toString();
+        String addr = caddaddr.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (pwd.isEmpty()) {
+            caddpwd.setError("비밀번호를 입력해주세요.");
+            focusView = caddpwd;
+            cancel = true;
+        } else if (!isPasswordValid(pwd)) {
+            caddpwd.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = caddpwd;
+            cancel = true;
+        }
+
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            caddemail.setError("이메일을 입력해주세요.");
+            focusView = caddemail;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            caddemail.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = caddemail;
+            cancel = true;
+        }
+
+        // 이름의 유효성 검사
+        if (name.isEmpty()) {
+            caddname.setError("이름을 입력해주세요.");
+            focusView = caddname;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            startJoin(new JoinData_customer(id, pwd, name, tel, email, addr));
+        }
+    }
+
+    private void startJoin(JoinData_customer data) {
+        service.userJoin(data).enqueue(new Callback<JoinResponse>() {
+            @Override
+            public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
+                JoinResponse result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (result.getCode() == 200) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JoinResponse> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("회원가입 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attemptmJoin() {
+        maddid.setError(null);
+        maddpwd.setError(null);
+        maddB_name.setError(null);
+        maddAdmin_name.setError(null);
+        maddtel.setError(null);
+        maddemail.setError(null);
+        maddaddr.setError(null);
+
+        String id = maddid.getText().toString();
+        String pwd = maddpwd.getText().toString();
+        String B_name = maddB_name.getText().toString();
+        String Admin_name = maddAdmin_name.getText().toString();
+        String tel = maddtel.getText().toString();
+        String email = maddemail.getText().toString();
+        String addr = maddaddr.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (pwd.isEmpty()) {
+            maddpwd.setError("비밀번호를 입력해주세요.");
+            focusView = maddpwd;
+            cancel = true;
+        } else if (!isPasswordValid(pwd)) {
+            maddpwd.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = maddpwd;
+            cancel = true;
+        }
+
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            maddemail.setError("이메일을 입력해주세요.");
+            focusView = maddemail;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            maddemail.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = maddemail;
+            cancel = true;
+        }
+
+        // 이름의 유효성 검사
+        if (Admin_name.isEmpty()) {
+            maddAdmin_name.setError("관리자 이름을 입력해주세요.");
+            focusView = maddAdmin_name;
+            cancel = true;
+        }
+        if (B_name.isEmpty()) {
+            maddB_name.setError("업체 이름을 입력해주세요.");
+            focusView = maddB_name;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            startmJoin(new JoinData_(id, pwd, B_name, Admin_name, tel, email, addr));
+        }
+    }
+
+    private void startmJoin(JoinData_ data) {
+        service.manuJoin(data).enqueue(new Callback<JoinResponse>() {
+            @Override
+            public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
+                JoinResponse result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (result.getCode() == 200) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JoinResponse> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("회원가입 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attemptdJoin() {
+        daddid.setError(null);
+        daddpwd.setError(null);
+        daddB_name.setError(null);
+        daddAdmin_name.setError(null);
+        daddtel.setError(null);
+        daddemail.setError(null);
+        daddaddr.setError(null);
+
+        String id = daddid.getText().toString();
+        String pwd = daddpwd.getText().toString();
+        String B_name = daddB_name.getText().toString();
+        String Admin_name = daddAdmin_name.getText().toString();
+        String tel = daddtel.getText().toString();
+        String email = daddemail.getText().toString();
+        String addr = daddaddr.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (pwd.isEmpty()) {
+            daddpwd.setError("비밀번호를 입력해주세요.");
+            focusView = daddpwd;
+            cancel = true;
+        } else if (!isPasswordValid(pwd)) {
+            daddpwd.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = daddpwd;
+            cancel = true;
+        }
+
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            daddemail.setError("이메일을 입력해주세요.");
+            focusView = daddemail;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            daddemail.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = daddemail;
+            cancel = true;
+        }
+
+        // 이름의 유효성 검사
+        if (Admin_name.isEmpty()) {
+            daddAdmin_name.setError("관리자 이름을 입력해주세요.");
+            focusView = daddAdmin_name;
+            cancel = true;
+        }
+        if (B_name.isEmpty()) {
+            daddB_name.setError("업체 이름을 입력해주세요.");
+            focusView = daddB_name;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            startdJoin(new JoinData_(id, pwd, B_name, Admin_name, tel, email, addr));
+        }
+    }
+
+    private void startdJoin(JoinData_ data) {
+        service.disJoin(data).enqueue(new Callback<JoinResponse>() {
+            @Override
+            public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
+                JoinResponse result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (result.getCode() == 200) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JoinResponse> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("회원가입 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attemptsJoin() {
+        saddid.setError(null);
+        saddpwd.setError(null);
+        saddB_name.setError(null);
+        saddAdmin_name.setError(null);
+        saddtel.setError(null);
+        saddemail.setError(null);
+        saddaddr.setError(null);
+
+        String id = saddid.getText().toString();
+        String pwd = saddpwd.getText().toString();
+        String B_name = saddB_name.getText().toString();
+        String Admin_name = saddAdmin_name.getText().toString();
+        String tel = saddtel.getText().toString();
+        String email = saddemail.getText().toString();
+        String addr = saddaddr.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (pwd.isEmpty()) {
+            saddpwd.setError("비밀번호를 입력해주세요.");
+            focusView = saddpwd;
+            cancel = true;
+        } else if (!isPasswordValid(pwd)) {
+            saddpwd.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = saddpwd;
+            cancel = true;
+        }
+
+        // 이메일의 유효성 검사
+        if (email.isEmpty()) {
+            saddemail.setError("이메일을 입력해주세요.");
+            focusView = saddemail;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            saddemail.setError("@를 포함한 유효한 이메일을 입력해주세요.");
+            focusView = saddemail;
+            cancel = true;
+        }
+
+        // 이름의 유효성 검사
+        if (Admin_name.isEmpty()) {
+            saddAdmin_name.setError("관리자 이름을 입력해주세요.");
+            focusView = saddAdmin_name;
+            cancel = true;
+        }
+        if (B_name.isEmpty()) {
+            saddB_name.setError("업체 이름을 입력해주세요.");
+            focusView = saddB_name;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            startsJoin(new JoinData_(id, pwd, B_name, Admin_name, tel, email, addr));
+        }
+    }
+
+    private void startsJoin(JoinData_ data) {
+        service.shopJoin(data).enqueue(new Callback<JoinResponse>() {
+            @Override
+            public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
+                JoinResponse result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (result.getCode() == 200) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JoinResponse> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("회원가입 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private boolean isEmailValid(String email) {
+        return email.contains("@");
+    }
+
+    private boolean isPasswordValid(String password) {
+        return password.length() >= 5;
+    }
+
+//////////////////// 중복확인
+    private void validatecID(checkidData data) {
+        service.checkID(data).enqueue(new Callback<Join_checkJD>() {
+            @Override
+            public void onResponse(Call<Join_checkJD> call, retrofit2.Response<Join_checkJD> response) {
+                Join_checkJD result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(!result.getResult()) {
+                    cChecked = true;
+                    caddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
+                    caddid.setTextColor(getResources().getColor(R.color.gray));
+                } else{}
+            }
+
+            @Override
+            public void onFailure(Call<Join_checkJD> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void validatemID(checkidData data) {
+        service.checkmID(data).enqueue(new Callback<Join_checkJD>() {
+            @Override
+            public void onResponse(Call<Join_checkJD> call, retrofit2.Response<Join_checkJD> response) {
+                Join_checkJD result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(!result.getResult()) {
+                    mChecked = true;
+                    maddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
+                    maddid.setTextColor(getResources().getColor(R.color.gray));
+                } else{}
+            }
+
+            @Override
+            public void onFailure(Call<Join_checkJD> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void validatedID(checkidData data) {
+        service.checkdID(data).enqueue(new Callback<Join_checkJD>() {
+            @Override
+            public void onResponse(Call<Join_checkJD> call, retrofit2.Response<Join_checkJD> response) {
+                Join_checkJD result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(!result.getResult()) {
+                    dChecked = true;
+                    daddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
+                    daddid.setTextColor(getResources().getColor(R.color.gray));
+                } else{}
+            }
+
+            @Override
+            public void onFailure(Call<Join_checkJD> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void validatesID(checkidData data) {
+        service.checksID(data).enqueue(new Callback<Join_checkJD>() {
+            @Override
+            public void onResponse(Call<Join_checkJD> call, retrofit2.Response<Join_checkJD> response) {
+                Join_checkJD result = response.body();
+                Toast.makeText(register_Activity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(!result.getResult()) {
+                    sChecked = true;
+                    saddid.setEnabled(false);//아이디값을 바꿀 수 없도록 함
+                    saddid.setTextColor(getResources().getColor(R.color.gray));
+                } else{}
+            }
+
+            @Override
+            public void onFailure(Call<Join_checkJD> call, Throwable t) {
+                Toast.makeText(register_Activity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
 
 }

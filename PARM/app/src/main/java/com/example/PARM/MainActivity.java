@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,39 +14,32 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class MainActivity extends AppCompatActivity{
 
-    private static String IP_ADDRESS = "3.35.134.164";
     private static String TAG = "logintest";
 
+    private ServiceApi service;
     EditText mID, mPassword, dID, dPassword, sID, sPassword, cID, cPassword;
     Button mIdSignInButton, IdSignUpButton, dIdSignInButton, sIdSignInButton, cIdSignInButton;
     CheckBox mLogin, dLogin, sLogin, cLogin;
     SharedPreferences mpref, dpref, spref, cpref;
     SharedPreferences.Editor meditor, deditor, seditor, ceditor;
-    Boolean mloginChecked, dloginChecked, sloginChecked, cloginChecked;
+    Boolean mloginChecked = false, dloginChecked = false, sloginChecked = false, cloginChecked = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         // Set up the login form.
@@ -57,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
         sPassword = (EditText) findViewById(R.id.s_editText_main_searchPWD);
         cID = (EditText) findViewById(R.id.c_editText_main_searchID);
         cPassword = (EditText) findViewById(R.id.c_editText_main_searchPWD);
+        service = RetrofitClient.getClient().create(ServiceApi.class);
 
 
         // Button
@@ -159,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
                     ceditor = cpref.edit();
                     cloginChecked = true;
                 }
-                else{ // augologin 취소
+                else{ // autologin 취소
                     cpref = getSharedPreferences("cpref",  Activity.MODE_PRIVATE);
                     ceditor = cpref.edit();
                     cloginChecked = false;
@@ -193,51 +188,7 @@ public class MainActivity extends AppCompatActivity{
                     cIdSignInButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = cID.getText().toString();
-                            String pwd = cPassword.getText().toString();
-
-                            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try{
-                                        JSONObject jsonObject = new JSONObject(response);
-                                        boolean success = jsonObject.getBoolean("success");
-                                        if(success){
-                                            Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-
-                                            String id = jsonObject.getString("id");
-                                            String name = jsonObject.getString("name");
-
-                                            Intent intent = new Intent(MainActivity.this, csm_Activity.class);
-                                            // 로그인 하면서 사용자 정보 넘기기
-                                            intent.putExtra("name", name);
-                                            intent.putExtra("id", id);
-                                            startActivity(intent);
-
-                                            if(cloginChecked) {
-                                                cpref = getSharedPreferences("cpref",  Activity.MODE_PRIVATE);
-                                                ceditor = cpref.edit();
-                                                ceditor.putString("id", id);
-                                                ceditor.putString("pw", pwd);
-                                                ceditor.putBoolean("autoLogin", true);
-                                                ceditor.commit();
-                                            }
-
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-
-                                            return;
-                                        }
-                                    } catch(Exception e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                            };
-
-                            cLoginRequest cloginRequest = new cLoginRequest(id, pwd, responseListener);
-                            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                            queue.add(cloginRequest);
-
+                            attempt_cLogin();
                         }
                     });
                 }
@@ -247,62 +198,11 @@ public class MainActivity extends AppCompatActivity{
                     layoushoplogin.setVisibility(View.GONE);
                     layoucustlogin.setVisibility(View.GONE);
 
-
-
                     // manufacturer 로그인 버튼 클릭
                     mIdSignInButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = mID.getText().toString();
-                            String pwd = mPassword.getText().toString();
-
-                            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try{
-                                        JSONObject jsonObject = new JSONObject(response);
-                                        boolean success = jsonObject.getBoolean("success");
-                                        if(success){
-                                            Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-
-
-                                            String B_name = jsonObject.getString("B_name");
-                                            String Admin_name = jsonObject.getString("Admin_name");
-                                            String addr = jsonObject.getString("addr");
-
-
-                                            Intent intent = new Intent(MainActivity.this, manufact_Activity.class);
-
-                                            intent.putExtra("B_name",B_name);
-                                            intent.putExtra("Admin_name",Admin_name);
-                                            intent.putExtra("addr",addr);
-
-                                            startActivity(intent);
-
-                                            if(mloginChecked) {
-                                                mpref = getSharedPreferences("mpref",  Activity.MODE_PRIVATE);
-                                                meditor = mpref.edit();
-                                                meditor.putString("id", id);
-                                                meditor.putString("pw", pwd);
-                                                meditor.putBoolean("autoLogin", true);
-                                                meditor.commit();
-                                            }
-
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-
-                                            return;
-                                        }
-                                    } catch(Exception e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                            };
-
-                            mLoginRequest mloginRequest = new mLoginRequest(id, pwd, responseListener);
-                            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                            queue.add(mloginRequest);
-
+                            attempt_mLogin();
                         }
                     });
 
@@ -317,56 +217,7 @@ public class MainActivity extends AppCompatActivity{
                     dIdSignInButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = dID.getText().toString();
-                            String pwd = dPassword.getText().toString();
-
-                            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try{
-                                        JSONObject jsonResponse = new JSONObject(response);
-                                        boolean success = jsonResponse.getBoolean("success");
-                                        if(success){
-                                            Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-
-
-
-                                            String B_name = jsonResponse.getString("B_name");
-                                            String Admin_name = jsonResponse.getString("Admin_name");
-                                            String addr = jsonResponse.getString("addr");
-
-                                            Intent intent = new Intent(MainActivity.this, dis_Activity.class);
-
-                                            intent.putExtra("B_name",B_name);
-                                            intent.putExtra("Admin_name",Admin_name);
-                                            intent.putExtra("addr",addr);
-
-                                            startActivity(intent);
-
-                                            if(dloginChecked) {
-                                                dpref = getSharedPreferences("dpref",  Activity.MODE_PRIVATE);
-                                                deditor = dpref.edit();
-                                                deditor.putString("id", id);
-                                                deditor.putString("pw", pwd);
-                                                deditor.putBoolean("autoLogin", true);
-                                                deditor.commit();
-                                            }
-
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-
-                                            return;
-                                        }
-                                    } catch(Exception e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                            };
-
-                            dLoginRequest dloginRequest = new dLoginRequest(id, pwd, responseListener);
-                            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                            queue.add(dloginRequest);
-
+                            attempt_dLogin();
                         }
                     });
                 }
@@ -381,55 +232,7 @@ public class MainActivity extends AppCompatActivity{
                     sIdSignInButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String id = sID.getText().toString();
-                            String pwd = sPassword.getText().toString();
-
-                            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try{
-                                        JSONObject jsonResponse = new JSONObject(response);
-                                        boolean success = jsonResponse.getBoolean("success");
-                                        if(success){
-                                            Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-
-
-                                            String B_name = jsonResponse.getString("B_name");
-                                            String Admin_name = jsonResponse.getString("Admin_name");
-                                            String addr = jsonResponse.getString("addr");
-
-                                            Intent intent = new Intent(MainActivity.this, shop_Activity.class);
-
-                                            intent.putExtra("B_name",B_name);
-                                            intent.putExtra("Admin_name",Admin_name);
-                                            intent.putExtra("addr",addr);
-
-                                            startActivity(intent);
-
-                                            if(sloginChecked) {
-                                                spref = getSharedPreferences("spref",  Activity.MODE_PRIVATE);
-                                                seditor = spref.edit();
-                                                seditor.putString("id", id);
-                                                seditor.putString("pw", pwd);
-                                                seditor.putBoolean("autoLogin", true);
-                                                seditor.commit();
-                                            }
-
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-
-                                            return;
-                                        }
-                                    } catch(Exception e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                            };
-
-                            sLoginRequest sloginRequest = new sLoginRequest(id, pwd, responseListener);
-                            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                            queue.add(sloginRequest);
-
+                            attempt_sLogin();
                         }
                     });
 
@@ -451,83 +254,256 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
     }
 
+    private void attempt_cLogin() {
+        cID.setError(null);
+        cPassword.setError(null);
 
-    public static class mLoginRequest extends StringRequest {
+        String userid = cID.getText().toString();
+        String password = cPassword.getText().toString();
 
-        final static private String URL = "http://" + IP_ADDRESS + "/mlogin.php";
-        private Map<String, String> parameters;
+        boolean cancel = false;
+        View focusView = null;
 
-        public mLoginRequest(String id, String pwd, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-            parameters.put("pwd", pwd);
+        // 패스워드의 유효성 검사
+        if (password.isEmpty()) {
+            cID.setError("비밀번호를 입력해주세요.");
+            focusView = cID;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            cPassword.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = cPassword;
+            cancel = true;
         }
 
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
-        }
-    }
 
-    public static class dLoginRequest extends StringRequest {
-
-        final static private String URL = "http://" + IP_ADDRESS + "/dlogin.php";
-        private Map<String, String> parameters;
-
-        public dLoginRequest(String id, String pwd, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
-
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-            parameters.put("pwd", pwd);
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            start_cLogin(new LoginData(userid, password));
         }
     }
 
-    public static class sLoginRequest extends StringRequest {
+    private void start_cLogin(LoginData data) {
+        service.userLogin(data).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
+                LoginResponse result = response.body();
+                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
 
-        final static private String URL = "http://" + IP_ADDRESS + "/slogin.php";
-        private Map<String, String> parameters;
+                if(result.getResult()) {
+                    Intent intent = new Intent(MainActivity.this, csm_Activity.class);
+                    intent.putExtra("name", result.getName());
+                    intent.putExtra("id", result.getId());
+                    startActivity(intent);
 
-        public sLoginRequest(String id, String pwd, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
+                    if(cloginChecked) {
+                        SharedPreferences.Editor ceditor = cpref.edit();
+                        ceditor.putString("id", result.getId());
+                        ceditor.putString("pw", result.getPwd());
+                        ceditor.putBoolean("autoLogin", true);
+                        ceditor.commit();
+                    }else{}
+                }
+            }
 
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-            parameters.put("pwd", pwd);
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attempt_mLogin() {
+        mID.setError(null);
+        mPassword.setError(null);
+
+        String userid = mID.getText().toString();
+        String password = mPassword.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (password.isEmpty()) {
+            mID.setError("비밀번호를 입력해주세요.");
+            focusView = mID;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            mPassword.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = mPassword;
+            cancel = true;
         }
 
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            start_mLogin(new LoginData(userid, password));
         }
     }
 
-    public static class cLoginRequest extends StringRequest {
+    private void start_mLogin(LoginData data) {
+        service.manuLogin(data).enqueue(new Callback<LoginResponse2>() {
+            @Override
+            public void onResponse(Call<LoginResponse2> call, retrofit2.Response<LoginResponse2> response) {
+                LoginResponse2 result = response.body();
+                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
 
-        final static private String URL = "http://" + IP_ADDRESS + "/clogin.php";
-        private Map<String, String> parameters;
+                if(result.getMessage().equals("로그인 성공")) {
+                    Intent intent = new Intent(MainActivity.this, manufact_Activity.class);
+                    intent.putExtra("B_name",result.getB_Name());
+                    intent.putExtra("Admin_name",result.getA_Name());
+                    intent.putExtra("addr",result.getAddr());
+                    startActivity(intent);
 
-        public cLoginRequest(String id, String pwd, Response.Listener<String> listener) {
-            super(Method.POST, URL, listener, null);
+                    if(mloginChecked) {
+                        SharedPreferences.Editor meditor = mpref.edit();
+                        meditor.putString("id", result.getId());
+                        meditor.putString("pw", result.getPwd());
+                        meditor.putBoolean("autoLogin", true);
+                        meditor.commit();
+                    }
+                } else{}
+            }
 
-            parameters = new HashMap<>();
-            parameters.put("id", id);
-            parameters.put("pwd", pwd);
+            @Override
+            public void onFailure(Call<LoginResponse2> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attempt_dLogin() {
+        dID.setError(null);
+        dPassword.setError(null);
+
+        String userid = dID.getText().toString();
+        String password = dPassword.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (password.isEmpty()) {
+            dID.setError("비밀번호를 입력해주세요.");
+            focusView = dID;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            dPassword.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = dPassword;
+            cancel = true;
         }
 
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return parameters;
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            start_dLogin(new LoginData(userid, password));
         }
     }
+
+    private void start_dLogin(LoginData data) {
+        service.disLogin(data).enqueue(new Callback<LoginResponse2>() {
+            @Override
+            public void onResponse(Call<LoginResponse2> call, retrofit2.Response<LoginResponse2> response) {
+                LoginResponse2 result = response.body();
+                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(result.getMessage().equals("로그인 성공")) {
+                    Intent intent = new Intent(MainActivity.this, dis_Activity.class);
+                    intent.putExtra("B_name",result.getB_Name());
+                    intent.putExtra("Admin_name",result.getA_Name());
+                    intent.putExtra("addr",result.getAddr());
+                    startActivity(intent);
+
+                    if(dloginChecked) {
+                        SharedPreferences.Editor deditor = dpref.edit();
+                        deditor.putString("id", result.getId());
+                        deditor.putString("pw", result.getPwd());
+                        deditor.putBoolean("autoLogin", true);
+                        deditor.commit();
+                    }
+                } else{}
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse2> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+    private void attempt_sLogin() {
+        sID.setError(null);
+        sPassword.setError(null);
+
+        String userid = sID.getText().toString();
+        String password = sPassword.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // 패스워드의 유효성 검사
+        if (password.isEmpty()) {
+            sID.setError("비밀번호를 입력해주세요.");
+            focusView = sID;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            sPassword.setError("5자 이상의 비밀번호를 입력해주세요.");
+            focusView = sPassword;
+            cancel = true;
+        }
+
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            start_sLogin(new LoginData(userid, password));
+        }
+    }
+
+    private void start_sLogin(LoginData data) {
+        service.shopLogin(data).enqueue(new Callback<LoginResponse2>() {
+            @Override
+            public void onResponse(Call<LoginResponse2> call, retrofit2.Response<LoginResponse2> response) {
+                LoginResponse2 result = response.body();
+                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if(result.getMessage().equals("로그인 성공")) {
+                    Intent intent = new Intent(MainActivity.this, shop_Activity.class);
+                    intent.putExtra("B_name",result.getB_Name());
+                    intent.putExtra("Admin_name",result.getA_Name());
+                    intent.putExtra("addr",result.getAddr());
+                    startActivity(intent);
+
+                    if(sloginChecked) {
+                        SharedPreferences.Editor seditor = spref.edit();
+                        seditor.putString("id", result.getId());
+                        seditor.putString("pw", result.getPwd());
+                        seditor.putBoolean("autoLogin", true);
+                        seditor.commit();
+                    }
+                } else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse2> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
+
+    private boolean isPasswordValid(String password) {
+        return password.length() >= 5;
+    }
+
 }

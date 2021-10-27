@@ -1,27 +1,18 @@
 package com.example.PARM;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,26 +27,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class listview_item_Activity extends AppCompatActivity {
+public class shop_list_view extends AppCompatActivity {
 
-    IP_ADDRESS ip = new IP_ADDRESS();
-    String IP_ADDRESS = ip.IP_ADDRESS;
-    private static String TAG = "item_info";
-    public ArrayList<ProductData> mArrayList;
-    public ProductAdapter mAdapter;
+    public ArrayList<PersonalData> mArrayList;
+    public UserAdapter mAdapter;
+    public String B_name;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private String mJsonString;
-    public String serial;
-    Bitmap bitmap;
-    private String imageurl;
-    TextView productName, productBrand, productSerial;
-    ImageView productImage;
+    public String serial_list[] = new String[50];
+    private static String TAG = "shop_BusinessListView";
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.csm_cert);
+        setContentView(R.layout.provelist);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,66 +51,50 @@ public class listview_item_Activity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false); // 기본 제목을 없애기
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
-
-        Intent intent = getIntent();
-        serial = intent.getStringExtra("serial"); // 시리얼 받아옴
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.View_product_info);
+        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mArrayList = new ArrayList<>();
-        mAdapter = new ProductAdapter(this, mArrayList);
+        mAdapter = new UserAdapter(this, mArrayList);
         mRecyclerView.setAdapter(mAdapter);
-
-
-        productName = (TextView) findViewById(R.id.Product_Name);
-        productBrand = (TextView) findViewById(R.id.Product_Brand);
-        productSerial = (TextView) findViewById(R.id.Product_Serial);
-        productImage = (ImageView) findViewById(R.id.ProductImage);
-
-
-        productSerial.setText(serial);
 
 
         mArrayList.clear();
         mAdapter.notifyDataSetChanged();
 
+        Intent intent = getIntent();
+        B_name = intent.getStringExtra("B_name");
+
         GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + ":8080/api/getSupply?serialnum=" + serial, "");
+        task.execute( "http://" + "13.125.1.15" + ":8080/api/getStoreID?store=" + B_name, "");
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this::onRefresh);
 
 
+    }
+    public void onRefresh() { // listview swipe 했을 때
+
+        mArrayList.clear();
+        mAdapter.notifyDataSetChanged();
+
+        GetData task = new GetData();
+        task.execute( "http://" + "13.125.1.15" + ":8080/api/getStoreID?store=" + B_name, "");
+
+        //새로 고침 완
+        mSwipeRefreshLayout.setRefreshing(false);
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.csm_manu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.change: // 사용자 변경 클릭
-                userID_change_Dialog dialog = new userID_change_Dialog(listview_item_Activity.this, serial);
-                dialog.show();
-                break;
-            case R.id.share: // 공유하기 클릭
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("CODE", "http://www.parm-block.ml/product-search?serialnum=" + serial);
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(), "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
-                break;
-            case android.R.id.home: // 뒤로가기
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: { // 왼쪽 상단 버튼 눌렀을 때
                 finish();
                 break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    //Json data 읽어오기
     public class GetData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -132,19 +103,16 @@ public class listview_item_Activity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(listview_item_Activity.this,
-                    "Please Wait", null, true, true);
         }
 
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            progressDialog.dismiss();
+            Log.d(TAG, "response - " + result);
 
             if (result == null){
+
             }
             else {
 
@@ -157,6 +125,7 @@ public class listview_item_Activity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
+                //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
 
 
@@ -164,58 +133,63 @@ public class listview_item_Activity extends AppCompatActivity {
                 BufferedReader reader = null;
 
                 try{
-                    URL url = new URL(urls[0]);
+                    URL url = new URL(urls[0]);//url을 가져온다.
                     con = (HttpURLConnection) url.openConnection();
-                    con.connect();
+                    con.connect();//연결 수행
 
+                    //입력 스트림 생성
                     InputStream stream = con.getInputStream();
 
+                    //속도를 향상시키고 부하를 줄이기 위한 버퍼를 선언한다.
                     reader = new BufferedReader(new InputStreamReader(stream));
 
+                    //실제 데이터를 받는곳
                     StringBuffer buffer = new StringBuffer();
 
+                    //line별 스트링을 받기 위한 temp 변수
                     String line = "";
 
+                    //아래라인은 실제 reader에서 데이터를 가져오는 부분이다. 즉 node.js서버로부터 데이터를 가져온다.
                     while((line = reader.readLine()) != null){
                         buffer.append(line);
                     }
+
+                    //다 가져오면 String 형변환을 수행한다. 이유는 protected String doInBackground(String... urls) 니까
                     return buffer.toString();
 
+                    //아래는 예외처리 부분이다.
                 } catch (MalformedURLException e){
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
+                    //종료가 되면 disconnect메소드를 호출한다.
                     if(con != null){
                         con.disconnect();
                     }
                     try {
+                        //버퍼를 닫아준다.
                         if(reader != null){
                             reader.close();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                }//finally 부분
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return null;
-
         }
     }
 
 
     private void showResult(){
 
-        String TAG_JSON = serial;
+        String TAG_JSON = B_name;
+        String TAG_Serial = "SerialNum";
         String TAG_NAME = "Name";
         String TAG_BRAND ="Brand";
-        String TAG_FACTORY ="Factory";
-        String TAG_DELIVERY ="Delivery";
-        String TAG_STORE ="Store";
-
 
 
         try {
@@ -227,15 +201,10 @@ public class listview_item_Activity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String name = item.getString(TAG_NAME);
+                String serial = item.getString(TAG_Serial);
                 String brand = item.getString(TAG_BRAND);
-                String factory = item.getString(TAG_FACTORY);
-                String delivery = item.getString(TAG_DELIVERY);
-                String store = item.getString(TAG_STORE);
 
-
-                productName.setText(name);
-                productBrand.setText(brand);
-
+                serial_list[i] = serial;
 
 
                 String p_name[] = {"583571 1X5CG 6775", "660195 17QDT 2582", "443496 DRWAR 9022", "AS2696 B06364 NE798", "AS2756 B06315 NF024", "AS2785 B06505 ND365"};
@@ -245,51 +214,25 @@ public class listview_item_Activity extends AppCompatActivity {
                         "https://www.chanel.com/images/q_auto,f_auto,fl_lossy,dpr_auto/w_1920/flap-bag-black-pink-gray-embroidered-wool-tweed-ruthenium-finished-metal-embroidered-wool-tweed-ruthenium-finished-metal-packshot-default-as2785b06505nd365-8840473378846.jpg"};
 
 
+
+                PersonalData personalData = new PersonalData();
+
+
                 for(int j = 0; j < p_name.length; j++){
                     if(p_name[j].equals(name)) {
-                        imageurl = image[j];
+                        personalData.setMember_image(image[j]);
                         break;
                     }
-                    else{}
-                }
-
-
-                Thread mThread = new Thread(){
-                    @Override
-                    public void run() {
-                        try{
-                            URL url = new URL(imageurl);
-                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                            conn.setDoInput(true);
-                            conn.connect();
-
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-                        } catch (MalformedURLException e){
-                            e.printStackTrace();
-                        } catch (IOException e){
-                            e.printStackTrace();
-                        }
+                    else{
                     }
-                };
-
-                mThread.start();
-
-                try{
-                    mThread.join();
-                    productImage.setImageBitmap(bitmap);
-                } catch (InterruptedException e){
-                    e.printStackTrace();
                 }
 
 
-                ProductData productdata = new ProductData();
+                personalData.setMember_name(name);
+                personalData.setMember_brand(brand);
+                personalData.setMember_serial(serial);
 
-                productdata.setmanu_name(factory);
-                productdata.setdis_name(delivery);
-                productdata.setshop_name(store);
-
-                mArrayList.add(productdata);
+                mArrayList.add(personalData);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -301,6 +244,4 @@ public class listview_item_Activity extends AppCompatActivity {
         }
 
     }
-
-
 }

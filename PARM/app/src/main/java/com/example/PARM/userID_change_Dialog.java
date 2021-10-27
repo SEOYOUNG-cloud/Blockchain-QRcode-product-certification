@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 public class userID_change_Dialog extends Dialog {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private Context context;
     public String serial;
 

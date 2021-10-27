@@ -15,7 +15,7 @@ public class ChanelWebView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.webview);
+        setContentView(R.layout.provelist);
 
         mWebView = (WebView)findViewById(R.id.webview);
         mWebView.setWebViewClient(new WebViewClient());

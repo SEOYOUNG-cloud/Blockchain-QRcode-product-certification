@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +35,8 @@ import java.net.URL;
 
 public class dis_Activity extends AppCompatActivity {
 
-    private static String IP_ADDRESS = "13.125.60.252";
+    IP_ADDRESS ip = new IP_ADDRESS();
+    String IP_ADDRESS = ip.IP_ADDRESS;
     private static String TAG = "distrbution";
 
     private IntentIntegrator qrScan;
@@ -103,9 +102,10 @@ public class dis_Activity extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.list){
-
-                    Intent intent = new Intent(dis_Activity.this, webView.class);
+                    Intent intent = new Intent(dis_Activity.this, dis_list_view.class);
+                    intent.putExtra("B_name", B_name);
                     startActivity(intent);
+                    
                 }
                 else if(id == R.id.logout){
                     Toast.makeText(dis_Activity.this, "로그아웃", Toast.LENGTH_SHORT).show();
@@ -151,8 +151,6 @@ public class dis_Activity extends AppCompatActivity {
                     brandName = obj.getString("brand");
                     productName = obj.getString("name");
 
-
-
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -188,7 +186,6 @@ public class dis_Activity extends AppCompatActivity {
 
             }
             else {
-
                 mJsonString = result;
                 showResult();
             }
@@ -209,7 +206,6 @@ public class dis_Activity extends AppCompatActivity {
                     con = (HttpURLConnection) url.openConnection();
                     con.connect();//연결 수행
 
-
                     InputStream stream = con.getInputStream();
                     reader = new BufferedReader(new InputStreamReader(stream));
                     StringBuffer buffer = new StringBuffer();
@@ -221,7 +217,6 @@ public class dis_Activity extends AppCompatActivity {
                     }
 
                     return buffer.toString();
-
                 } catch (MalformedURLException e){
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -255,7 +250,6 @@ public class dis_Activity extends AppCompatActivity {
         String TAG_FACTORY = "Factory";
 
 
-
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
@@ -267,8 +261,7 @@ public class dis_Activity extends AppCompatActivity {
                 String name = item.getString(TAG_NAME);
                 String factory = item.getString(TAG_FACTORY);
 
-                if(name.equals("False")){
-                    //등록 안된 정보라는 창
+                if(name.equals("False")){ //등록 안된 정보라는 dialog
                     no_register_Dialog dialog = new no_register_Dialog(dis_Activity.this, serialnumber);
                     dialog.show();
                 }

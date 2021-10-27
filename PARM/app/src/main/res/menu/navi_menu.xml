@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/list"
-        android:title="목록보기"
+        android:title="유통상품"
         android:icon="@drawable/folder"
         />
 
