@@ -41,6 +41,14 @@ app.set('view engine', 'html');
 //app.set('views','./views');
 app.set('views', path.join(__dirname, '../client'));
 
+app.get('/',function(req,res){
+  if (req.session.user) {
+    res.render('product-search', {user :req.session.user});
+  } else {
+    res.render('product-search', {user :''});
+  }
+});
+
 app.get('/product-create',function(req,res){
   if (req.session.user) {
     res.render('product-create', {user :req.session.user});
@@ -57,11 +65,11 @@ app.get('/full-list',function(req,res){
   }
 });
 
-app.get('/index',function(req,res){
+app.get('/product-search',function(req,res){
   if (req.session.user) {
-    res.render('index', {user :req.session.user});
+    res.render('product-search', {user :req.session.user});
   } else {
-    res.render('index');
+    res.render('product-search', {user :''});
   }
 });
 
