@@ -617,6 +617,7 @@
 <script>
   var userString = "<%= user %>";
   if (userString.length > 0) { //로그인 o
+    var bNameString = "<%= bName %>";
     document.getElementById('login_id_header_style').innerHTML = userString + " 님";
   } else {  //로그인 x
     document.getElementById('login_id_header_style').style.visibility = "hidden";
