@@ -9,9 +9,11 @@ app.controller('AppCtrl', function($scope, appFactory){
     appFactory.getAllProduct(function(data){
         var array = [];
         for (var i = 0; i < data.length; i++){
+            if (data[i].Record.factory == bNameString) {
                 parseInt(data[i].Key);
                 data[i].Record.Key = data[i].Key;
                 array.push(data[i].Record);
+            }
         }
         array.sort(function(a, b) {
             return parseFloat(a.Key) - parseFloat(b.Key);
@@ -27,9 +29,11 @@ app.controller('AppCtrl', function($scope, appFactory){
             appFactory.getSearch($scope.search, function(data){
                 var array = [];
                 for (var i = 0; i < data.length; i++){
-                    parseInt(data[i].Key);
-                    data[i].Record.Key = data[i].Key;
-                    array.push(data[i].Record);
+                    if (data[i].Record.factory == bNameString) {
+                        parseInt(data[i].Key);
+                        data[i].Record.Key = data[i].Key;
+                        array.push(data[i].Record);
+                    }
                 }
                 array.sort(function(a, b) {
                     return parseFloat(a.Key) - parseFloat(b.Key);
