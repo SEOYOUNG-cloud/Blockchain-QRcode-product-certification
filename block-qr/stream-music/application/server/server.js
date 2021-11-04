@@ -59,7 +59,7 @@ app.get('/product-create',function(req,res){
 
 app.get('/full-list',function(req,res){
   if (req.session.user) {
-    res.render('full-list', {user :req.session.user});
+    res.render('full-list', {user :req.session.user, bName :req.session.bName});
   } else {
     res.send("<script>alert('로그인 후에 이용하실 수 있습니다.'); location.href='/login';</script>");
   }
@@ -100,6 +100,7 @@ app.post('/product-create', function(req, res){
 		res.render('login');
        } else{
 	req.session.user = result[0].Admin_name;
+	req.session.bName = result[0].B_name;
 	res.render('product-create', {user :req.session.user});
         }
      }    
