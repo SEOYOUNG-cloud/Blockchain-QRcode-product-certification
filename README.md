@@ -5,6 +5,7 @@
 ### 1. 웹에서 제조업체로 로그인하여 QR코드 생성
 [웹주소](http://www.parm-block.ml)
 
+<img src="https://user-images.githubusercontent.com/67596451/143728736-a7a75b30-21b1-451d-b8b3-7a83438c4132.png" width="700" height="400">
 ![image](https://user-images.githubusercontent.com/67596451/143728736-a7a75b30-21b1-451d-b8b3-7a83438c4132.png)
 
 
