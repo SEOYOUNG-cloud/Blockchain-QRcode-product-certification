@@ -40,7 +40,7 @@
 <img src="https://user-images.githubusercontent.com/67596451/143729533-aca483a4-9fe9-490c-8b64-a89d1464d1d7.png" width="750" height="300">
 
 ### 11. 이미 등록된 제품의 QR코드를 스캔했을 경우
-<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="100" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="250" height="300">
 
 
 
