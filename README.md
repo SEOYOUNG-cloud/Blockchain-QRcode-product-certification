@@ -13,7 +13,7 @@
 
 
 ### 3. 업체별로 회원가입 후 로그인
-<img src="https://user-images.githubusercontent.com/67596451/143729486-2679c82c-48cb-4353-98fb-c2f75f46f79a.png" width="450" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729486-2679c82c-48cb-4353-98fb-c2f75f46f79a.png" width="400" height="300">
 
 
 ### 4. 제조업체로 로그인하여 유통과정 등록
@@ -34,13 +34,13 @@
 <img src="https://user-images.githubusercontent.com/67596451/143729474-b8c0a64d-29b2-401f-86be-becd7dd9aa45.png" width="550" height="300">
 
 ### 9. 등록한 제품목록 확인 가능
-<img src="https://user-images.githubusercontent.com/67596451/143729496-e4abdc62-c19a-43fc-a7de-9b2322a218ca.png" width="500" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729496-e4abdc62-c19a-43fc-a7de-9b2322a218ca.png" width="450" height="300">
 
 ### 10. 소비자로 로그인하여 소비자ID 등록 가능
 <img src="https://user-images.githubusercontent.com/67596451/143729533-aca483a4-9fe9-490c-8b64-a89d1464d1d7.png" width="750" height="300">
 
 ### 11. 이미 등록된 제품의 QR코드를 스캔했을 경우
-<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="500" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="450" height="300">
 
 
 
