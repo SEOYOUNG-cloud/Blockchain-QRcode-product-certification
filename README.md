@@ -31,7 +31,7 @@
 <img src="https://user-images.githubusercontent.com/67596451/143729276-8e269af4-1d32-4ac6-94ff-518245a7ed9b.png" width="750" height="300">
 
 ### 8. QR코드 스캔 시 예외처리
-<img src="https://user-images.githubusercontent.com/67596451/143729439-a830d11f-a923-43d1-bfbb-fdaec6056fad.png" width="550" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729474-b8c0a64d-29b2-401f-86be-becd7dd9aa45.png" width="550" height="300">
 
 ### 9. 등록한 제품목록 확인 가능
 <img src="https://user-images.githubusercontent.com/67596451/143729450-cb5c6d78-68fe-4fbd-b5b1-bb33140ac4e4.png" width="750" height="300">
