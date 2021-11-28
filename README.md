@@ -16,6 +16,11 @@
 <img src="https://user-images.githubusercontent.com/67596451/143729100-929ec401-73ec-4203-b1aa-d958318b51db.png" width="300" height="500">
 
 
+### 4. 제조업체로 로그인하여 유통과정 등록
+<img src="https://user-images.githubusercontent.com/67596451/143729160-27d6eeb3-9381-4811-9820-0c65463987bb.png" width="800" height="500">
+
+
+
 
 
 
