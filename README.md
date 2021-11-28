@@ -1,7 +1,7 @@
 # Blockchain-QRcode-product-certification
-캡스톤 디자인으로 진행하는 blockchain 유통추적 QR코드 정품인증(QR code activation based on distribution tracking using blockchain)
-
-
+캡스톤 디자인으로 진행하는 blockchain 유통추적 QR코드 정품인증(QR code activation based on distribution tracking using blockchain)          
+ 
+         
 ### 1. 웹에서 제조업체로 로그인하여 QR코드 생성
 [www.parm-block.ml](http://www.parm-block.ml)
 
@@ -40,8 +40,13 @@
 <img src="https://user-images.githubusercontent.com/67596451/143729533-aca483a4-9fe9-490c-8b64-a89d1464d1d7.png" width="750" height="300">
 
 ### 11. 이미 등록된 제품의 QR코드를 스캔했을 경우
-<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="250" height="300">
+<img src="https://user-images.githubusercontent.com/67596451/143729568-aa5f2b0e-dbe2-4466-a801-9e083909ac20.png" width="200" height="300">
 
+### 12. 등록된 제품의 상세정보를 확인하고 제품을 확인할 수 있는 웹url을 복사하거나 소비자ID 변경 가능
+<img src="https://user-images.githubusercontent.com/67596451/143729686-5c6c2e57-5532-4424-b418-f3016d9774a6.png" width="750" height="300">
+
+### 13. 웹에서 시리얼넘버를 검색해 제품정보 확인 가능
+<img src="https://user-images.githubusercontent.com/67596451/143729708-6c63d092-7204-4519-b508-c39005e2d59f.png" width="700" height="400">
 
 
 
