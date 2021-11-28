@@ -13,7 +13,7 @@
 
 
 ### 3. 앱 초기 로그인 화면
-![메인화면](https://user-images.githubusercontent.com/67596451/143729100-929ec401-73ec-4203-b1aa-d958318b51db.png)
+<img src="https://user-images.githubusercontent.com/67596451/143729100-929ec401-73ec-4203-b1aa-d958318b51db.png" width="400" height="300">
 
 
 
