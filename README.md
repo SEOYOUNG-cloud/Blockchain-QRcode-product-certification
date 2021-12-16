@@ -10,6 +10,7 @@
 
 
 ### 2. 전체 목록 확인
+<img src="https://user-images.githubusercontent.com/67596451/146322493-01a11951-63c1-4c22-98b8-3025f47e19eb.png" width="700" height="400">
 
 
 
